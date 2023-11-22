@@ -4,7 +4,14 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 async function createUserRegister(req, res) {
-    const { first_name, last_name, username, email, password, user_address } = req.body;
+    
+    const { first_name, 
+            last_name, 
+            username, 
+            email, 
+            password, 
+            user_address } 
+            = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
   try {
     const { password: passwordDB, ...user } = await prisma.user.create({
