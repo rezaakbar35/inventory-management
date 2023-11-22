@@ -10,7 +10,6 @@ async function createUserLogin(req, res) {
   } = req.body;
 
   try {
-    const { username, password } = req.body;
     const user = await prisma.user.findUnique({ where: { username } });
     if (!user) {
       return res.status(400).json({ message: "Invalid credentials" });
