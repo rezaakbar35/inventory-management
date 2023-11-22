@@ -1,13 +1,40 @@
-const express = require("express");
-const productShippingRoutes = require("./routes/productShippingRoutes");
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
+const cors = require('cors');
+const path = require('path');
+const express = require('express');
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const app = express();
+const productShippingRoutes = require("./routes/productShippingRoutes");
+const userLoginRoutes = require("./routes/userLoginRoutes")
+const userRegisterRoutes = require("./routes/userRegisterRoutes")
 
-// Middleware untuk parsing body dari request
+function authenticateTokenMiddleware(req, res, next) {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  if (token == null) return res.sendStatus(401);
+
+  const user = jwt.verify(token, "inikodesangatsangatrahasia");
+  req.userId = user.userId;
+  next();
+}
+
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(cors({
+  origin: 'http://localhost:5173',
+  allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+  methods: "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+  optionsSuccessStatus: 200
+}));
 
-// Gunakan rute untuk product shipping
-app.use("/api", productShippingRoutes);
+app.use("", productShippingRoutes);
+
+//register 
+app.use("",userRegisterRoutes);
+
+//Login 
+app.use("",userLoginRoutes);
 
 // Middleware untuk penanganan kesalahan jika rute tidak ditemukan
 app.use((req, res, next) => {
@@ -16,17 +43,7 @@ app.use((req, res, next) => {
   next(error);
 });
 
-// Middleware untuk penanganan kesalahan lainnya
-app.use((err, req, res, next) => {
-  res.status(err.status || 500).json({
-    error: {
-      message: err.message || "Internal Server Error",
-    },
-  });
-});
-
-// Jalankan server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+// Start the server
+app.listen(8000, () => {
+  console.log('Server started on port 8000');
 });
