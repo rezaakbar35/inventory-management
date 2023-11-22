@@ -3,7 +3,6 @@ const prisma = new PrismaClient();
 const cors = require('cors');
 const path = require('path');
 const express = require('express');
-const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const app = express();
 const productShippingRoutes = require("./routes/productShippingRoutes");
