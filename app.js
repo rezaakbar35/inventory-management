@@ -10,6 +10,7 @@ const userLoginRoutes = require("./routes/userLoginRoutes")
 const userRegisterRoutes = require("./routes/userRegisterRoutes")
 const warehouseRoutes = require("./routes/warehouseRoutes")
 const warehouseCategoryRoutes = require("./routes/warehouseCategoryRoutes")
+const productCategoryRoutes = require("./routes/productCategoryRoutes")
 
 function authenticateTokenMiddleware(req, res, next) {
   const authHeader = req.headers["authorization"];
@@ -42,6 +43,9 @@ app.use("/warehouse", warehouseRoutes);
 
 // Warehouse Category
 app.use("/warehouse-category", warehouseCategoryRoutes)
+
+// Product Category
+app.use("/product-category", productCategoryRoutes)
 
 // Middleware untuk penanganan kesalahan jika rute tidak ditemukan
 app.use((req, res, next) => {
