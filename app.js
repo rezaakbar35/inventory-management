@@ -8,6 +8,8 @@ const app = express();
 const productShippingRoutes = require("./routes/productShippingRoutes");
 const userLoginRoutes = require("./routes/userLoginRoutes")
 const userRegisterRoutes = require("./routes/userRegisterRoutes")
+const warehouseRoutes = require("./routes/warehouseRoutes")
+const warehouseCategoryRoutes = require("./routes/warehouseCategoryRoutes")
 
 function authenticateTokenMiddleware(req, res, next) {
   const authHeader = req.headers["authorization"];
@@ -27,13 +29,19 @@ app.use(cors({
   optionsSuccessStatus: 200
 }));
 
-app.use("", productShippingRoutes);
+app.use("/", productShippingRoutes);
 
 //register 
-app.use("",userRegisterRoutes);
+app.use("/", userRegisterRoutes);
 
 //Login 
-app.use("",userLoginRoutes);
+app.use("/", userLoginRoutes);
+
+// Warehouse
+app.use("/warehouse", warehouseRoutes);
+
+// Warehouse Category
+app.use("/warehouse-category", warehouseCategoryRoutes)
 
 // Middleware untuk penanganan kesalahan jika rute tidak ditemukan
 app.use((req, res, next) => {
