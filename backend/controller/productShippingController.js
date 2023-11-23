@@ -8,6 +8,7 @@ async function createProductShipping(req, res) {
     buyer_id,
     warehouse_id,
     warehouse_name,
+    quantity,
     tracking_number,
     target_address,
     product_shipment_status,
@@ -20,12 +21,21 @@ async function createProductShipping(req, res) {
         buyer_id: parseInt(buyer_id),
         warehouse_id: parseInt(warehouse_id),
         warehouse_name,
+        quantity,
         tracking_number: parseInt(tracking_number),
         target_address,
         product_shipment_status,
       },
     });
-
+    /*const removeStock = await prisma.Product.update({
+    where: {product_id}  
+    
+    data: {
+      product_stock{
+        decrement: {Product_shipping.quantity}
+      }
+    }
+    })*/ 
     res.status(201).json(newShipping);
   } catch (error) {
     res
