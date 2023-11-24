@@ -27,7 +27,10 @@ async function createUserRegister(req, res) {
         user_role,
       },
     });
-    res.json({ user });
+    res.status(201).json({ 
+      message: "Succesfully Register!",
+      user 
+    });
   }
   catch (err) {
     res.status(400).json({ message: "User already exists" });

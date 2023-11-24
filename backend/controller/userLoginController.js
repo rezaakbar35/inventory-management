@@ -21,7 +21,7 @@ async function createUserLogin(req, res) {
     }
     const token = jwt.sign({ userId: user.user_id }, process.env.JWT_SECRET);
     res.setHeader("Set-Cookie", `token=${ token }; httpOnly; path=/`);
-    res.json({ user });
+    res.status(200).json({ message: "Login Success" });
 
   }
   catch (err) {

@@ -39,8 +39,6 @@ async function createProductShipping(req, res) {
         },
       },
     });
-    console.log('Data pengiriman baru:', newShipping);
-    console.log('Data pembaruan stok:', removeStock);
     res.status(201).json(newShipping);
   } catch (error) {
     console.error('Failed to create product shipping:', error);

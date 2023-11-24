@@ -51,6 +51,10 @@ app.use((req, res, next) => {
 });
 
 // Start the server
-app.listen(8000, () => {
-  console.log('Server started on port 8000');
-});
+if(process.env.NODE_ENV != "test") {
+  app.listen(8000, () => {
+    console.log('Server started on port 8000');
+  });
+}
+
+module.exports = app

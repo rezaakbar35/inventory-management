@@ -161,7 +161,7 @@ const seedData = async () => {
         email: "beak@gmail.com",
         password: "11111",
         user_address: "aaaaaa",
-        user_role: "buyer",
+        user_role: "user",
       },
     });
 
