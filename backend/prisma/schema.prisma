@@ -74,18 +74,19 @@ model Warehouse_category {
 }
 
 model Product_shipping {
-  shipping_id Int @id @default(autoincrement())
+  shipping_id             Int @id @default(autoincrement())
 
-  product_id Int
-  product    Product @relation(fields: [product_id], references: [product_id])
+  product_id              Int
+  product                 Product @relation(fields: [product_id], references: [product_id])
 
-  buyer_id Int
-  buyer    User @relation(fields: [buyer_id], references: [user_id])
+  buyer_id                Int
+  buyer                   User @relation(fields: [buyer_id], references: [user_id])
 
   warehouse_id            Int
   warehouse               Warehouse @relation(fields: [warehouse_id], references: [warehouse_id])
   warehouse_name          String
-  tracking_number         Int
+  quantity                Int
+  tracking_number         String
   target_address          String
   product_shipment_status String
   shipping_at             DateTime  @default(now())
