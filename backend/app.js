@@ -30,7 +30,6 @@ app.use(cors({
   optionsSuccessStatus: 200
 }));
 
-app.use("/", productShippingRoutes);
 
 //register 
 app.use("/", userRegisterRoutes);
@@ -43,6 +42,9 @@ app.use("/warehouse", warehouseRoutes);
 
 // Warehouse Category
 app.use("/warehouse-category", warehouseCategoryRoutes)
+
+// Product Shipping
+app.use("/product-shipping", productShippingRoutes);
 
 // Product Category
 app.use("/product-category", productCategoryRoutes)

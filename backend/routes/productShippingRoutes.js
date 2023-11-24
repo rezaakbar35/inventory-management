@@ -3,25 +3,14 @@ const productShippingController = require("../controller/productShippingControll
 
 const router = express.Router();
 
-router.post(
-  "/product-shipping",
-  productShippingController.createProductShipping
-);
-router.get(
-  "/product-shipping",
-  productShippingController.getAllProductShippings
-);
-router.put(
-  "/product-shipping/:id",
-  productShippingController.updateProductShipping
-);
-router.delete(
-  "/product-shipping/:id",
-  productShippingController.deleteProductShipping
-);
-router.get(
-  "/product-shipping/:id",
-  productShippingController.getProductShippingById
-);
+router.get("/", productShippingController.getAllProductShippings);
+
+router.post("/create", productShippingController.createProductShipping);
+
+router.put("/:id/update", productShippingController.updateProductShipping);
+
+router.route("/:id")
+.get(productShippingController.getProductShippingById)
+.delete(productShippingController.deleteProductShipping)
 
 module.exports = router;
