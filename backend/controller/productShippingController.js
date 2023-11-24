@@ -3,6 +3,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 async function createProductShipping(req, res) {
+  try {
   const {
     product_id,
     buyer_id,
@@ -14,53 +15,41 @@ async function createProductShipping(req, res) {
     product_shipment_status,
   } = req.body;
 
-  try {
-    const newShipping = await prisma.Product_shipping.create({
+  if (!product_id || !buyer_id || !warehouse_id || !quantity) {
+    return res.status(400).json({ error: "Invalid input data" });
+  }
+
+    const newShipping = await prisma.product_shipping.create({
       data: {
         product_id: parseInt(product_id),
         buyer_id: parseInt(buyer_id),
         warehouse_id: parseInt(warehouse_id),
         warehouse_name,
-        quantity,
-        tracking_number: parseInt(tracking_number),
+        quantity: parseInt(quantity),
+        tracking_number,
         target_address,
         product_shipment_status,
       },
     });
-    /*const removeStock = await prisma.Product.update({
-    where: {product_id}  
-    
-    data: {
-      product_stock{
-        decrement: {Product_shipping.quantity}
-      }
-    }
-    })*/ 
+    const removeStock = await prisma.product.update({
+      where: { product_id: parseInt(product_id) },
+      data: {
+        product_stock: {
+          decrement: parseInt(quantity),
+        },
+      },
+    });
+    console.log('Data pengiriman baru:', newShipping);
+    console.log('Data pembaruan stok:', removeStock);
     res.status(201).json(newShipping);
   } catch (error) {
+    console.error('Failed to create product shipping:', error);
     res
       .status(500)
       .json({ error: "Failed to create product shipping", details: error });
   }
 }
 
-async function getAllProductShippings(req, res) {
-  try {
-    const allShippings = await prisma.product_shipping.findMany({
-      include: {
-        product: true,
-        buyer: true,
-        warehouse: true,
-      },
-    });
-
-    res.status(200).json(allShippings);
-  } catch (error) {
-    res
-      .status(500)
-      .json({ error: "Failed to fetch product shippings", details: error });
-  }
-}
 
 async function updateProductShipping(req, res) {
   const shippingId = parseInt(req.params.id);
@@ -95,6 +84,25 @@ async function updateProductShipping(req, res) {
       .json({ error: "Failed to update product shipping", details: error });
   }
 }
+
+async function getAllProductShippings(req, res) {
+  try {
+    const allShippings = await prisma.product_shipping.findMany({
+      include: {
+        product: true,
+        buyer: true,
+        warehouse: true,
+      },
+    });
+
+    res.status(200).json(allShippings);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Failed to fetch product shippings", details: error });
+  }
+}
+
 
 async function deleteProductShipping(req, res) {
   const shippingId = parseInt(req.params.id);

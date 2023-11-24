@@ -2,6 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+require("dotenv").config()
 
 async function createUserLogin(req, res) {
   const {
@@ -18,7 +19,7 @@ async function createUserLogin(req, res) {
     if (!passwordMatch) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
-    const token = jwt.sign({ userId: user.id }, "inikodesangatsangatrahasia");
+    const token = jwt.sign({ userId: user.user_id }, process.env.JWT_SECRET);
     res.setHeader("Set-Cookie", `token=${ token }; httpOnly; path=/`);
     res.json({ user });
 

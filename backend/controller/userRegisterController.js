@@ -10,7 +10,9 @@ async function createUserRegister(req, res) {
             username, 
             email, 
             password, 
-            user_address } 
+            user_address,
+            user_role
+           } 
             = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
   try {
@@ -22,6 +24,7 @@ async function createUserRegister(req, res) {
         email,
         password: hashedPassword,
         user_address,
+        user_role,
       },
     });
     res.json({ user });
