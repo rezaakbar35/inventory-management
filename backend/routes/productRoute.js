@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const productController = require("../controller/productController")
 const uploadProductImage = require('../multer')
+const path = require('path');
 
 
 router.post('/create', uploadProductImage.single('product_image'), productController.createProduct);

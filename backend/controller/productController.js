@@ -1,5 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const path = require('path');
 
 const productController = {
 //CREATE
@@ -19,7 +20,7 @@ createProduct: async (req, res) => {
               arrival_at: new Date()
             },
           });
-          res.json({ product })
+          res.status(201).json({ message: "Succesfully Create New Product!", product })
          }catch (err) {
             console.log("Error while adding product", err);
             res.status(400).json({ message: "Failed to add product"});
@@ -67,7 +68,7 @@ updateProduct: async (req, res) => {
             arrival_at: new Date()
           },
         });
-        res.json( { product });
+        res.status(200).json( { product });
       } else {
         const product = await prisma.product.update({
           where: { product_id: Number(id) },

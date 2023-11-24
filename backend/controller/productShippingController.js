@@ -39,7 +39,7 @@ async function createProductShipping(req, res) {
         },
       },
     });
-    res.status(201).json(newShipping);
+    res.status(201).json({ message: "Product Shipped successfully", newShipping});
   } catch (error) {
     console.error('Failed to create product shipping:', error);
     res

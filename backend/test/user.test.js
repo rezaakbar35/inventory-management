@@ -2,6 +2,8 @@ const app = require('../app')
 const request = require('supertest')
 
 describe('User Test', () => {
+    
+    //test post method
     test('register user test', (done) => {
         const newUser = {
             first_name: "Test",

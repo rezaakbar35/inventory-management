@@ -13,6 +13,7 @@ const userRegisterRoutes = require("./routes/userRegisterRoutes")
 const warehouseRoutes = require("./routes/warehouseRoutes")
 const warehouseCategoryRoutes = require("./routes/warehouseCategoryRoutes")
 const productCategoryRoutes = require("./routes/productCategoryRoutes")
+const productRoutes = require("./routes/productRoute")
 const { authenticateUser, authenticateAdmin, authenticateWarehouse } = require("./middleware/authMiddleware");
 
 
@@ -35,13 +36,16 @@ app.use("/", userLoginRoutes);
 app.use("/warehouse", warehouseRoutes);
 
 // Warehouse Category
-app.use("/warehouse-category", warehouseCategoryRoutes)
+app.use("/warehouse-category", warehouseCategoryRoutes);
 
 // Product Shipping
 app.use("/product-shipping", productShippingRoutes);
 
 // Product Category
-app.use("/product-category", authenticateUser, productCategoryRoutes)
+app.use("/product-category", productCategoryRoutes);
+
+// Product
+app.use("/product", productRoutes);
 
 // Middleware untuk penanganan kesalahan jika rute tidak ditemukan
 app.use((req, res, next) => {
