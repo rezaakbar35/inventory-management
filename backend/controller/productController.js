@@ -20,7 +20,7 @@ createProduct: async (req, res) => {
               arrival_at: new Date()
             },
           });
-          res.status(201).json({ message: "Product successfully read", product })
+          res.status(201).json({ message: "Succesfully Create New Product!", product })
          }catch (err) {
             console.log("Error while adding product", err);
             res.status(400).json({ message: "Failed to add product"});
@@ -30,7 +30,7 @@ createProduct: async (req, res) => {
 //READ ALL PRODUCT
 getAllProduct: async (req, res) =>{
     const product = await prisma.product.findMany();
-    res.status(200).json({ message: "Succesfully Create New Product!", product });
+    res.status(200).json({ message: "Product successfully read", product });
     },
 
 //READ PRODUCT BY ID
@@ -82,7 +82,7 @@ updateProduct: async (req, res) => {
             arrival_at: new Date()
           },
         });
-        res.json({ message: "Product updated successfullyclear" , product });
+        res.json({ message: "Product updated successfully" , product });
       }
       }
       catch (err){
