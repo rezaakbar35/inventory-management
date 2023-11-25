@@ -58,7 +58,6 @@ const warehouseController = {
       res.status(400).json({ message: "Update Warehouse Error" });
     }
   },
-
   // Method Delete
   deleteWarehouse: async (req, res) => {
     try {
