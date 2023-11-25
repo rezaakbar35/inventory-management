@@ -6,11 +6,11 @@ describe('User Test', () => {
     //test post method
     test('register user test', (done) => {
         const newUser = {
-            first_name: "Test",
-            last_name: "Test",
-            username: "Tesssssssssst",
-            email: "test@gmail.com",
-            password: "test3456",
+            first_name: "bald",
+            last_name: "bald",
+            username: "bald",
+            email: "bald@gmail.com",
+            password: "test345",
             user_address: "st. Test",
             user_role: "user",
         }
@@ -29,8 +29,8 @@ describe('User Test', () => {
 
     test('login user test', (done) => {
         const loginUser = {
-            username: "Tesssssssssst",
-            password: "test3456",
+            username: "bald",
+            password: "test345",
         }
 
         request(app)
