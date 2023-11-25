@@ -84,7 +84,6 @@ describe('Warehouse Test', () => {
             location: "Jalan jalan",
             warehouse_category_id: 2,
         }
-
         request(app)
             .put('/warehouse/5/update')
             .send(updateWarehouse)
