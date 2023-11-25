@@ -63,13 +63,13 @@ const warehouseController = {
   deleteWarehouse: async (req, res) => {
     try {
       const { id } = req.params;
-      const warehouse = await prisma.warehouse.delete({
+      const Warehouse = await prisma.Warehouse.delete({
         where: { warehouse_id: Number(id) },
       });
-      res.status(200).json({ message: "Delete Successful", warehouse });
+      res.status(200).json({ message: "Delete Successful", Warehouse });
     } catch (error) {
       console.log(error);
-      res.status(400).json({ message: "Delete Warehouse Error" });
+      res.status(400).json({ message: "Error to Delete  Warehouse" });
     }
   },
 };
