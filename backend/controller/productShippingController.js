@@ -4,20 +4,20 @@ const prisma = new PrismaClient();
 
 async function createProductShipping(req, res) {
   try {
-  const {
-    product_id,
-    buyer_id,
-    warehouse_id,
-    warehouse_name,
-    quantity,
-    tracking_number,
-    target_address,
-    product_shipment_status,
-  } = req.body;
+    const {
+      product_id,
+      buyer_id,
+      warehouse_id,
+      warehouse_name,
+      quantity,
+      tracking_number,
+      target_address,
+      product_shipment_status,
+    } = req.body;
 
-  if (!product_id || !buyer_id || !warehouse_id || !quantity) {
-    return res.status(400).json({ error: "Invalid input data" });
-  }
+    if (!product_id || !buyer_id || !warehouse_id || !quantity) {
+      return res.status(400).json({ error: "Invalid input data" });
+    }
 
     const newShipping = await prisma.product_shipping.create({
       data: {
@@ -39,15 +39,16 @@ async function createProductShipping(req, res) {
         },
       },
     });
-    res.status(201).json({ message: "Product Shipped successfully", newShipping});
+    res
+      .status(201)
+      .json({ message: "Product Shipped successfully", newShipping });
   } catch (error) {
-    console.error('Failed to create product shipping:', error);
+    console.error("Failed to create product shipping:", error);
     res
       .status(500)
       .json({ error: "Failed to create product shipping", details: error });
   }
 }
-
 
 async function updateProductShipping(req, res) {
   const shippingId = parseInt(req.params.id);
@@ -75,7 +76,9 @@ async function updateProductShipping(req, res) {
       },
     });
 
-    res.status(200).json(updatedShipping);
+    res
+      .status(200)
+      .json({ message: "Product Updated successfully", updatedShipping });
   } catch (error) {
     res
       .status(500)
@@ -93,14 +96,13 @@ async function getAllProductShippings(req, res) {
       },
     });
 
-    res.status(200).json(allShippings);
+    res.status(200).json({ message: "Product Get successfully", allShippings });
   } catch (error) {
     res
       .status(500)
       .json({ error: "Failed to fetch product shippings", details: error });
   }
 }
-
 
 async function deleteProductShipping(req, res) {
   const shippingId = parseInt(req.params.id);
@@ -110,7 +112,9 @@ async function deleteProductShipping(req, res) {
       where: { shipping_id: shippingId },
     });
 
-    res.status(200).json(deletedShipping);
+    res
+      .status(200)
+      .json({ message: "Product Deleted successfully", deletedShipping });
   } catch (error) {
     res
       .status(500)
@@ -131,7 +135,9 @@ async function getProductShippingById(req, res) {
       },
     });
 
-    res.status(200).json(shipping);
+    res
+      .status(200)
+      .json({ message: "Product Get By Id successfully", shipping });
   } catch (error) {
     res
       .status(500)
