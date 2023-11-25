@@ -44,19 +44,20 @@ describe("Product Shipping Test", () => {
 
   // Test PUT method
   test("update product shipping test", (done) => {
+    const productShippingID = 1
     const updatedProductShipping = {
-      product_id: 2,
+      product_id: 1,
       buyer_id: 1,
-      warehouse_id: 3,
-      warehouse_name: "Updated Gudang B",
-      quantity: 2,
+      warehouse_id: 1,
+      warehouse_name: "Gudang Garam",
+      quantity: 1,
       tracking_number: "Updated SAID8F7HSD7F",
       target_address: "Updated St. Test",
-      product_shipment_status: "updated status",
+      product_shipment_status: "sudah sampai",
     };
 
     request(app)
-      .put("/product-shipping/1/update")
+      .put(`/product-shipping/${productShippingID}/update`)
       .send(updatedProductShipping)
       .expect("Content-Type", /json/)
       .then((response) => {
@@ -82,8 +83,10 @@ describe("Product Shipping Test", () => {
 
   // Test DELETE method
   test("delete product shipping test", (done) => {
+    const productShippingID = 2
+
     request(app)
-      .delete("/product-shipping/1")
+      .delete(`/product-shipping/${productShippingID}`)
       .expect("Content-Type", /json/)
       .then((response) => {
         expect(response.status).toBe(200);

@@ -75,7 +75,7 @@ describe('Product Category Test', () => {
 
     // Test DELETE method - delete product category
     test('delete product category test', (done) => {
-        const categoryId = 1; 
+        const categoryId = 7; 
 
         request(app)
             .delete(`/product-category/${categoryId}`)

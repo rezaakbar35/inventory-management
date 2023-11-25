@@ -97,13 +97,14 @@ describe('Warehouse Test', () => {
     })
     //delete methode
     test('delete warehouse test', (done) => {
+            const warehouseID = 6
             const deleteWarehouse = {
                 warehouse_name: "Gudang test all",
                 warehouse_category_id: 1,
                 location: "Jalan Test",
             }
             request(app)
-                .delete('/warehouse/20')
+                .delete(`/warehouse/${warehouseID}`)
                 .send(deleteWarehouse)
                 .expect('Content-Type', /json/)
                 .then(response => {

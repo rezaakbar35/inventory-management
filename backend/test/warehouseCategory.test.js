@@ -76,7 +76,7 @@ describe('Warehouse Category Test', () => {
     })
 
     test('delete warehouse category test', (done) => {
-        const category_id = 13
+        const category_id = 6
 
         request(app)
         .delete(`/warehouse-category/${category_id}`)

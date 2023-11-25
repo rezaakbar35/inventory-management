@@ -66,9 +66,9 @@ async function updateProductShipping(req, res) {
     const updatedShipping = await prisma.product_shipping.update({
       where: { shipping_id: shippingId },
       data: {
-        product: { connect: { product_id } },
-        buyer: { connect: { buyer_id } },
-        warehouse: { connect: { warehouse_id } },
+        product: { connect: { product_id: product_id } },
+        buyer: { connect: { user_id: buyer_id } },
+        warehouse: { connect: { warehouse_id: warehouse_id } },
         warehouse_name,
         tracking_number,
         target_address,

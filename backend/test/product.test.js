@@ -54,12 +54,12 @@ describe('Product Test', () => {
     // getProductById test
     test('find product by id test', (done) => {
         const product_id = 1;
-        const product_code = 2002;
-        const product_name = 'Baby Doll';
+        const product_code = 1001;
+        const product_name = 'Baby socks';
         const category_id = 1;
         const product_stock = 1;
         const warehouse_id = 1;
-        const product_status = 'di gudang';
+        const product_status = 'Sudah sampai';
 
 
         request(app)
@@ -83,7 +83,7 @@ describe('Product Test', () => {
     test('update product test', (done) => {
         const product_id = 1;
         const updateProduct = {
-            product_code: "2002",
+            product_code: 2002,
             product_name: "Baby Doll",
             category_id: "1",
             product_stock: "1",
@@ -114,14 +114,14 @@ describe('Product Test', () => {
 
     //deleteProduct test
     test('delete product test', (done) => {
-        const product_id = 1;
+        const product_id = 6;
 
         request(app)
             .delete(`/product/${product_id}`)
             .expect('Content-Type', /json/)
             .then(response => {
-                expect(response.body.message).toBe('Delete Successfull')
-                expect(response.status).toBe(400)
+                expect(response.body.message).toBe('Delete Successful')
+                expect(response.status).toBe(200)
                 done()
             })
             .catch(done)
