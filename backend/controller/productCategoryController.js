@@ -50,7 +50,7 @@ const productCategoryController = {
           description,
         },
       });
-      res.status(200).json({ message: "Product Category Successfully Updated", warehouseCategory });
+      res.status(200).json({ message: "Product Category Successfully Updated", productCategory });
     } catch (error) {
       console.log(error);
       res.status(400).json({ message: "Product Category Update Error" });

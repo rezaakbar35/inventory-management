@@ -6,6 +6,8 @@ const express = require('express');
 const app = express();
 const cookieParser = require("cookie-parser");
 app.use(cookieParser())
+const swaggerUI = require('swagger-ui-express');
+const YAML = require('yamljs');
 
 const productShippingRoutes = require("./routes/productShippingRoutes");
 const userLoginRoutes = require("./routes/userLoginRoutes")
@@ -16,6 +18,7 @@ const productCategoryRoutes = require("./routes/productCategoryRoutes")
 const productRoutes = require("./routes/productRoute")
 const { authenticateUser, authenticateAdmin, authenticateWarehouse } = require("./middleware/authMiddleware");
 
+const swaggerJsDocs = YAML.load(path.resolve(__dirname, '../backend/documentation/openapi.yaml'))
 
 app.use(express.json());
 app.use(cors({
@@ -25,6 +28,9 @@ app.use(cors({
   optionsSuccessStatus: 200
 }));
 
+
+//Swagger
+app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerJsDocs))
 
 //register 
 app.use("/", userRegisterRoutes);

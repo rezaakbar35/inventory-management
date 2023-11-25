@@ -30,7 +30,7 @@ createProduct: async (req, res) => {
 //READ ALL PRODUCT
 getAllProduct: async (req, res) =>{
     const product = await prisma.product.findMany();
-    res.status(200).json({ product });
+    res.status(200).json({ message: "Product successfully read", product });
     },
 
 //READ PRODUCT BY ID
@@ -40,7 +40,7 @@ getByIdProduct: async (req, res) => {
         const product = await prisma.product.findUnique({
           where: { product_id: Number(id) },
         });
-        res.status(200).json({ product });
+        res.status(200).json({ message: "Sucessfully found the product" , product });
       }
       catch (err) {
         console.log("Error while reading product" , err);
@@ -68,7 +68,7 @@ updateProduct: async (req, res) => {
             arrival_at: new Date()
           },
         });
-        res.status(200).json( { product });
+        res.status(200).json( { message: "Product updated successfully", product });
       } else {
         const product = await prisma.product.update({
           where: { product_id: Number(id) },
@@ -82,7 +82,7 @@ updateProduct: async (req, res) => {
             arrival_at: new Date()
           },
         });
-        res.json({ product });
+        res.json({ message: "Product updated successfully" , product });
       }
       }
       catch (err){
@@ -98,11 +98,11 @@ deleteProduct: async (req, res) => {
         const product = await prisma.product.delete({
           where: { product_id: Number(id) },
         });
-        res.json({ message:"Deleted successfully" });
+        res.json({ message:"Delete Successful", product });
       } 
       catch (err) {
         console.log("Error while deleting product" , err);
-        res.status(400).json({ message: "Something went wrong" })
+        res.status(400).json({ message: "Delete Successfull" })
       }
 },
 };
