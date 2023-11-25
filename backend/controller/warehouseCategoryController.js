@@ -5,7 +5,7 @@ const warehouseCategoryController = {
   // Method GET
   getAllWarehouseCategory: async (req, res) => {
     const warehouseCategory = await prisma.warehouse_category.findMany();
-    res.status(200).json({ warehouseCategory });
+    res.status(200).json({ message: "Successfully found category warehouse", warehouseCategory });
   },
 
   getByIdWarehouseCategory: async (req, res) => {
@@ -14,7 +14,7 @@ const warehouseCategoryController = {
       const warehouseCategory = await prisma.warehouse_category.findUnique({
         where: { category_id: Number(id) },
       });
-      res.status(200).json({ warehouseCategory });
+      res.status(200).json({ message: "Successfully found Category Warehouse", warehouseCategory });
     } catch (error) {
       console.log(error);
       res.status(400).json({ message: "Category Warehouse not found" });
@@ -31,7 +31,7 @@ const warehouseCategoryController = {
           description,
         },
       });
-      res.status(201).json({ message: "Create Warehouse Category Successful", warehouseCategory });
+      res.status(201).json({ message: "Create Warehouse Category Successfull", warehouseCategory });
     } catch (error) {
       console.log(error);
       res.status(400).json({ message: "Error to Create Category Warehouse" });
@@ -50,7 +50,7 @@ const warehouseCategoryController = {
           description,
         },
       });
-      res.status(200).json({ message: "Update Warehouse Category Successful", warehouseCategory });
+      res.status(200).json({ message: "Update Warehouse Category Successfull", warehouseCategory });
     } catch (error) {
       console.log(error);
       res.status(400).json({ message: "Error to Update Category Warehouse" });
@@ -64,7 +64,7 @@ const warehouseCategoryController = {
       const warehouseCategory = await prisma.warehouse_category.delete({
         where: { category_id: Number(id) },
       });
-      res.status(200).json({ message: "Delete Successful", warehouseCategory });
+      res.status(200).json({ message: "Delete Successfull", warehouseCategory });
     } catch (error) {
       console.log(error);
       res.status(400).json({ message: "Error to Delete Category Warehouse" });
