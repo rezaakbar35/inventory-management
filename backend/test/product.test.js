@@ -59,7 +59,7 @@ describe('Product Test', () => {
         const category_id = 1;
         const product_stock = 1;
         const warehouse_id = 1;
-        const product_status = 'di gudangcle';
+        const product_status = 'di gudang';
 
 
         request(app)
