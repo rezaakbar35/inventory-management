@@ -1,0 +1,4262 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Inventory Management API",
+    "contact": {},
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000",
+      "variables": {}
+    }
+  ],
+  "paths": {
+    "/register": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "registerUser",
+        "description": "New User Registry Request",
+        "operationId": "registerUser",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/registerUserRequest"
+                  },
+                  {
+                    "example": {
+                      "first_name": "Reza",
+                      "last_name": "Akbar",
+                      "username": "rezaakbar36",
+                      "email": "rezaakbar36@gmail.com",
+                      "password": "aksjdhaskjd",
+                      "user_address": "Jl. Cisitu Lama"
+                    }
+                  }
+                ]
+              },
+              "example": {
+                "first_name": "Reza",
+                "last_name": "Akbar",
+                "username": "rezaakbar36",
+                "email": "rezaakbar36@gmail.com",
+                "password": "aksjdhaskjd",
+                "user_address": "Jl. Cisitu Lama"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "loginUser",
+        "description": "User Login Request",
+        "operationId": "loginUser",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/loginUserRequest"
+                  },
+                  {
+                    "example": {
+                      "username": "rezaakbar36",
+                      "password": "aksjdhaskjd"
+                    }
+                  }
+                ]
+              },
+              "example": {
+                "username": "rezaakbar36",
+                "password": "aksjdhaskjd"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/product": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Read Product",
+        "description": "Get all products from database",
+        "operationId": "getProduct",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/getAll"
+                    },
+                    {
+                      "example": {
+                        "product": [
+                          {
+                            "id": 1,
+                            "code": "P001",
+                            "name": "Mother's Dress",
+                            "stock": 100,
+                            "quantity": 1,
+                            "category": "Clothing",
+                            "warehouse": {
+                              "id": 1,
+                              "name": "Main Warehouse"
+                            },
+                            "image": "url_to_mothers_dress_image.jpg",
+                            "status": "Active",
+                            "created_at": "2023-11-17T12:00:00",
+                            "updated_at": "2023-11-17T12:00:00"
+                          },
+                          {
+                            "id": 2,
+                            "code": "P002",
+                            "name": "Baby Onesie",
+                            "stock": 50,
+                            "quantity": 1,
+                            "category": "Baby Clothing",
+                            "warehouse": {
+                              "id": 2,
+                              "name": "Baby Warehouse"
+                            },
+                            "image": "url_to_baby_onesie_image.jpg",
+                            "status": "Active",
+                            "created_at": "2023-11-17T12:30:00",
+                            "updated_at": "2023-11-17T12:30:00"
+                          },
+                          {
+                            "id": 3,
+                            "code": "P003",
+                            "name": "Maternity Pillow",
+                            "stock": 30,
+                            "quantity": 1,
+                            "category": "Bedding",
+                            "warehouse": {
+                              "id": 3,
+                              "name": "Home Warehouse"
+                            },
+                            "image": "url_to_maternity_pillow_image.jpg",
+                            "status": "Active",
+                            "created_at": "2023-11-17T13:00:00",
+                            "updated_at": "2023-11-17T13:00:00"
+                          },
+                          {
+                            "id": 4,
+                            "code": "P004",
+                            "name": "Baby Blanket",
+                            "stock": 80,
+                            "quantity": 1,
+                            "category": "Baby Bedding",
+                            "warehouse": {
+                              "id": 4,
+                              "name": "Nursery Warehouse"
+                            },
+                            "image": "url_to_baby_blanket_image.jpg",
+                            "status": "Active",
+                            "created_at": "2023-11-17T13:30:00",
+                            "updated_at": "2023-11-17T13:30:00"
+                          },
+                          {
+                            "id": 5,
+                            "code": "P005",
+                            "name": "Stroller",
+                            "stock": 20,
+                            "quantity": 1,
+                            "category": "Baby Gear",
+                            "warehouse": {
+                              "id": 5,
+                              "name": "Outdoor Warehouse"
+                            },
+                            "image": "url_to_stroller_image.jpg",
+                            "status": "Active",
+                            "created_at": "2023-11-17T14:00:00",
+                            "updated_at": "2023-11-17T14:00:00"
+                          },
+                          {
+                            "id": 6,
+                            "code": "P006",
+                            "name": "Breast Pump",
+                            "stock": 15,
+                            "quantity": 1,
+                            "category": "Feeding",
+                            "warehouse": {
+                              "id": 6,
+                              "name": "Feeding Warehouse"
+                            },
+                            "image": "url_to_breast_pump_image.jpg",
+                            "status": "Active",
+                            "created_at": "2023-11-17T14:30:00",
+                            "updated_at": "2023-11-17T14:30:00"
+                          },
+                          {
+                            "id": 7,
+                            "code": "P007",
+                            "name": "Baby Monitor",
+                            "stock": 25,
+                            "quantity": 1,
+                            "category": "Safety",
+                            "warehouse": {
+                              "id": 7,
+                              "name": "Safety Warehouse"
+                            },
+                            "image": "url_to_baby_monitor_image.jpg",
+                            "status": "Active",
+                            "created_at": "2023-11-17T15:00:00",
+                            "updated_at": "2023-11-17T15:00:00"
+                          },
+                          {
+                            "id": 8,
+                            "code": "P008",
+                            "name": "Nursing Pillow",
+                            "stock": 40,
+                            "quantity": 1,
+                            "category": "Feeding",
+                            "warehouse": {
+                              "id": 8,
+                              "name": "Feeding Warehouse"
+                            },
+                            "image": "url_to_nursing_pillow_image.jpg",
+                            "status": "Active",
+                            "created_at": "2023-11-17T15:30:00",
+                            "updated_at": "2023-11-17T15:30:00"
+                          },
+                          {
+                            "id": 9,
+                            "code": "P009",
+                            "name": "Baby High Chair",
+                            "stock": 10,
+                            "quantity": 1,
+                            "category": "Feeding",
+                            "warehouse": {
+                              "id": 9,
+                              "name": "Feeding Warehouse"
+                            },
+                            "image": "url_to_high_chair_image.jpg",
+                            "status": "Active",
+                            "created_at": "2023-11-17T16:00:00",
+                            "updated_at": "2023-11-17T16:00:00"
+                          },
+                          {
+                            "id": 10,
+                            "code": "P010",
+                            "name": "Pregnancy Journal",
+                            "stock": 60,
+                            "quantity": 1,
+                            "category": "Maternity",
+                            "warehouse": {
+                              "id": 10,
+                              "name": "Maternity Warehouse"
+                            },
+                            "image": "url_to_pregnancy_journal_image.jpg",
+                            "status": "Active",
+                            "created_at": "2023-11-17T16:30:00",
+                            "updated_at": "2023-11-17T16:30:00"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "product": [
+                    {
+                      "id": 1,
+                      "code": "P001",
+                      "name": "Mother's Dress",
+                      "stock": 100,
+                      "quantity": 1,
+                      "category": "Clothing",
+                      "warehouse": {
+                        "id": 1,
+                        "name": "Main Warehouse"
+                      },
+                      "image": "url_to_mothers_dress_image.jpg",
+                      "status": "Active",
+                      "created_at": "2023-11-17T12:00:00",
+                      "updated_at": "2023-11-17T12:00:00"
+                    },
+                    {
+                      "id": 2,
+                      "code": "P002",
+                      "name": "Baby Onesie",
+                      "stock": 50,
+                      "quantity": 1,
+                      "category": "Baby Clothing",
+                      "warehouse": {
+                        "id": 2,
+                        "name": "Baby Warehouse"
+                      },
+                      "image": "url_to_baby_onesie_image.jpg",
+                      "status": "Active",
+                      "created_at": "2023-11-17T12:30:00",
+                      "updated_at": "2023-11-17T12:30:00"
+                    },
+                    {
+                      "id": 3,
+                      "code": "P003",
+                      "name": "Maternity Pillow",
+                      "stock": 30,
+                      "quantity": 1,
+                      "category": "Bedding",
+                      "warehouse": {
+                        "id": 3,
+                        "name": "Home Warehouse"
+                      },
+                      "image": "url_to_maternity_pillow_image.jpg",
+                      "status": "Active",
+                      "created_at": "2023-11-17T13:00:00",
+                      "updated_at": "2023-11-17T13:00:00"
+                    },
+                    {
+                      "id": 4,
+                      "code": "P004",
+                      "name": "Baby Blanket",
+                      "stock": 80,
+                      "quantity": 1,
+                      "category": "Baby Bedding",
+                      "warehouse": {
+                        "id": 4,
+                        "name": "Nursery Warehouse"
+                      },
+                      "image": "url_to_baby_blanket_image.jpg",
+                      "status": "Active",
+                      "created_at": "2023-11-17T13:30:00",
+                      "updated_at": "2023-11-17T13:30:00"
+                    },
+                    {
+                      "id": 5,
+                      "code": "P005",
+                      "name": "Stroller",
+                      "stock": 20,
+                      "quantity": 1,
+                      "category": "Baby Gear",
+                      "warehouse": {
+                        "id": 5,
+                        "name": "Outdoor Warehouse"
+                      },
+                      "image": "url_to_stroller_image.jpg",
+                      "status": "Active",
+                      "created_at": "2023-11-17T14:00:00",
+                      "updated_at": "2023-11-17T14:00:00"
+                    },
+                    {
+                      "id": 6,
+                      "code": "P006",
+                      "name": "Breast Pump",
+                      "stock": 15,
+                      "quantity": 1,
+                      "category": "Feeding",
+                      "warehouse": {
+                        "id": 6,
+                        "name": "Feeding Warehouse"
+                      },
+                      "image": "url_to_breast_pump_image.jpg",
+                      "status": "Active",
+                      "created_at": "2023-11-17T14:30:00",
+                      "updated_at": "2023-11-17T14:30:00"
+                    },
+                    {
+                      "id": 7,
+                      "code": "P007",
+                      "name": "Baby Monitor",
+                      "stock": 25,
+                      "quantity": 1,
+                      "category": "Safety",
+                      "warehouse": {
+                        "id": 7,
+                        "name": "Safety Warehouse"
+                      },
+                      "image": "url_to_baby_monitor_image.jpg",
+                      "status": "Active",
+                      "created_at": "2023-11-17T15:00:00",
+                      "updated_at": "2023-11-17T15:00:00"
+                    },
+                    {
+                      "id": 8,
+                      "code": "P008",
+                      "name": "Nursing Pillow",
+                      "stock": 40,
+                      "quantity": 1,
+                      "category": "Feeding",
+                      "warehouse": {
+                        "id": 8,
+                        "name": "Feeding Warehouse"
+                      },
+                      "image": "url_to_nursing_pillow_image.jpg",
+                      "status": "Active",
+                      "created_at": "2023-11-17T15:30:00",
+                      "updated_at": "2023-11-17T15:30:00"
+                    },
+                    {
+                      "id": 9,
+                      "code": "P009",
+                      "name": "Baby High Chair",
+                      "stock": 10,
+                      "quantity": 1,
+                      "category": "Feeding",
+                      "warehouse": {
+                        "id": 9,
+                        "name": "Feeding Warehouse"
+                      },
+                      "image": "url_to_high_chair_image.jpg",
+                      "status": "Active",
+                      "created_at": "2023-11-17T16:00:00",
+                      "updated_at": "2023-11-17T16:00:00"
+                    },
+                    {
+                      "id": 10,
+                      "code": "P010",
+                      "name": "Pregnancy Journal",
+                      "stock": 60,
+                      "quantity": 1,
+                      "category": "Maternity",
+                      "warehouse": {
+                        "id": 10,
+                        "name": "Maternity Warehouse"
+                      },
+                      "image": "url_to_pregnancy_journal_image.jpg",
+                      "status": "Active",
+                      "created_at": "2023-11-17T16:30:00",
+                      "updated_at": "2023-11-17T16:30:00"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/failed1"
+                    },
+                    {
+                      "example": {
+                        "Message": "Error cant find a product"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Error cant find a product"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Create Product",
+        "description": "Add new product to database",
+        "operationId": "postProduct",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/productrequest"
+                  },
+                  {
+                    "example": {
+                      "id": 12,
+                      "code": "P012",
+                      "name": "Mother's Gloves ",
+                      "stock": 90,
+                      "quantity": 1,
+                      "category": "Clothing",
+                      "warehouse": {
+                        "id": 101,
+                        "name": "Main Warehouse"
+                      },
+                      "image": "url_to_mothers_gloves_image.jpg",
+                      "status": "Active",
+                      "created_at": "2023-11-17T13:00:00",
+                      "updated_at": "2023-11-17T13:00:00"
+                    }
+                  }
+                ]
+              },
+              "example": {
+                "id": 12,
+                "code": "P012",
+                "name": "Mother's Gloves ",
+                "stock": 90,
+                "quantity": 1,
+                "category": "Clothing",
+                "warehouse": {
+                  "id": 101,
+                  "name": "Main Warehouse"
+                },
+                "image": "url_to_mothers_gloves_image.jpg",
+                "status": "Active",
+                "created_at": "2023-11-17T13:00:00",
+                "updated_at": "2023-11-17T13:00:00"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/success"
+                    },
+                    {
+                      "example": {
+                        "Message": "Create New Product Success!",
+                        "id": 11,
+                        "code": "P011",
+                        "name": "Mother's socks ",
+                        "stock": 90,
+                        "quantity": 1,
+                        "category": "Clothing",
+                        "warehouse": {
+                          "id": 101,
+                          "name": "Main Warehouse"
+                        },
+                        "image": "url_to_mothers_socks_image.jpg",
+                        "status": "Active",
+                        "created_at": "2023-11-17T14:00:00",
+                        "updated_at": "2023-11-17T14:00:00"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Create New Product Success!",
+                  "id": 11,
+                  "code": "P011",
+                  "name": "Mother's socks ",
+                  "stock": 90,
+                  "quantity": 1,
+                  "category": "Clothing",
+                  "warehouse": {
+                    "id": 101,
+                    "name": "Main Warehouse"
+                  },
+                  "image": "url_to_mothers_socks_image.jpg",
+                  "status": "Active",
+                  "created_at": "2023-11-17T14:00:00",
+                  "updated_at": "2023-11-17T14:00:00"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/failed1"
+                    },
+                    {
+                      "example": {
+                        "Message": "Create New Product Failed"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Create New Product Failed"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Update Product",
+        "description": "Update specific products (by ID) in the database",
+        "operationId": "putProduct",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/productrequest"
+                  },
+                  {
+                    "example": {
+                      "id": 1,
+                      "code": "P001",
+                      "name": "Mother's ring",
+                      "stock": 100,
+                      "quantity": 1,
+                      "category": "Clothing",
+                      "warehouse": {
+                        "id": 101,
+                        "name": "Main Warehouse"
+                      },
+                      "image": "url_to_mothers_dress_image.jpg",
+                      "status": "Active",
+                      "created_at": "2023-11-17T12:00:00",
+                      "updated_at": "2023-11-17T12:00:00"
+                    }
+                  }
+                ]
+              },
+              "example": {
+                "id": 1,
+                "code": "P001",
+                "name": "Mother's ring",
+                "stock": 100,
+                "quantity": 1,
+                "category": "Clothing",
+                "warehouse": {
+                  "id": 101,
+                  "name": "Main Warehouse"
+                },
+                "image": "url_to_mothers_dress_image.jpg",
+                "status": "Active",
+                "created_at": "2023-11-17T12:00:00",
+                "updated_at": "2023-11-17T12:00:00"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/success"
+                    },
+                    {
+                      "example": {
+                        "Message": "Update Product Success!",
+                        "id": 1,
+                        "code": "P001",
+                        "name": "Mother's ring",
+                        "stock": 100,
+                        "quantity": 1,
+                        "category": "Clothing",
+                        "warehouse": {
+                          "id": 101,
+                          "name": "Main Warehouse"
+                        },
+                        "image": "url_to_mothers_dress_image.jpg",
+                        "status": "Active",
+                        "created_at": "2023-11-17T12:00:00",
+                        "updated_at": "2023-11-17T12:00:00"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Update Product Success!",
+                  "id": 1,
+                  "code": "P001",
+                  "name": "Mother's ring",
+                  "stock": 100,
+                  "quantity": 1,
+                  "category": "Clothing",
+                  "warehouse": {
+                    "id": 101,
+                    "name": "Main Warehouse"
+                  },
+                  "image": "url_to_mothers_dress_image.jpg",
+                  "status": "Active",
+                  "created_at": "2023-11-17T12:00:00",
+                  "updated_at": "2023-11-17T12:00:00"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/failed1"
+                    },
+                    {
+                      "example": {
+                        "Message": "Error Update Product!"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Error Update Product!"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Delete Product",
+        "description": "Remove a specific product (by ID) from the database",
+        "operationId": "deleteProduct",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/success2"
+                    },
+                    {
+                      "example": {
+                        "Message": "Delete Product Successed!"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Delete Product Successed!"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/failed1"
+                    },
+                    {
+                      "example": {
+                        "Message": "Error delete, cant find product!"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Error delete, cant find product!"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/warehouse": {
+      "get": {
+        "tags": [
+          "Warehouse"
+        ],
+        "summary": "Read Warehouse",
+        "description": "Read all active warehouses",
+        "operationId": "getWarehouse",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/getAll1"
+                    },
+                    {
+                      "example": {
+                        "warehouses": [
+                          {
+                            "warehouse_id": 1,
+                            "warehouse_name": "Main Warehouse",
+                            "location": "City A",
+                            "warehouse_category": "Main",
+                            "product_category": [
+                              "Clothing",
+                              "Bedding"
+                            ],
+                            "created_at": "2023-11-17T12:00:00",
+                            "updated_at": "2023-11-17T12:00:00"
+                          },
+                          {
+                            "warehouse_id": 2,
+                            "warehouse_name": "Baby Warehouse",
+                            "location": "City B",
+                            "warehouse_category": "Baby",
+                            "product_category": [
+                              "Baby Clothing",
+                              "Baby Bedding"
+                            ],
+                            "created_at": "2023-11-17T12:30:00",
+                            "updated_at": "2023-11-17T12:30:00"
+                          },
+                          {
+                            "warehouse_id": 3,
+                            "warehouse_name": "Home Warehouse",
+                            "location": "City C",
+                            "warehouse_category": "Home",
+                            "product_category": [
+                              "Bedding"
+                            ],
+                            "created_at": "2023-11-17T13:00:00",
+                            "updated_at": "2023-11-17T13:00:00"
+                          },
+                          {
+                            "warehouse_id": 4,
+                            "warehouse_name": "Nursery Warehouse",
+                            "location": "City D",
+                            "warehouse_category": "Nursery",
+                            "product_category": [
+                              "Baby Bedding"
+                            ],
+                            "created_at": "2023-11-17T13:30:00",
+                            "updated_at": "2023-11-17T13:30:00"
+                          },
+                          {
+                            "warehouse_id": 5,
+                            "warehouse_name": "Outdoor Warehouse",
+                            "location": "City E",
+                            "warehouse_category": "Outdoor",
+                            "product_category": [
+                              "Baby Gear"
+                            ],
+                            "created_at": "2023-11-17T14:00:00",
+                            "updated_at": "2023-11-17T14:00:00"
+                          },
+                          {
+                            "warehouse_id": 6,
+                            "warehouse_name": "Feeding Warehouse",
+                            "location": "City F",
+                            "warehouse_category": "Feeding",
+                            "product_category": [
+                              "Feeding"
+                            ],
+                            "created_at": "2023-11-17T14:30:00",
+                            "updated_at": "2023-11-17T14:30:00"
+                          },
+                          {
+                            "warehouse_id": 7,
+                            "warehouse_name": "Safety Warehouse",
+                            "location": "City G",
+                            "warehouse_category": "Safety",
+                            "product_category": [
+                              "Safety"
+                            ],
+                            "created_at": "2023-11-17T15:00:00",
+                            "updated_at": "2023-11-17T15:00:00"
+                          },
+                          {
+                            "warehouse_id": 8,
+                            "warehouse_name": "Feeding Warehouse",
+                            "location": "City H",
+                            "warehouse_category": "Feeding",
+                            "product_category": [
+                              "Feeding"
+                            ],
+                            "created_at": "2023-11-17T15:30:00",
+                            "updated_at": "2023-11-17T15:30:00"
+                          },
+                          {
+                            "warehouse_id": 9,
+                            "warehouse_name": "Feeding Warehouse",
+                            "location": "City I",
+                            "warehouse_category": "Feeding",
+                            "product_category": [
+                              "Feeding"
+                            ],
+                            "created_at": "2023-11-17T16:00:00",
+                            "updated_at": "2023-11-17T16:00:00"
+                          },
+                          {
+                            "warehouse_id": 10,
+                            "warehouse_name": "Maternity Warehouse",
+                            "location": "City J",
+                            "warehouse_category": "Maternity",
+                            "product_category": [
+                              "Maternity"
+                            ],
+                            "created_at": "2023-11-17T16:30:00",
+                            "updated_at": "2023-11-17T16:30:00"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "warehouses": [
+                    {
+                      "warehouse_id": 1,
+                      "warehouse_name": "Main Warehouse",
+                      "location": "City A",
+                      "warehouse_category": "Main",
+                      "product_category": [
+                        "Clothing",
+                        "Bedding"
+                      ],
+                      "created_at": "2023-11-17T12:00:00",
+                      "updated_at": "2023-11-17T12:00:00"
+                    },
+                    {
+                      "warehouse_id": 2,
+                      "warehouse_name": "Baby Warehouse",
+                      "location": "City B",
+                      "warehouse_category": "Baby",
+                      "product_category": [
+                        "Baby Clothing",
+                        "Baby Bedding"
+                      ],
+                      "created_at": "2023-11-17T12:30:00",
+                      "updated_at": "2023-11-17T12:30:00"
+                    },
+                    {
+                      "warehouse_id": 3,
+                      "warehouse_name": "Home Warehouse",
+                      "location": "City C",
+                      "warehouse_category": "Home",
+                      "product_category": [
+                        "Bedding"
+                      ],
+                      "created_at": "2023-11-17T13:00:00",
+                      "updated_at": "2023-11-17T13:00:00"
+                    },
+                    {
+                      "warehouse_id": 4,
+                      "warehouse_name": "Nursery Warehouse",
+                      "location": "City D",
+                      "warehouse_category": "Nursery",
+                      "product_category": [
+                        "Baby Bedding"
+                      ],
+                      "created_at": "2023-11-17T13:30:00",
+                      "updated_at": "2023-11-17T13:30:00"
+                    },
+                    {
+                      "warehouse_id": 5,
+                      "warehouse_name": "Outdoor Warehouse",
+                      "location": "City E",
+                      "warehouse_category": "Outdoor",
+                      "product_category": [
+                        "Baby Gear"
+                      ],
+                      "created_at": "2023-11-17T14:00:00",
+                      "updated_at": "2023-11-17T14:00:00"
+                    },
+                    {
+                      "warehouse_id": 6,
+                      "warehouse_name": "Feeding Warehouse",
+                      "location": "City F",
+                      "warehouse_category": "Feeding",
+                      "product_category": [
+                        "Feeding"
+                      ],
+                      "created_at": "2023-11-17T14:30:00",
+                      "updated_at": "2023-11-17T14:30:00"
+                    },
+                    {
+                      "warehouse_id": 7,
+                      "warehouse_name": "Safety Warehouse",
+                      "location": "City G",
+                      "warehouse_category": "Safety",
+                      "product_category": [
+                        "Safety"
+                      ],
+                      "created_at": "2023-11-17T15:00:00",
+                      "updated_at": "2023-11-17T15:00:00"
+                    },
+                    {
+                      "warehouse_id": 8,
+                      "warehouse_name": "Feeding Warehouse",
+                      "location": "City H",
+                      "warehouse_category": "Feeding",
+                      "product_category": [
+                        "Feeding"
+                      ],
+                      "created_at": "2023-11-17T15:30:00",
+                      "updated_at": "2023-11-17T15:30:00"
+                    },
+                    {
+                      "warehouse_id": 9,
+                      "warehouse_name": "Feeding Warehouse",
+                      "location": "City I",
+                      "warehouse_category": "Feeding",
+                      "product_category": [
+                        "Feeding"
+                      ],
+                      "created_at": "2023-11-17T16:00:00",
+                      "updated_at": "2023-11-17T16:00:00"
+                    },
+                    {
+                      "warehouse_id": 10,
+                      "warehouse_name": "Maternity Warehouse",
+                      "location": "City J",
+                      "warehouse_category": "Maternity",
+                      "product_category": [
+                        "Maternity"
+                      ],
+                      "created_at": "2023-11-17T16:30:00",
+                      "updated_at": "2023-11-17T16:30:00"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/failed1"
+                    },
+                    {
+                      "example": {
+                        "Message": "Error can't find any warehouse"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Error can't find any warehouse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "Warehouse"
+        ],
+        "summary": "Create Warehouse",
+        "description": "Add active warehouses to database",
+        "operationId": "postWarehouse",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/warehouserequest"
+                  },
+                  {
+                    "example": {
+                      "warehouse_id": 101,
+                      "warehouse_name": "Main Warehouse",
+                      "location": "City A",
+                      "warehouse_category": "Main",
+                      "product_category": [
+                        "Clothing",
+                        "Bedding"
+                      ],
+                      "created_at": "2023-11-17T12:00:00",
+                      "updated_at": "2023-11-17T12:00:00"
+                    }
+                  }
+                ]
+              },
+              "example": {
+                "warehouse_id": 101,
+                "warehouse_name": "Main Warehouse",
+                "location": "City A",
+                "warehouse_category": "Main",
+                "product_category": [
+                  "Clothing",
+                  "Bedding"
+                ],
+                "created_at": "2023-11-17T12:00:00",
+                "updated_at": "2023-11-17T12:00:00"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/success3"
+                    },
+                    {
+                      "example": {
+                        "Message": "Create Warehouse Successed!",
+                        "warehouse_id": 101,
+                        "warehouse_name": "Main Warehouse",
+                        "location": "City A",
+                        "warehouse_category": "Main",
+                        "product_category": [
+                          "Clothing",
+                          "Bedding"
+                        ],
+                        "created_at": "2023-11-17T12:00:00",
+                        "updated_at": "2023-11-17T12:00:00"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Create Warehouse Successed!",
+                  "warehouse_id": 101,
+                  "warehouse_name": "Main Warehouse",
+                  "location": "City A",
+                  "warehouse_category": "Main",
+                  "product_category": [
+                    "Clothing",
+                    "Bedding"
+                  ],
+                  "created_at": "2023-11-17T12:00:00",
+                  "updated_at": "2023-11-17T12:00:00"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/failed1"
+                    },
+                    {
+                      "example": {
+                        "Message": "Error Create Warehouse!"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Error Create Warehouse!"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "Warehouse"
+        ],
+        "summary": "Update Warehouse",
+        "description": "Update a specific (by ID) active warehouse",
+        "operationId": "putWarehouse",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/werehouserequest"
+                  },
+                  {
+                    "example": {
+                      "warehouse_id": 1,
+                      "warehouse_name": "Main Warehouse",
+                      "location": "City AAA",
+                      "warehouse_category": "Main",
+                      "product_category": [
+                        "Clothing",
+                        "Bedding"
+                      ],
+                      "created_at": "2023-11-17T13:00:00",
+                      "updated_at": "2023-11-17T13:00:00"
+                    }
+                  }
+                ]
+              },
+              "example": {
+                "warehouse_id": 1,
+                "warehouse_name": "Main Warehouse",
+                "location": "City AAA",
+                "warehouse_category": "Main",
+                "product_category": [
+                  "Clothing",
+                  "Bedding"
+                ],
+                "created_at": "2023-11-17T13:00:00",
+                "updated_at": "2023-11-17T13:00:00"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/success3"
+                    },
+                    {
+                      "example": {
+                        "Message": "Update Warehouse Successed!",
+                        "warehouse_id": 1,
+                        "warehouse_name": "Main Warehouse",
+                        "location": "City AAA",
+                        "warehouse_category": "Main",
+                        "product_category": [
+                          "Clothing",
+                          "Bedding"
+                        ],
+                        "created_at": "2023-11-17T13:00:00",
+                        "updated_at": "2023-11-17T13:00:00"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Update Warehouse Successed!",
+                  "warehouse_id": 1,
+                  "warehouse_name": "Main Warehouse",
+                  "location": "City AAA",
+                  "warehouse_category": "Main",
+                  "product_category": [
+                    "Clothing",
+                    "Bedding"
+                  ],
+                  "created_at": "2023-11-17T13:00:00",
+                  "updated_at": "2023-11-17T13:00:00"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/failed1"
+                    },
+                    {
+                      "example": {
+                        "Message": "Error update warehouse!"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Error update warehouse!"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "Warehouse"
+        ],
+        "summary": "Delete Warehouse",
+        "description": "Delete a specific warehouse",
+        "operationId": "deleteWarehouse",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/success2"
+                    },
+                    {
+                      "example": {
+                        "Message": "Delete Warehouse Successed!"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Delete Warehouse Successed!"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/failed1"
+                    },
+                    {
+                      "example": {
+                        "Message": "Error Delete, cant find a warehouse"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Error Delete, cant find a warehouse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/product_category": {
+      "get": {
+        "tags": [
+          "Product Category"
+        ],
+        "summary": "Read Product Category",
+        "description": "Read all available product categories",
+        "operationId": "getProductCategory",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/getAll2"
+                    },
+                    {
+                      "example": {
+                        "product_categories": [
+                          {
+                            "category_id": 1,
+                            "category_name": "Clothing",
+                            "description": "Fashion items for mothers"
+                          },
+                          {
+                            "category_id": 2,
+                            "category_name": "Baby Clothing",
+                            "description": "Adorable clothing for babies"
+                          },
+                          {
+                            "category_id": 3,
+                            "category_name": "Bedding",
+                            "description": "Comfortable bedding for mothers and babies"
+                          },
+                          {
+                            "category_id": 4,
+                            "category_name": "Baby Bedding",
+                            "description": "Cozy bedding for babies"
+                          },
+                          {
+                            "category_id": 5,
+                            "category_name": "Baby Gear",
+                            "description": "Essential gear for babies and parents on the go"
+                          },
+                          {
+                            "category_id": 6,
+                            "category_name": "Feeding",
+                            "description": "Products for feeding mothers and babies"
+                          },
+                          {
+                            "category_id": 7,
+                            "category_name": "Safety",
+                            "description": "Safety items for babies and toddlers"
+                          },
+                          {
+                            "category_id": 8,
+                            "category_name": "Maternity",
+                            "description": "Products for expectant mothers"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "product_categories": [
+                    {
+                      "category_id": 1,
+                      "category_name": "Clothing",
+                      "description": "Fashion items for mothers"
+                    },
+                    {
+                      "category_id": 2,
+                      "category_name": "Baby Clothing",
+                      "description": "Adorable clothing for babies"
+                    },
+                    {
+                      "category_id": 3,
+                      "category_name": "Bedding",
+                      "description": "Comfortable bedding for mothers and babies"
+                    },
+                    {
+                      "category_id": 4,
+                      "category_name": "Baby Bedding",
+                      "description": "Cozy bedding for babies"
+                    },
+                    {
+                      "category_id": 5,
+                      "category_name": "Baby Gear",
+                      "description": "Essential gear for babies and parents on the go"
+                    },
+                    {
+                      "category_id": 6,
+                      "category_name": "Feeding",
+                      "description": "Products for feeding mothers and babies"
+                    },
+                    {
+                      "category_id": 7,
+                      "category_name": "Safety",
+                      "description": "Safety items for babies and toddlers"
+                    },
+                    {
+                      "category_id": 8,
+                      "category_name": "Maternity",
+                      "description": "Products for expectant mothers"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/failed1"
+                    },
+                    {
+                      "example": {
+                        "Message": "Error can't find product category"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Error can't find product category"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "Product Category"
+        ],
+        "summary": "Create Product Category",
+        "description": "Add a New Product Category",
+        "operationId": "postProductCategory",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/productcategoryrequest"
+                  },
+                  {
+                    "example": {
+                      "category_id": 11,
+                      "category_name": "bicycle",
+                      "description": "Product for baby and mother"
+                    }
+                  }
+                ]
+              },
+              "example": {
+                "category_id": 11,
+                "category_name": "bicycle",
+                "description": "Product for baby and mother"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/success6"
+                    },
+                    {
+                      "example": {
+                        "Message": "Create Product Category Successed!",
+                        "category_id": 11,
+                        "category_name": "bicycle",
+                        "description": "Product for baby and mother"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Create Product Category Successed!",
+                  "category_id": 11,
+                  "category_name": "bicycle",
+                  "description": "Product for baby and mother"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/failed1"
+                    },
+                    {
+                      "example": {
+                        "Message": "Error crate a product category"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Error crate a product category"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "Product Category"
+        ],
+        "summary": "Update Product Category",
+        "description": "Update a specific (by ID) Product Category",
+        "operationId": "putProductCategory",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/productcategoryrequest"
+                  },
+                  {
+                    "example": {
+                      "category_id": 11,
+                      "category_name": "bicycle",
+                      "description": "Product for baby"
+                    }
+                  }
+                ]
+              },
+              "example": {
+                "category_id": 11,
+                "category_name": "bicycle",
+                "description": "Product for baby"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/success6"
+                    },
+                    {
+                      "example": {
+                        "Message": "Update product category successed!",
+                        "category_id": 11,
+                        "category_name": "bicycle",
+                        "description": "Product for baby"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Update product category successed!",
+                  "category_id": 11,
+                  "category_name": "bicycle",
+                  "description": "Product for baby"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/failed1"
+                    },
+                    {
+                      "example": {
+                        "Message": "Error cant update product category"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Error cant update product category"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "Product Category"
+        ],
+        "summary": "Delete Product Category",
+        "description": "Remove a specific (By ID) product category",
+        "operationId": "deleteProductCategory",
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/success2"
+                    },
+                    {
+                      "example": {
+                        "Message": "Delete category product successed!"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Delete category product successed!"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/warehouse_category": {
+      "get": {
+        "tags": [
+          "Warehouse Category"
+        ],
+        "summary": "Read Warehouse Category",
+        "description": "Get all active warehouse categories",
+        "operationId": "getWarehouseCategory",
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/getAll3"
+                    },
+                    {
+                      "example": {
+                        "warehouse_categories": [
+                          {
+                            "category_id": 1,
+                            "category_name": "Main",
+                            "description": "Main storage facility for various products"
+                          },
+                          {
+                            "category_id": 2,
+                            "category_name": "Baby",
+                            "description": "Storage facility for baby-related products"
+                          },
+                          {
+                            "category_id": 3,
+                            "category_name": "Home",
+                            "description": "Storage facility for home-related products"
+                          },
+                          {
+                            "category_id": 4,
+                            "category_name": "Nursery",
+                            "description": "Storage facility for nursery and baby care products"
+                          },
+                          {
+                            "category_id": 5,
+                            "category_name": "Outdoor",
+                            "description": "Storage facility for outdoor and travel products"
+                          },
+                          {
+                            "category_id": 6,
+                            "category_name": "Feeding",
+                            "description": "Storage facility for feeding-related products"
+                          },
+                          {
+                            "category_id": 7,
+                            "category_name": "Safety",
+                            "description": "Storage facility for safety and baby-proofing products"
+                          },
+                          {
+                            "category_id": 8,
+                            "category_name": "Maternity",
+                            "description": "Storage facility for maternity-related products"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "warehouse_categories": [
+                    {
+                      "category_id": 1,
+                      "category_name": "Main",
+                      "description": "Main storage facility for various products"
+                    },
+                    {
+                      "category_id": 2,
+                      "category_name": "Baby",
+                      "description": "Storage facility for baby-related products"
+                    },
+                    {
+                      "category_id": 3,
+                      "category_name": "Home",
+                      "description": "Storage facility for home-related products"
+                    },
+                    {
+                      "category_id": 4,
+                      "category_name": "Nursery",
+                      "description": "Storage facility for nursery and baby care products"
+                    },
+                    {
+                      "category_id": 5,
+                      "category_name": "Outdoor",
+                      "description": "Storage facility for outdoor and travel products"
+                    },
+                    {
+                      "category_id": 6,
+                      "category_name": "Feeding",
+                      "description": "Storage facility for feeding-related products"
+                    },
+                    {
+                      "category_id": 7,
+                      "category_name": "Safety",
+                      "description": "Storage facility for safety and baby-proofing products"
+                    },
+                    {
+                      "category_id": 8,
+                      "category_name": "Maternity",
+                      "description": "Storage facility for maternity-related products"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "Warehouse Category"
+        ],
+        "summary": "Create Warehouse Category",
+        "description": "Add a new active warehouse category",
+        "operationId": "postWarehouseCategory",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/warehousecategoryrequest"
+                  },
+                  {
+                    "example": {
+                      "category_id": 9,
+                      "category_name": "Electronics",
+                      "description": "Storage facility for electronic products"
+                    }
+                  }
+                ]
+              },
+              "example": {
+                "category_id": 9,
+                "category_name": "Electronics",
+                "description": "Storage facility for electronic products"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/success9"
+                    },
+                    {
+                      "example": {
+                        "Message": "Create Warehouse Category Successed!",
+                        "warehouse_categories": [
+                          {
+                            "category_id": 9,
+                            "category_name": "Electronics",
+                            "description": "Storage facility for electronic products"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Create Warehouse Category Successed!",
+                  "warehouse_categories": [
+                    {
+                      "category_id": 9,
+                      "category_name": "Electronics",
+                      "description": "Storage facility for electronic products"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/failed1"
+                    },
+                    {
+                      "example": {
+                        "Message": "Error Create Warehouse!"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Error Create Warehouse!"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "Warehouse Category"
+        ],
+        "summary": "Update Warehouse Category",
+        "description": "Update a specific (By ID) active warehouse category",
+        "operationId": "putWarehouseCategory",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/warehousecategoryrequest"
+                  },
+                  {
+                    "example": {
+                      "category_id": 9,
+                      "category_name": "Toys",
+                      "description": "Storage facility for children's toys"
+                    }
+                  }
+                ]
+              },
+              "example": {
+                "category_id": 9,
+                "category_name": "Toys",
+                "description": "Storage facility for children's toys"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/success6"
+                    },
+                    {
+                      "example": {
+                        "Message": "Update warehouse category successed!",
+                        "category_id": 9,
+                        "category_name": "Toys",
+                        "description": "Storage facility for children's toys"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Update warehouse category successed!",
+                  "category_id": 9,
+                  "category_name": "Toys",
+                  "description": "Storage facility for children's toys"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/failed1"
+                    },
+                    {
+                      "example": {
+                        "Message": "Error update warehouse category!"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Error update warehouse category!"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "Warehouse Category"
+        ],
+        "summary": "Delete Warehouse Category",
+        "description": "Remove a specific (By ID) active warehouse category",
+        "operationId": "deleteWarehouseCategory",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/success2"
+                    },
+                    {
+                      "example": {
+                        "Message": "Delete warehouse category successed!"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Delete warehouse category successed!"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/failed1"
+                    },
+                    {
+                      "example": {
+                        "Message": "Error delete warehouse category!"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Error delete warehouse category!"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/product_sent": {
+      "get": {
+        "tags": [
+          "Product Sent"
+        ],
+        "summary": "Read Product Sent",
+        "description": "Get all outgoing/sent products",
+        "operationId": "getProductSent",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/getAll4"
+                    },
+                    {
+                      "example": {
+                        "product_sent": [
+                          {
+                            "sent_id": 3,
+                            "product_id": "PROD-003",
+                            "quantity": 5,
+                            "user_id": 6543,
+                            "username": "JaneSmith",
+                            "warehouse_id": "WH-002",
+                            "warehouse_name": "Warehouse B",
+                            "tracking_number": "TRK-987654321",
+                            "target_address": "456 Oak Avenue, Townsville",
+                            "product_sent_status": "Delivered",
+                            "sent_at": "2023-11-17T10:30:00Z"
+                          },
+                          {
+                            "sent_id": 4,
+                            "product_id": "PROD-004",
+                            "quantity": 3,
+                            "user_id": 8765,
+                            "username": "SarahJohnson",
+                            "warehouse_id": "WH-003",
+                            "warehouse_name": "Warehouse C",
+                            "tracking_number": "TRK-567890123",
+                            "target_address": "789 Cedar Street, Villagetown",
+                            "product_sent_status": "In transit",
+                            "sent_at": "2023-11-17T09:45:00Z"
+                          },
+                          {
+                            "sent_id": 5,
+                            "product_id": "PROD-005",
+                            "quantity": 7,
+                            "user_id": 2345,
+                            "username": "DavidBrown",
+                            "warehouse_id": "WH-001",
+                            "warehouse_name": "Warehouse A",
+                            "tracking_number": "TRK-345678901",
+                            "target_address": "321 Elm Street, Hamlet",
+                            "product_sent_status": "Pending",
+                            "sent_at": "2023-11-17T11:20:00Z"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "product_sent": [
+                    {
+                      "sent_id": 3,
+                      "product_id": "PROD-003",
+                      "quantity": 5,
+                      "user_id": 6543,
+                      "username": "JaneSmith",
+                      "warehouse_id": "WH-002",
+                      "warehouse_name": "Warehouse B",
+                      "tracking_number": "TRK-987654321",
+                      "target_address": "456 Oak Avenue, Townsville",
+                      "product_sent_status": "Delivered",
+                      "sent_at": "2023-11-17T10:30:00Z"
+                    },
+                    {
+                      "sent_id": 4,
+                      "product_id": "PROD-004",
+                      "quantity": 3,
+                      "user_id": 8765,
+                      "username": "SarahJohnson",
+                      "warehouse_id": "WH-003",
+                      "warehouse_name": "Warehouse C",
+                      "tracking_number": "TRK-567890123",
+                      "target_address": "789 Cedar Street, Villagetown",
+                      "product_sent_status": "In transit",
+                      "sent_at": "2023-11-17T09:45:00Z"
+                    },
+                    {
+                      "sent_id": 5,
+                      "product_id": "PROD-005",
+                      "quantity": 7,
+                      "user_id": 2345,
+                      "username": "DavidBrown",
+                      "warehouse_id": "WH-001",
+                      "warehouse_name": "Warehouse A",
+                      "tracking_number": "TRK-345678901",
+                      "target_address": "321 Elm Street, Hamlet",
+                      "product_sent_status": "Pending",
+                      "sent_at": "2023-11-17T11:20:00Z"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/failed1"
+                    },
+                    {
+                      "example": {
+                        "Message": "Error can't find sent id"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Error can't find sent id"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "Product Sent"
+        ],
+        "summary": "Create Product Sent",
+        "description": "Add a currently outgoing/ sent product",
+        "operationId": "postProductSent",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/productsentrequest"
+                  },
+                  {
+                    "example": {
+                      "sent_id": 3,
+                      "product_id": "PROD-003",
+                      "quantity": 5,
+                      "user_id": 6543,
+                      "username": "JaneSmith",
+                      "warehouse_id": "WH-002",
+                      "warehouse_name": "Warehouse B",
+                      "tracking_number": "TRK-987654321",
+                      "target_address": "456 Oak Avenue, Townsville",
+                      "product_sent_status": "Delivered",
+                      "sent_at": "2023-11-17T10:30:00Z"
+                    }
+                  }
+                ]
+              },
+              "example": {
+                "sent_id": 3,
+                "product_id": "PROD-003",
+                "quantity": 5,
+                "user_id": 6543,
+                "username": "JaneSmith",
+                "warehouse_id": "WH-002",
+                "warehouse_name": "Warehouse B",
+                "tracking_number": "TRK-987654321",
+                "target_address": "456 Oak Avenue, Townsville",
+                "product_sent_status": "Delivered",
+                "sent_at": "2023-11-17T10:30:00Z"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/success12"
+                    },
+                    {
+                      "example": {
+                        "Message": "Create product_sent Successed!",
+                        "sent_id": 3,
+                        "product_id": "PROD-003",
+                        "quantity": 5,
+                        "user_id": 6543,
+                        "username": "JaneSmith",
+                        "warehouse_id": "WH-002",
+                        "warehouse_name": "Warehouse B",
+                        "tracking_number": "TRK-987654321",
+                        "target_address": "456 Oak Avenue, Townsville",
+                        "product_sent_status": "Delivered",
+                        "sent_at": "2023-11-17T10:30:00Z"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Create product_sent Successed!",
+                  "sent_id": 3,
+                  "product_id": "PROD-003",
+                  "quantity": 5,
+                  "user_id": 6543,
+                  "username": "JaneSmith",
+                  "warehouse_id": "WH-002",
+                  "warehouse_name": "Warehouse B",
+                  "tracking_number": "TRK-987654321",
+                  "target_address": "456 Oak Avenue, Townsville",
+                  "product_sent_status": "Delivered",
+                  "sent_at": "2023-11-17T10:30:00Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/failed1"
+                    },
+                    {
+                      "example": {
+                        "Message": "Error create a product sent"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Error create a product sent"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "Product Sent"
+        ],
+        "summary": "Update Product Sent",
+        "description": "Update the status of a specific (By ID) outgoing/sent product",
+        "operationId": "putProductSent",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 3
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/productsentrequest"
+                  },
+                  {
+                    "example": {
+                      "sent_id": 4,
+                      "product_id": "PROD-003",
+                      "quantity": 5,
+                      "user_id": 6543,
+                      "username": "JaneSmith",
+                      "warehouse_id": "WH-002",
+                      "warehouse_name": "Warehouse B",
+                      "tracking_number": "TRK-987654321",
+                      "target_address": "456 Oak Avenue, Townsville",
+                      "product_sent_status": "Delivered",
+                      "sent_at": "2023-11-17T10:30:00Z"
+                    }
+                  }
+                ]
+              },
+              "example": {
+                "sent_id": 4,
+                "product_id": "PROD-003",
+                "quantity": 5,
+                "user_id": 6543,
+                "username": "JaneSmith",
+                "warehouse_id": "WH-002",
+                "warehouse_name": "Warehouse B",
+                "tracking_number": "TRK-987654321",
+                "target_address": "456 Oak Avenue, Townsville",
+                "product_sent_status": "Delivered",
+                "sent_at": "2023-11-17T10:30:00Z"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/success12"
+                    },
+                    {
+                      "example": {
+                        "Message": "Update product_sent Successed!",
+                        "sent_id": 4,
+                        "product_id": "PROD-003",
+                        "quantity": 5,
+                        "user_id": 6543,
+                        "username": "JaneSmith",
+                        "warehouse_id": "WH-002",
+                        "warehouse_name": "Warehouse B",
+                        "tracking_number": "TRK-987654321",
+                        "target_address": "456 Oak Avenue, Townsville",
+                        "product_sent_status": "Delivered",
+                        "sent_at": "2023-11-17T10:30:00Z"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Update product_sent Successed!",
+                  "sent_id": 4,
+                  "product_id": "PROD-003",
+                  "quantity": 5,
+                  "user_id": 6543,
+                  "username": "JaneSmith",
+                  "warehouse_id": "WH-002",
+                  "warehouse_name": "Warehouse B",
+                  "tracking_number": "TRK-987654321",
+                  "target_address": "456 Oak Avenue, Townsville",
+                  "product_sent_status": "Delivered",
+                  "sent_at": "2023-11-17T10:30:00Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/failed1"
+                    },
+                    {
+                      "example": {
+                        "Message": "Error update a product sent"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Message": "Error update a product sent"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "registerUserRequest": {
+        "title": "registerUserRequest",
+        "required": [
+          "first_name",
+          "last_name",
+          "username",
+          "email",
+          "password",
+          "user_address"
+        ],
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "user_address": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "first_name": "Reza",
+          "last_name": "Akbar",
+          "username": "rezaakbar36",
+          "email": "rezaakbar36@gmail.com",
+          "password": "aksjdhaskjd",
+          "user_address": "Jl. Cisitu Lama"
+        }
+      },
+      "loginUserRequest": {
+        "title": "loginUserRequest",
+        "required": [
+          "username",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "username": "rezaakbar36",
+          "password": "aksjdhaskjd"
+        }
+      },
+      "getAll": {
+        "title": "getAll",
+        "required": [
+          "product"
+        ],
+        "type": "object",
+        "properties": {
+          "product": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Product"
+            },
+            "description": ""
+          }
+        },
+        "example": {
+          "product": [
+            {
+              "id": 1,
+              "code": "P001",
+              "name": "Mother's Dress",
+              "stock": 100,
+              "quantity": 1,
+              "category": "Clothing",
+              "warehouse": {
+                "id": 1,
+                "name": "Main Warehouse"
+              },
+              "image": "url_to_mothers_dress_image.jpg",
+              "status": "Active",
+              "created_at": "2023-11-17T12:00:00",
+              "updated_at": "2023-11-17T12:00:00"
+            },
+            {
+              "id": 2,
+              "code": "P002",
+              "name": "Baby Onesie",
+              "stock": 50,
+              "quantity": 1,
+              "category": "Baby Clothing",
+              "warehouse": {
+                "id": 2,
+                "name": "Baby Warehouse"
+              },
+              "image": "url_to_baby_onesie_image.jpg",
+              "status": "Active",
+              "created_at": "2023-11-17T12:30:00",
+              "updated_at": "2023-11-17T12:30:00"
+            },
+            {
+              "id": 3,
+              "code": "P003",
+              "name": "Maternity Pillow",
+              "stock": 30,
+              "quantity": 1,
+              "category": "Bedding",
+              "warehouse": {
+                "id": 3,
+                "name": "Home Warehouse"
+              },
+              "image": "url_to_maternity_pillow_image.jpg",
+              "status": "Active",
+              "created_at": "2023-11-17T13:00:00",
+              "updated_at": "2023-11-17T13:00:00"
+            },
+            {
+              "id": 4,
+              "code": "P004",
+              "name": "Baby Blanket",
+              "stock": 80,
+              "quantity": 1,
+              "category": "Baby Bedding",
+              "warehouse": {
+                "id": 4,
+                "name": "Nursery Warehouse"
+              },
+              "image": "url_to_baby_blanket_image.jpg",
+              "status": "Active",
+              "created_at": "2023-11-17T13:30:00",
+              "updated_at": "2023-11-17T13:30:00"
+            },
+            {
+              "id": 5,
+              "code": "P005",
+              "name": "Stroller",
+              "stock": 20,
+              "quantity": 1,
+              "category": "Baby Gear",
+              "warehouse": {
+                "id": 5,
+                "name": "Outdoor Warehouse"
+              },
+              "image": "url_to_stroller_image.jpg",
+              "status": "Active",
+              "created_at": "2023-11-17T14:00:00",
+              "updated_at": "2023-11-17T14:00:00"
+            },
+            {
+              "id": 6,
+              "code": "P006",
+              "name": "Breast Pump",
+              "stock": 15,
+              "quantity": 1,
+              "category": "Feeding",
+              "warehouse": {
+                "id": 6,
+                "name": "Feeding Warehouse"
+              },
+              "image": "url_to_breast_pump_image.jpg",
+              "status": "Active",
+              "created_at": "2023-11-17T14:30:00",
+              "updated_at": "2023-11-17T14:30:00"
+            },
+            {
+              "id": 7,
+              "code": "P007",
+              "name": "Baby Monitor",
+              "stock": 25,
+              "quantity": 1,
+              "category": "Safety",
+              "warehouse": {
+                "id": 7,
+                "name": "Safety Warehouse"
+              },
+              "image": "url_to_baby_monitor_image.jpg",
+              "status": "Active",
+              "created_at": "2023-11-17T15:00:00",
+              "updated_at": "2023-11-17T15:00:00"
+            },
+            {
+              "id": 8,
+              "code": "P008",
+              "name": "Nursing Pillow",
+              "stock": 40,
+              "quantity": 1,
+              "category": "Feeding",
+              "warehouse": {
+                "id": 8,
+                "name": "Feeding Warehouse"
+              },
+              "image": "url_to_nursing_pillow_image.jpg",
+              "status": "Active",
+              "created_at": "2023-11-17T15:30:00",
+              "updated_at": "2023-11-17T15:30:00"
+            },
+            {
+              "id": 9,
+              "code": "P009",
+              "name": "Baby High Chair",
+              "stock": 10,
+              "quantity": 1,
+              "category": "Feeding",
+              "warehouse": {
+                "id": 9,
+                "name": "Feeding Warehouse"
+              },
+              "image": "url_to_high_chair_image.jpg",
+              "status": "Active",
+              "created_at": "2023-11-17T16:00:00",
+              "updated_at": "2023-11-17T16:00:00"
+            },
+            {
+              "id": 10,
+              "code": "P010",
+              "name": "Pregnancy Journal",
+              "stock": 60,
+              "quantity": 1,
+              "category": "Maternity",
+              "warehouse": {
+                "id": 10,
+                "name": "Maternity Warehouse"
+              },
+              "image": "url_to_pregnancy_journal_image.jpg",
+              "status": "Active",
+              "created_at": "2023-11-17T16:30:00",
+              "updated_at": "2023-11-17T16:30:00"
+            }
+          ]
+        }
+      },
+      "Product": {
+        "title": "Product",
+        "required": [
+          "id",
+          "code",
+          "name",
+          "stock",
+          "quantity",
+          "category",
+          "warehouse",
+          "image",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "stock": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "category": {
+            "type": "string"
+          },
+          "warehouse": {
+            "$ref": "#/components/schemas/Warehouse"
+          },
+          "image": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "id": 1,
+          "code": "P001",
+          "name": "Mother's Dress",
+          "stock": 100,
+          "quantity": 1,
+          "category": "Clothing",
+          "warehouse": {
+            "id": 1,
+            "name": "Main Warehouse"
+          },
+          "image": "url_to_mothers_dress_image.jpg",
+          "status": "Active",
+          "created_at": "2023-11-17T12:00:00",
+          "updated_at": "2023-11-17T12:00:00"
+        }
+      },
+      "Warehouse": {
+        "title": "Warehouse",
+        "required": [
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "id": 1,
+          "name": "Main Warehouse"
+        }
+      },
+      "byId": {
+        "title": "byId",
+        "required": [
+          "id",
+          "code",
+          "name",
+          "stock",
+          "quantity",
+          "category",
+          "warehouse",
+          "image",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "stock": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "category": {
+            "type": "string"
+          },
+          "warehouse": {
+            "$ref": "#/components/schemas/Warehouse"
+          },
+          "image": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "id": 1,
+          "code": "P001",
+          "name": "Mother's Dress",
+          "stock": 100,
+          "quantity": 1,
+          "category": "Clothing",
+          "warehouse": {
+            "id": 1,
+            "name": "Main Warehouse"
+          },
+          "image": "url_to_mothers_dress_image.jpg",
+          "status": "Active",
+          "created_at": "2023-11-17T12:00:00",
+          "updated_at": "2023-11-17T12:00:00"
+        }
+      },
+      "failed1": {
+        "title": "failed1",
+        "required": [
+          "Message"
+        ],
+        "type": "object",
+        "properties": {
+          "Message": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "Message": "Error cant find a product"
+        }
+      },
+      "productrequest": {
+        "title": "productrequest",
+        "required": [
+          "id",
+          "code",
+          "name",
+          "stock",
+          "quantity",
+          "category",
+          "warehouse",
+          "image",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "stock": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "category": {
+            "type": "string"
+          },
+          "warehouse": {
+            "$ref": "#/components/schemas/Warehouse"
+          },
+          "image": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "id": 12,
+          "code": "P012",
+          "name": "Mother's Gloves ",
+          "stock": 90,
+          "quantity": 1,
+          "category": "Clothing",
+          "warehouse": {
+            "id": 101,
+            "name": "Main Warehouse"
+          },
+          "image": "url_to_mothers_gloves_image.jpg",
+          "status": "Active",
+          "created_at": "2023-11-17T13:00:00",
+          "updated_at": "2023-11-17T13:00:00"
+        }
+      },
+      "success": {
+        "title": "success",
+        "required": [
+          "Message",
+          "id",
+          "code",
+          "name",
+          "stock",
+          "quantity",
+          "category",
+          "warehouse",
+          "image",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "type": "object",
+        "properties": {
+          "Message": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "stock": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "category": {
+            "type": "string"
+          },
+          "warehouse": {
+            "$ref": "#/components/schemas/Warehouse"
+          },
+          "image": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "Message": "Create New Product Success!",
+          "id": 11,
+          "code": "P011",
+          "name": "Mother's socks ",
+          "stock": 90,
+          "quantity": 1,
+          "category": "Clothing",
+          "warehouse": {
+            "id": 101,
+            "name": "Main Warehouse"
+          },
+          "image": "url_to_mothers_socks_image.jpg",
+          "status": "Active",
+          "created_at": "2023-11-17T14:00:00",
+          "updated_at": "2023-11-17T14:00:00"
+        }
+      },
+      "success2": {
+        "title": "success2",
+        "required": [
+          "Message"
+        ],
+        "type": "object",
+        "properties": {
+          "Message": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "Message": "Delete Product Successed!"
+        }
+      },
+      "getAll1": {
+        "title": "getAll1",
+        "required": [
+          "warehouses"
+        ],
+        "type": "object",
+        "properties": {
+          "warehouses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Warehouse6"
+            },
+            "description": ""
+          }
+        },
+        "example": {
+          "warehouses": [
+            {
+              "warehouse_id": 1,
+              "warehouse_name": "Main Warehouse",
+              "location": "City A",
+              "warehouse_category": "Main",
+              "product_category": [
+                "Clothing",
+                "Bedding"
+              ],
+              "created_at": "2023-11-17T12:00:00",
+              "updated_at": "2023-11-17T12:00:00"
+            },
+            {
+              "warehouse_id": 2,
+              "warehouse_name": "Baby Warehouse",
+              "location": "City B",
+              "warehouse_category": "Baby",
+              "product_category": [
+                "Baby Clothing",
+                "Baby Bedding"
+              ],
+              "created_at": "2023-11-17T12:30:00",
+              "updated_at": "2023-11-17T12:30:00"
+            },
+            {
+              "warehouse_id": 3,
+              "warehouse_name": "Home Warehouse",
+              "location": "City C",
+              "warehouse_category": "Home",
+              "product_category": [
+                "Bedding"
+              ],
+              "created_at": "2023-11-17T13:00:00",
+              "updated_at": "2023-11-17T13:00:00"
+            },
+            {
+              "warehouse_id": 4,
+              "warehouse_name": "Nursery Warehouse",
+              "location": "City D",
+              "warehouse_category": "Nursery",
+              "product_category": [
+                "Baby Bedding"
+              ],
+              "created_at": "2023-11-17T13:30:00",
+              "updated_at": "2023-11-17T13:30:00"
+            },
+            {
+              "warehouse_id": 5,
+              "warehouse_name": "Outdoor Warehouse",
+              "location": "City E",
+              "warehouse_category": "Outdoor",
+              "product_category": [
+                "Baby Gear"
+              ],
+              "created_at": "2023-11-17T14:00:00",
+              "updated_at": "2023-11-17T14:00:00"
+            },
+            {
+              "warehouse_id": 6,
+              "warehouse_name": "Feeding Warehouse",
+              "location": "City F",
+              "warehouse_category": "Feeding",
+              "product_category": [
+                "Feeding"
+              ],
+              "created_at": "2023-11-17T14:30:00",
+              "updated_at": "2023-11-17T14:30:00"
+            },
+            {
+              "warehouse_id": 7,
+              "warehouse_name": "Safety Warehouse",
+              "location": "City G",
+              "warehouse_category": "Safety",
+              "product_category": [
+                "Safety"
+              ],
+              "created_at": "2023-11-17T15:00:00",
+              "updated_at": "2023-11-17T15:00:00"
+            },
+            {
+              "warehouse_id": 8,
+              "warehouse_name": "Feeding Warehouse",
+              "location": "City H",
+              "warehouse_category": "Feeding",
+              "product_category": [
+                "Feeding"
+              ],
+              "created_at": "2023-11-17T15:30:00",
+              "updated_at": "2023-11-17T15:30:00"
+            },
+            {
+              "warehouse_id": 9,
+              "warehouse_name": "Feeding Warehouse",
+              "location": "City I",
+              "warehouse_category": "Feeding",
+              "product_category": [
+                "Feeding"
+              ],
+              "created_at": "2023-11-17T16:00:00",
+              "updated_at": "2023-11-17T16:00:00"
+            },
+            {
+              "warehouse_id": 10,
+              "warehouse_name": "Maternity Warehouse",
+              "location": "City J",
+              "warehouse_category": "Maternity",
+              "product_category": [
+                "Maternity"
+              ],
+              "created_at": "2023-11-17T16:30:00",
+              "updated_at": "2023-11-17T16:30:00"
+            }
+          ]
+        }
+      },
+      "Warehouse6": {
+        "title": "Warehouse6",
+        "required": [
+          "warehouse_id",
+          "warehouse_name",
+          "location",
+          "warehouse_category",
+          "product_category",
+          "created_at",
+          "updated_at"
+        ],
+        "type": "object",
+        "properties": {
+          "warehouse_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "warehouse_name": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "warehouse_category": {
+            "type": "string"
+          },
+          "product_category": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": ""
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "warehouse_id": 1,
+          "warehouse_name": "Main Warehouse",
+          "location": "City A",
+          "warehouse_category": "Main",
+          "product_category": [
+            "Clothing",
+            "Bedding"
+          ],
+          "created_at": "2023-11-17T12:00:00",
+          "updated_at": "2023-11-17T12:00:00"
+        }
+      },
+      "byId1": {
+        "title": "byId1",
+        "required": [
+          "warehouse_id",
+          "warehouse_name",
+          "location",
+          "warehouse_category",
+          "product_category",
+          "created_at",
+          "updated_at"
+        ],
+        "type": "object",
+        "properties": {
+          "warehouse_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "warehouse_name": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "warehouse_category": {
+            "type": "string"
+          },
+          "product_category": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": ""
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "warehouse_id": 1,
+          "warehouse_name": "Main Warehouse",
+          "location": "City A",
+          "warehouse_category": "Main",
+          "product_category": [
+            "Clothing",
+            "Bedding"
+          ],
+          "created_at": "2023-11-17T12:00:00",
+          "updated_at": "2023-11-17T12:00:00"
+        }
+      },
+      "warehouserequest": {
+        "title": "warehouserequest",
+        "required": [
+          "warehouse_id",
+          "warehouse_name",
+          "location",
+          "warehouse_category",
+          "product_category",
+          "created_at",
+          "updated_at"
+        ],
+        "type": "object",
+        "properties": {
+          "warehouse_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "warehouse_name": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "warehouse_category": {
+            "type": "string"
+          },
+          "product_category": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": ""
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "warehouse_id": 101,
+          "warehouse_name": "Main Warehouse",
+          "location": "City A",
+          "warehouse_category": "Main",
+          "product_category": [
+            "Clothing",
+            "Bedding"
+          ],
+          "created_at": "2023-11-17T12:00:00",
+          "updated_at": "2023-11-17T12:00:00"
+        }
+      },
+      "success3": {
+        "title": "success3",
+        "required": [
+          "Message",
+          "warehouse_id",
+          "warehouse_name",
+          "location",
+          "warehouse_category",
+          "product_category",
+          "created_at",
+          "updated_at"
+        ],
+        "type": "object",
+        "properties": {
+          "Message": {
+            "type": "string"
+          },
+          "warehouse_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "warehouse_name": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "warehouse_category": {
+            "type": "string"
+          },
+          "product_category": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": ""
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "Message": "Create Warehouse Successed!",
+          "warehouse_id": 101,
+          "warehouse_name": "Main Warehouse",
+          "location": "City A",
+          "warehouse_category": "Main",
+          "product_category": [
+            "Clothing",
+            "Bedding"
+          ],
+          "created_at": "2023-11-17T12:00:00",
+          "updated_at": "2023-11-17T12:00:00"
+        }
+      },
+      "werehouserequest": {
+        "title": "werehouserequest",
+        "required": [
+          "warehouse_id",
+          "warehouse_name",
+          "location",
+          "warehouse_category",
+          "product_category",
+          "created_at",
+          "updated_at"
+        ],
+        "type": "object",
+        "properties": {
+          "warehouse_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "warehouse_name": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "warehouse_category": {
+            "type": "string"
+          },
+          "product_category": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": ""
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "warehouse_id": 1,
+          "warehouse_name": "Main Warehouse",
+          "location": "City AAA",
+          "warehouse_category": "Main",
+          "product_category": [
+            "Clothing",
+            "Bedding"
+          ],
+          "created_at": "2023-11-17T13:00:00",
+          "updated_at": "2023-11-17T13:00:00"
+        }
+      },
+      "getAll2": {
+        "title": "getAll2",
+        "required": [
+          "product_categories"
+        ],
+        "type": "object",
+        "properties": {
+          "product_categories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductCategory"
+            },
+            "description": ""
+          }
+        },
+        "example": {
+          "product_categories": [
+            {
+              "category_id": 1,
+              "category_name": "Clothing",
+              "description": "Fashion items for mothers"
+            },
+            {
+              "category_id": 2,
+              "category_name": "Baby Clothing",
+              "description": "Adorable clothing for babies"
+            },
+            {
+              "category_id": 3,
+              "category_name": "Bedding",
+              "description": "Comfortable bedding for mothers and babies"
+            },
+            {
+              "category_id": 4,
+              "category_name": "Baby Bedding",
+              "description": "Cozy bedding for babies"
+            },
+            {
+              "category_id": 5,
+              "category_name": "Baby Gear",
+              "description": "Essential gear for babies and parents on the go"
+            },
+            {
+              "category_id": 6,
+              "category_name": "Feeding",
+              "description": "Products for feeding mothers and babies"
+            },
+            {
+              "category_id": 7,
+              "category_name": "Safety",
+              "description": "Safety items for babies and toddlers"
+            },
+            {
+              "category_id": 8,
+              "category_name": "Maternity",
+              "description": "Products for expectant mothers"
+            }
+          ]
+        }
+      },
+      "ProductCategory": {
+        "title": "ProductCategory",
+        "required": [
+          "category_id",
+          "category_name",
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "category_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "category_name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "category_id": 1,
+          "category_name": "Clothing",
+          "description": "Fashion items for mothers"
+        }
+      },
+      "byId2": {
+        "title": "byId2",
+        "required": [
+          "category_id",
+          "category_name",
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "category_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "category_name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "category_id": 1,
+          "category_name": "Clothing",
+          "description": "Fashion items for mothers"
+        }
+      },
+      "productcategoryrequest": {
+        "title": "productcategoryrequest",
+        "required": [
+          "category_id",
+          "category_name",
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "category_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "category_name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "category_id": 11,
+          "category_name": "bicycle",
+          "description": "Product for baby and mother"
+        }
+      },
+      "success6": {
+        "title": "success6",
+        "required": [
+          "Message",
+          "category_id",
+          "category_name",
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "Message": {
+            "type": "string"
+          },
+          "category_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "category_name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "Message": "Create Product Category Successed!",
+          "category_id": 11,
+          "category_name": "bicycle",
+          "description": "Product for baby and mother"
+        }
+      },
+      "getAll3": {
+        "title": "getAll3",
+        "required": [
+          "warehouse_categories"
+        ],
+        "type": "object",
+        "properties": {
+          "warehouse_categories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WarehouseCategory"
+            },
+            "description": ""
+          }
+        },
+        "example": {
+          "warehouse_categories": [
+            {
+              "category_id": 1,
+              "category_name": "Main",
+              "description": "Main storage facility for various products"
+            },
+            {
+              "category_id": 2,
+              "category_name": "Baby",
+              "description": "Storage facility for baby-related products"
+            },
+            {
+              "category_id": 3,
+              "category_name": "Home",
+              "description": "Storage facility for home-related products"
+            },
+            {
+              "category_id": 4,
+              "category_name": "Nursery",
+              "description": "Storage facility for nursery and baby care products"
+            },
+            {
+              "category_id": 5,
+              "category_name": "Outdoor",
+              "description": "Storage facility for outdoor and travel products"
+            },
+            {
+              "category_id": 6,
+              "category_name": "Feeding",
+              "description": "Storage facility for feeding-related products"
+            },
+            {
+              "category_id": 7,
+              "category_name": "Safety",
+              "description": "Storage facility for safety and baby-proofing products"
+            },
+            {
+              "category_id": 8,
+              "category_name": "Maternity",
+              "description": "Storage facility for maternity-related products"
+            }
+          ]
+        }
+      },
+      "WarehouseCategory": {
+        "title": "WarehouseCategory",
+        "required": [
+          "category_id",
+          "category_name",
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "category_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "category_name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "category_id": 1,
+          "category_name": "Main",
+          "description": "Main storage facility for various products"
+        }
+      },
+      "byId3": {
+        "title": "byId3",
+        "required": [
+          "warehouse_categories"
+        ],
+        "type": "object",
+        "properties": {
+          "warehouse_categories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WarehouseCategory"
+            },
+            "description": ""
+          }
+        },
+        "example": {
+          "warehouse_categories": [
+            {
+              "category_id": 1,
+              "category_name": "Main",
+              "description": "Main storage facility for various products"
+            }
+          ]
+        }
+      },
+      "warehousecategoryrequest": {
+        "title": "warehousecategoryrequest",
+        "required": [
+          "category_id",
+          "category_name",
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "category_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "category_name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "category_id": 9,
+          "category_name": "Electronics",
+          "description": "Storage facility for electronic products"
+        }
+      },
+      "success9": {
+        "title": "success9",
+        "required": [
+          "Message",
+          "warehouse_categories"
+        ],
+        "type": "object",
+        "properties": {
+          "Message": {
+            "type": "string"
+          },
+          "warehouse_categories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WarehouseCategory"
+            },
+            "description": ""
+          }
+        },
+        "example": {
+          "Message": "Create Warehouse Category Successed!",
+          "warehouse_categories": [
+            {
+              "category_id": 9,
+              "category_name": "Electronics",
+              "description": "Storage facility for electronic products"
+            }
+          ]
+        }
+      },
+      "getAll4": {
+        "title": "getAll4",
+        "required": [
+          "product_sent"
+        ],
+        "type": "object",
+        "properties": {
+          "product_sent": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductSent"
+            },
+            "description": ""
+          }
+        },
+        "example": {
+          "product_sent": [
+            {
+              "sent_id": 3,
+              "product_id": "PROD-003",
+              "quantity": 5,
+              "user_id": 6543,
+              "username": "JaneSmith",
+              "warehouse_id": "WH-002",
+              "warehouse_name": "Warehouse B",
+              "tracking_number": "TRK-987654321",
+              "target_address": "456 Oak Avenue, Townsville",
+              "product_sent_status": "Delivered",
+              "sent_at": "2023-11-17T10:30:00Z"
+            },
+            {
+              "sent_id": 4,
+              "product_id": "PROD-004",
+              "quantity": 3,
+              "user_id": 8765,
+              "username": "SarahJohnson",
+              "warehouse_id": "WH-003",
+              "warehouse_name": "Warehouse C",
+              "tracking_number": "TRK-567890123",
+              "target_address": "789 Cedar Street, Villagetown",
+              "product_sent_status": "In transit",
+              "sent_at": "2023-11-17T09:45:00Z"
+            },
+            {
+              "sent_id": 5,
+              "product_id": "PROD-005",
+              "quantity": 7,
+              "user_id": 2345,
+              "username": "DavidBrown",
+              "warehouse_id": "WH-001",
+              "warehouse_name": "Warehouse A",
+              "tracking_number": "TRK-345678901",
+              "target_address": "321 Elm Street, Hamlet",
+              "product_sent_status": "Pending",
+              "sent_at": "2023-11-17T11:20:00Z"
+            }
+          ]
+        }
+      },
+      "ProductSent": {
+        "title": "ProductSent",
+        "required": [
+          "sent_id",
+          "product_id",
+          "quantity",
+          "user_id",
+          "username",
+          "warehouse_id",
+          "warehouse_name",
+          "tracking_number",
+          "target_address",
+          "product_sent_status",
+          "sent_at"
+        ],
+        "type": "object",
+        "properties": {
+          "sent_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "product_id": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "user_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "username": {
+            "type": "string"
+          },
+          "warehouse_id": {
+            "type": "string"
+          },
+          "warehouse_name": {
+            "type": "string"
+          },
+          "tracking_number": {
+            "type": "string"
+          },
+          "target_address": {
+            "type": "string"
+          },
+          "product_sent_status": {
+            "type": "string"
+          },
+          "sent_at": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "sent_id": 3,
+          "product_id": "PROD-003",
+          "quantity": 5,
+          "user_id": 6543,
+          "username": "JaneSmith",
+          "warehouse_id": "WH-002",
+          "warehouse_name": "Warehouse B",
+          "tracking_number": "TRK-987654321",
+          "target_address": "456 Oak Avenue, Townsville",
+          "product_sent_status": "Delivered",
+          "sent_at": "2023-11-17T10:30:00Z"
+        }
+      },
+      "byId4": {
+        "title": "byId4",
+        "required": [
+          "sent_id",
+          "product_id",
+          "quantity",
+          "user_id",
+          "username",
+          "warehouse_id",
+          "warehouse_name",
+          "tracking_number",
+          "target_address",
+          "product_sent_status",
+          "sent_at"
+        ],
+        "type": "object",
+        "properties": {
+          "sent_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "product_id": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "user_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "username": {
+            "type": "string"
+          },
+          "warehouse_id": {
+            "type": "string"
+          },
+          "warehouse_name": {
+            "type": "string"
+          },
+          "tracking_number": {
+            "type": "string"
+          },
+          "target_address": {
+            "type": "string"
+          },
+          "product_sent_status": {
+            "type": "string"
+          },
+          "sent_at": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "sent_id": 3,
+          "product_id": "PROD-003",
+          "quantity": 5,
+          "user_id": 6543,
+          "username": "JaneSmith",
+          "warehouse_id": "WH-002",
+          "warehouse_name": "Warehouse B",
+          "tracking_number": "TRK-987654321",
+          "target_address": "456 Oak Avenue, Townsville",
+          "product_sent_status": "Delivered",
+          "sent_at": "2023-11-17T10:30:00Z"
+        }
+      },
+      "productsentrequest": {
+        "title": "productsentrequest",
+        "required": [
+          "sent_id",
+          "product_id",
+          "quantity",
+          "user_id",
+          "username",
+          "warehouse_id",
+          "warehouse_name",
+          "tracking_number",
+          "target_address",
+          "product_sent_status",
+          "sent_at"
+        ],
+        "type": "object",
+        "properties": {
+          "sent_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "product_id": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "user_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "username": {
+            "type": "string"
+          },
+          "warehouse_id": {
+            "type": "string"
+          },
+          "warehouse_name": {
+            "type": "string"
+          },
+          "tracking_number": {
+            "type": "string"
+          },
+          "target_address": {
+            "type": "string"
+          },
+          "product_sent_status": {
+            "type": "string"
+          },
+          "sent_at": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "sent_id": 3,
+          "product_id": "PROD-003",
+          "quantity": 5,
+          "user_id": 6543,
+          "username": "JaneSmith",
+          "warehouse_id": "WH-002",
+          "warehouse_name": "Warehouse B",
+          "tracking_number": "TRK-987654321",
+          "target_address": "456 Oak Avenue, Townsville",
+          "product_sent_status": "Delivered",
+          "sent_at": "2023-11-17T10:30:00Z"
+        }
+      },
+      "success12": {
+        "title": "success12",
+        "required": [
+          "Message",
+          "sent_id",
+          "product_id",
+          "quantity",
+          "user_id",
+          "username",
+          "warehouse_id",
+          "warehouse_name",
+          "tracking_number",
+          "target_address",
+          "product_sent_status",
+          "sent_at"
+        ],
+        "type": "object",
+        "properties": {
+          "Message": {
+            "type": "string"
+          },
+          "sent_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "product_id": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "user_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "username": {
+            "type": "string"
+          },
+          "warehouse_id": {
+            "type": "string"
+          },
+          "warehouse_name": {
+            "type": "string"
+          },
+          "tracking_number": {
+            "type": "string"
+          },
+          "target_address": {
+            "type": "string"
+          },
+          "product_sent_status": {
+            "type": "string"
+          },
+          "sent_at": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "Message": "Create product_sent Successed!",
+          "sent_id": 3,
+          "product_id": "PROD-003",
+          "quantity": 5,
+          "user_id": 6543,
+          "username": "JaneSmith",
+          "warehouse_id": "WH-002",
+          "warehouse_name": "Warehouse B",
+          "tracking_number": "TRK-987654321",
+          "target_address": "456 Oak Avenue, Townsville",
+          "product_sent_status": "Delivered",
+          "sent_at": "2023-11-17T10:30:00Z"
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Authentication",
+      "description": ""
+    }
+  ]
+}
