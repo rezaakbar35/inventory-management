@@ -1,17 +1,19 @@
 import React from 'react'
 import DashboardSidebar from '../components/dashboardSidebar'
-import './Warehouse_Dashboard.css'
+import './Admin_Dashboard.css'
 
-const Warehouse_Dashboard = () => {
+const Admin_Dashboard = () => {
     const linkTitles = [
-        "Warehouse Product Stocks",
-        "Outgoing Products",
+        "Manage Products",
+        "Manage Warehouses",
+        "Manage Complaints"
     ];
     const links = [
-        '/warehouseStocks', //warehouse
-        '/warehouseOutgoing' //productSent
+        '/Products',
+        '/Warehouses',
+        '/Complaints'
     ];
-    const numOfShownLinks = 2;
+    const numOfShownLinks = 3;
 
   return (
     <div className='dashboardContainer flex overflow-hidden'>
@@ -23,4 +25,4 @@ const Warehouse_Dashboard = () => {
   )
 }
 
-export default Warehouse_Dashboard
+export default Admin_Dashboard

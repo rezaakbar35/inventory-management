@@ -2,13 +2,13 @@ import React from 'react';
 import "./DashboardSidebar.css"
 import HaloUser from './HaloUser';
 
-const DashboardSidebar = ({ numOfLinks, linkTitles, links }) => {
+const DashboardSidebarAlt = ({ numOfLinks, linkTitles, links }) => {
 
   const truncatedTitles = linkTitles.slice(0, numOfLinks);
   const truncatedLinks = links.slice(0, numOfLinks);
 
   return (
-    <div className="bg-tertiary w-96 h-screen">
+    <div className="bg-primary w-96 h-screen">
     <HaloUser/>
       <ul>
         {truncatedTitles.map((title, index) => (
@@ -25,4 +25,4 @@ const DashboardSidebar = ({ numOfLinks, linkTitles, links }) => {
   );
 };
 
-export default DashboardSidebar;
+export default DashboardSidebarAlt;
