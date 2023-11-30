@@ -5,3 +5,15 @@
 .dashboardContainer {
     width:100vw;
 }
+
+.searchBar {
+    width: 40vw;
+}
+
+.contentSide {
+    padding-top: 50px;
+}
+
+.contentSide h1{
+    text-align: left;
+}

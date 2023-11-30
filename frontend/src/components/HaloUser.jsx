@@ -5,7 +5,7 @@ import './HaloUser.css'
 const HaloUser = () => {
     const user = "placeholder"
   return (
-    <div className='w-80 h-40 flex haloContainer'>
+    <div className='w-80 flex haloContainer'>
         <img className='profilePicture rounded-full'
         src={placeholder}/>
         <div className='haloTexts'>

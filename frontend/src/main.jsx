@@ -12,6 +12,9 @@ import './index.css'
 import Admin_Dashboard from './pages/Admin_Dashboard';
 import Warehouse_Dashboard from './pages/Warehouse_Dashboard';
 import User_Dashboard from './pages/User_Dashboard';
+import Admin_Products from './pages/Admin_Products.jsx';
+import Admin_Complaints from './pages/Admin_Complaints.jsx';
+import Admin_Warehouses from './pages/Admin_Warehouses.jsx';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +24,18 @@ const router = createBrowserRouter([
   {
       path:"/AdminDash",
       element: <Admin_Dashboard/>,
+  },
+  {
+    path:"/AdminDash/Products",
+    element: <Admin_Products/>,
+  },
+  {
+    path:"/AdminDash/Complaints",
+    element: <Admin_Complaints/>,
+  },
+  {
+    path:"/AdminDash/Warehouses",
+    element: <Admin_Warehouses/>,
   },
   {
       path:"/WarehouseDash",

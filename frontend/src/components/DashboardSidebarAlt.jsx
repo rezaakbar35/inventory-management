@@ -8,7 +8,7 @@ const DashboardSidebarAlt = ({ numOfLinks, linkTitles, links }) => {
   const truncatedLinks = links.slice(0, numOfLinks);
 
   return (
-    <div className="bg-primary w-96 h-screen">
+    <div className="bg-primary w-1/4 h-screen">
     <HaloUser/>
       <ul>
         {truncatedTitles.map((title, index) => (
