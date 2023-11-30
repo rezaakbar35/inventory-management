@@ -17,7 +17,7 @@ const SortSearchGroup = () => {
   
     return (
       <div className='searchSortContainer flex flex-wrap items-center'>
-        <div className="flex rounded-full w-96 h-[50px] border border-gray-300 overflow-hidden">
+        <div className="text-black flex rounded-full w-96 h-[50px] border border-gray-300 overflow-hidden">
           <input
             type="text"
             placeholder="Search..."
