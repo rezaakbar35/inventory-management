@@ -153,16 +153,34 @@ const seedData = async () => {
     });
 
     //Seeding User
-    const User = await prisma.user.create({
-      data: {
+    const User = await prisma.user.createMany({
+      data: [{
         first_name: "Beak",
         last_name: "lurr",
         username: "beaknih",
         email: "beak@gmail.com",
-        password: "11111",
+        password: "$2a$12$eQ3sHkP/czU2c1vXV8c9OOeJnUg.LmlKV60GxoXn1BlEEjuZaalRe", //password: 11111
         user_address: "aaaaaa",
         user_role: "user",
       },
+      {
+        first_name: "Admin",
+        last_name: "ETI",
+        username: "admin",
+        email: "admineti@gmail.com",
+        password: "$2a$12$PuiErMJhBJ8W8KzfdpywM.zsHcq9amzIi9xMtdcS3ol/tjIxQiXZG", //password: admin
+        user_address: "jl. ditempat",
+        user_role: "admin",
+      },
+      {
+        first_name: "Pak",
+        last_name: "Unyil",
+        username: "warehouse",
+        email: "pakunyil@gmail.com",
+        password: "$2a$12$TUk4fy4wNWp8TtZteofigeuaL5CRdKDufphiU5LXKC0DC8narBq9u", //password: warehouse
+        user_address: "jl. nanti dulu masih hujan",
+        user_role: "warehouse",
+      },]
     });
 
     //Seeding Product Shipping
