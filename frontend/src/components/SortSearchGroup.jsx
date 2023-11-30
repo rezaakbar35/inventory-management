@@ -28,7 +28,7 @@ const SortSearchGroup = () => {
           <select
             value={sortBy}
             onChange={handleSortChange}
-            className="rounded-full w-48 px-4 py-2 my-[10px] h-[50px] border border-gray-300 focus:outline-none"
+            className="text-black rounded-full w-48 px-4 py-2 my-[10px] h-[50px] border border-gray-300 focus:outline-none"
           >
             <option value="">Sort By</option>
             {/* Add sort options here */}
@@ -39,7 +39,7 @@ const SortSearchGroup = () => {
           <select
             value={groupBy}
             onChange={handleGroupChange}
-            className="rounded-full w-48 px-4 py-2 my-[10px] h-[50px] border border-gray-300 focus:outline-none"
+            className="text-black rounded-full w-48 px-4 py-2 my-[10px] h-[50px] border border-gray-300 focus:outline-none"
           >
             <option value="">Group By</option>
             {/* Add group options here */}
