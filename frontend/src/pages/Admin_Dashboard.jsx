@@ -1,6 +1,8 @@
 import React from 'react'
 import DashboardSidebar from '../components/dashboardSidebar'
 import './Admin_Dashboard.css'
+// import TableWarehouse from '../components/TableWarehouse'
+import TableProduct from '../components/TableProduct'
 
 const Admin_Dashboard = () => {
     const linkTitles = [
@@ -19,7 +21,7 @@ const Admin_Dashboard = () => {
     <div className='dashboardContainer flex overflow-hidden'>
         <DashboardSidebar numOfLinks={numOfShownLinks} linkTitles={linkTitles} links={links}/>
         <div className='bg-background contentContainer'>
-            <h1>hi</h1>
+           <TableProduct/>
         </div>
     </div>
   )
