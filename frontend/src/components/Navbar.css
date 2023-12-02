@@ -1,0 +1,27 @@
+.containerModalLogin {
+    width: 452px;
+    height: 614px;
+    flex-shrink: 0;
+}
+.containerModalSignUp {
+    width: 452px;
+    height: 834px;
+    flex-shrink: 0;
+}
+
+.containerModalSuccess {
+    width: 653px;
+    height: 223px;
+}
+
+.btnCloseRegister {
+    width: 25px;
+    height: 35px;
+    float: right;
+}
+
+.btnCloseLogin {
+    width: 25px;
+    height: 35px;
+    float: right;
+}

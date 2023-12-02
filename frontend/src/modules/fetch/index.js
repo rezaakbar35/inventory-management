@@ -2,9 +2,9 @@ import { instance } from '../axios/index';
 //ganti endpoint berdasarkan pembagian modul backend masing masing :D
 
 // Function for register user endpoint
-async function registerUser(name, email, password) {
+async function registerUser(first_name, last_name, username, email, password, user_address, user_role) {
   try {
-    const response = await instance.post('/register', { name, email, password });
+    const response = await instance.post('/register', { first_name, last_name, username, email, password, user_address, user_role });
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message || 'Something went wrong');
@@ -12,9 +12,9 @@ async function registerUser(name, email, password) {
 }
 
 // Function for login user endpoint
-async function loginUser(email, password) {
+async function loginUser(username, password) {
   try {
-    const response = await instance.post('/login', { email, password });
+    const response = await instance.post('/login', { username, password });
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message || 'Something went wrong');

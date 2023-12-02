@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Register from "./Register";
+import { loginUser } from "../modules/fetch";
+import './Navbar.css'
 
 const Navbar = () => {
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [isSignUpModalOpen, setSignUpModalOpen] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const openLoginModal = () => {
     setLoginModalOpen(true);
@@ -25,33 +32,62 @@ const Navbar = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
+  useEffect(() => {
+    const token = window.localStorage.getItem("token");
+    if (token) {
+      setIsLogin(true);
+    }
+  }, [window.localStorage.getItem("token")]);
+
   return (
+
+    // Navbar
     <nav className="bg-primary fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <div className="max-w-screen-xl flex items-center justify-between mx-auto p-3">
         <a
-          href="https://flowbite.com/"
+          href="#"
           className="flex items-center space-x-3 rtl:space-x-reverse"
         >
-          <img src="./deliverit.svg" className="h-10" alt="Flowbite Logo" />
+          <img src="./deliverit.svg" className="w-14 h-14" alt="Flowbite Logo" />
           <span className="self-center text-3xl font-semibold whitespace-nowrap dark:text-white">
-            DeliverIT
+            {/* DeliverIT */}
           </span>
         </a>
-        <div className="flex md:order-2 space-x-3 md:space-x-0 gap-x-3 rtl:space-x-reverse">
+
+        {/* Tombol Login & Sign Up */}
+        <div className="flex md:order-2 space-x-3 md:space-x-0 gap-x-8 rtl:space-x-reverse">
+        {!isLogin ? (
           <button
             onClick={openLoginModal}
             type="button"
-            className="text-white border-solid border-2 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xl px-4 py-2 text-center dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="text-background rounded md:hover:text-white md:p-0 md:dark:hover:text-white font-medium text-xl px-4 py-2 text-center"
           >
             Login
           </button>
+          ) : (
+            <button
+              onClick={() => {
+                window.localStorage.removeItem("token");
+                setIsLogin(false);
+                navigate("/");
+              }}
+              className="text-background rounded md:hover:text-white md:p-0 md:dark:hover:text-white font-medium text-xl px-4 py-2 text-center"
+            >
+              Logout
+            </button>
+          )}
+
+        {!isLogin && (
           <button
             onClick={openSignUpModal}
             type="button"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xl px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="text-background border-solid border-2 hover:bg-white-800 focus:outline-none ring-gray-300 font-medium rounded-full text-xl px-4 py-2 text-center hover:bg-white hover:text-black"
           >
             Sign Up
           </button>
+        )}
+
+          {/* Menu Bar Sticky */}
           <button
             data-collapse-toggle="navbar-sticky"
             type="button"
@@ -76,6 +112,9 @@ const Navbar = () => {
             </svg>
           </button>
         </div>
+        
+        {/* Menu Bar */}
+        {isLogin && (
         <div
           className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
           id="navbar-sticky"
@@ -84,7 +123,7 @@ const Navbar = () => {
             <li>
               <a
                 href="#"
-                className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
+                className="block py-2 px-3 text-blue-500 md:p-0"
                 aria-current="page"
               >
                 Home
@@ -93,7 +132,7 @@ const Navbar = () => {
             <li>
               <a
                 href="#"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                className="block py-2 px-3 text-background rounded md:hover:text-white md:p-0 md:dark:hover:text-white"
               >
                 About
               </a>
@@ -101,61 +140,84 @@ const Navbar = () => {
             <li>
               <a
                 href="#"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                className="block py-2 px-3 text-background rounded md:hover:text-white md:p-0 md:dark:hover:text-white"
               >
-                Services
+                Features
               </a>
             </li>
             <li>
               <a
                 href="#"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                className="block py-2 px-3 text-background rounded md:hover:text-white md:p-0 md:dark:hover:text-white"
               >
-                Contact
+                Testimonial
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                className="block py-2 px-3 text-background rounded md:hover:text-white md:p-0 md:dark:hover:text-white"
+              >
+                Dashboard
               </a>
             </li>
           </ul>
         </div>
+        )}
       </div>
+      
 
       {/* Modal Login */}
       {isLoginModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-black opacity-50"></div>
-          <div className="bg-primary p-6 rounded-lg z-10">
+          <div className="containerModalLogin bg-primary p-6 rounded-xl z-10">
             <button
-              onClick={closeLoginModal}
-              className="sticky top-0 text-black hover:text-gray-800"
+              onClick={ () => {
+              closeLoginModal();
+              setError(''); // Reset pesan kesalahan saat menutup modal
+            }} 
+              className="btnCloseLogin text-tertiary text-2xl hover:text-white font-bold"
             >
-              Close
+              X
             </button>
             <img
               src="./deliverit.svg"
-              className="w-56 h-56 ml-32"
+              className="w-56 h-56 ml-24"
               alt="Deliverit Logo"
             />
-            <form>
-              <div className="mb-4">
-                <label
-                  htmlFor="username"
-                  className="block text-gray-700 font-medium"
-                ></label>
+            <form id="login-form"
+          onSubmit={async (e) => {
+            e.preventDefault();
+            try {
+              const token = await loginUser(
+                e.target.username.value,
+                e.target.password.value
+              );
+              window.localStorage.setItem("token", token.token);
+              navigate("/");
+              closeLoginModal();
+            } catch (err) {
+              // Menyimpan pesan kesalahan ke state
+            setError(`Error: ${err.message}`);
+            }
+          }}
+          >
+              <div className="mt-2 mb-4">
                 <input
                   type="text"
-                  id="username"
                   name="username"
-                  className="w-full px-3 py-2 border rounded-md bg-white text-black"
+                  className="w-full py-2 border rounded-md bg-white text-black"
                   placeholder="Username"
                 />
               </div>
               <div>
-                <label htmlFor="password"></label>
+
                 <div className="relative">
                   <input
                     type={showPassword ? "text" : "password"}
-                    id="password"
                     name="password"
-                    className="w-full px-3 py-2 border rounded-md pr-10 bg-white text-black"
+                    className="w-full py-2 border rounded-md pr-10 bg-white text-black"
                     placeholder="Password"
                   />
                   <button
@@ -166,64 +228,75 @@ const Navbar = () => {
                     {/* Icon untuk menunjukkan atau menyembunyikan password */}
                     {showPassword ? (
                       <svg
-                        className="w-6 h-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth="1.5"
+                        stroke="currentColor"
+                        className="w-6 h-6"
                       >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                        ></path>
+                          d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
+                        />
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M2 10l4-4m0 0l4 4m-4-4v14m8-14v14m2-5l4-4m0 0l4 4m-4-4v14"
-                        ></path>
+                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
                       </svg>
                     ) : (
                       <svg
-                        className="w-6 h-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth="1.5"
+                        stroke="currentColor"
+                        className="w-6 h-6"
                       >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                        ></path>
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M2 10l4-4m0 0l4 4m-4-4v14m8-14v14m2-5l4-4m0 0l4 4m-4-4v14"
-                        ></path>
+                          d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88"
+                        />
                       </svg>
                     )}
                   </button>
                 </div>
               </div>
+              <div className="mb-4 ml-40">
               <span>Forgot your password? click here</span>
+              </div>
               <button
                 type="submit"
-                className="w-full bg-blue-500 text-white rounded-md py-2"
-              >
+                form="login-form"
+                onClick={() => console.log("Sign-In clicked")} // Gantilah dengan fungsi atau tindakan yang sesuai
+                className="w-full bg-tertiary text-white rounded-md py-2"
+                >
                 Sign-In
               </button>
               <button
                 type="submit"
-                className="w-full bg-blue-500 text-white rounded-md py-2 mt-8"
+                className="w-full bg-tertiary text-white rounded-md py-2 mt-10"
+                onClick={() => {
+                  console.log("Sign-Up clicked");
+                  closeLoginModal(); // Menutup modal login
+                  openSignUpModal(); // Membuka modal sign-up
+                }}
               >
                 Sign-Up
               </button>
               <span>Don't Have Account?</span>
+              {error && <div className="flex items-center justify-center text-center p-2 mt-2 text-sm text-red-800 rounded-lg bg-red-50  dark:text-red-400" role="alert">
+              <svg className="flex-shrink-0 inline w-5 h-5 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+              </svg>
+              <span className="sr-only">Info</span>
+              <div>
+              <span className="font-semibold">Username atau password salah</span>
+              </div>
+              </div>}
             </form>
           </div>
         </div>
@@ -231,125 +304,10 @@ const Navbar = () => {
 
       {/* Modal Sign Up */}
       {isSignUpModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div className="absolute inset-0 bg-black opacity-50"></div>
-          <div className="bg-primary p-8 rounded-lg z-10">
-            <button
-              onClick={closeSignUpModal}
-              className="sticky-top-0 text-gray-600 hover:text-gray-800"
-            >
-              Close
-            </button>
-            <img
-              src="./deliverit.svg"
-              className="w-56 h-56"
-              alt="Deliverit Logo"
-            />
-            <form>
-              <div className="mb-4">
-                <label
-                  htmlFor="email"
-                  className="block text-gray-700 font-medium"
-                ></label>
-                <input
-                  type="text"
-                  id="email"
-                  name="email"
-                  // value={""}
-                  // onChange={""}
-                  className="w-full px-3 py-2 border rounded-md bg-white text-black"
-                  placeholder="Username"
-                />
-              </div>
-              <div className="mb-4">
-                <label
-                  htmlFor="username"
-                  className="block text-gray-700 font-medium"
-                ></label>
-                <input
-                  type="username"
-                  id="username"
-                  name="username"
-                  // value={""}
-                  // onChange={""}
-                  className="w-full px-3 py-2 border rounded-md bg-white text-black"
-                  placeholder="Email"
-                />
-              </div>
-              <div className="mb-4">
-                <label htmlFor="password"></label>
-                <div className="relative">
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    id="password"
-                    name="password"
-                    // value={""}
-                    // onChange={""}
-                    className="w-full px-3 py-2 border rounded-md pr-10 bg-white text-black"
-                    placeholder="Password"
-                  />
-                  <button
-                    type="button"
-                    onClick={togglePasswordVisibility}
-                    className="absolute inset-y-0 right-0 px-2 py-2 text-gray-500 hover:text-gray-700 focus:outline-none"
-                  >
-                    {/* Icon untuk menunjukkan atau menyembunyikan password */}
-                    {showPassword ? (
-                      <svg
-                        className="w-6 h-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                        ></path>
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M2 10l4-4m0 0l4 4m-4-4v14m8-14v14m2-5l4-4m0 0l4 4m-4-4v14"
-                        ></path>
-                      </svg>
-                    ) : (
-                      <svg
-                        className="w-6 h-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                        ></path>
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M2 10l4-4m0 0l4 4m-4-4v14m8-14v14m2-5l4-4m0 0l4 4m-4-4v14"
-                        ></path>
-                      </svg>
-                    )}
-                  </button>
-                </div>
-              </div>
-              <button
-                type="submit"
-                className="w-full bg-blue-500 text-white rounded-md py-2"
-              >
-                Sign Up
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
+        <>
+      <Register closeSignUpModal={closeSignUpModal} openLoginModal={openLoginModal} />
+        </>
+        )}
     </nav>
   );
 };
