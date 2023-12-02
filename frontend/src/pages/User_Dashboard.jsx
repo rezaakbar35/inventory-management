@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import DashboardSidebarAlt from '../components/DashboardSidebarAlt'
 import './User_Dashboard.css'
-import SendProductForm from "../components/forms/SendProductForm"
+import AddWarehouseForm from "../components/forms/AddWarehouseForm"
 import SortSearchGroup from '../components/SortSearchGroup'
 
 const User_Dashboard = () => {
@@ -35,7 +35,7 @@ const User_Dashboard = () => {
             </button>
             </div>
         </div>
-        <SendProductForm onClose={handleOnClose} visible={showForm}/>
+        <AddWarehouseForm onClose={handleOnClose} visible={showForm}/>
     </div>
     </>
   )
