@@ -3,7 +3,7 @@ import DashboardSidebar from '../components/dashboardSidebar'
 import './Warehouse_Dashboard.css'
 import SortSearchGroup from '../components/SortSearchGroup'
 
-const Warehouse_Dashboard = () => {
+const Warehouse_Outgoing = () => {
     const linkTitles = [
         "Warehouse Product Stocks",
         "Outgoing Products",
@@ -19,7 +19,7 @@ const Warehouse_Dashboard = () => {
         <DashboardSidebar numOfLinks={numOfShownLinks} linkTitles={linkTitles} links={links}/>
         <div className='bg-background contentContainer'>
         <div className='contentSide'>
-            <h1 className='text-displayText mt-[10px] mb-14'>Product Stock</h1>
+            <h1 className='text-displayText mt-[10px] mb-14'>Outgoing Products</h1>
             <SortSearchGroup/>
             </div>
         </div>
@@ -27,4 +27,4 @@ const Warehouse_Dashboard = () => {
   )
 }
 
-export default Warehouse_Dashboard
+export default Warehouse_Outgoing

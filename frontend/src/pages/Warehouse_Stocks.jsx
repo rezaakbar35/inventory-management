@@ -3,7 +3,7 @@ import DashboardSidebar from '../components/dashboardSidebar'
 import './Warehouse_Dashboard.css'
 import SortSearchGroup from '../components/SortSearchGroup'
 
-const Warehouse_Dashboard = () => {
+const Warehouse_Stocks = () => {
     const linkTitles = [
         "Warehouse Product Stocks",
         "Outgoing Products",
@@ -27,4 +27,4 @@ const Warehouse_Dashboard = () => {
   )
 }
 
-export default Warehouse_Dashboard
+export default Warehouse_Stocks
