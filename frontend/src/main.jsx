@@ -17,6 +17,9 @@ import Admin_Complaints from './pages/Admin_Complaints.jsx';
 import Admin_Warehouses from './pages/Admin_Warehouses.jsx';
 import Warehouse_Stocks from './pages/Warehouse_Stocks.jsx';
 import Warehouse_Outgoing from './pages/Warehouse_Outgoing.jsx';
+import User_Purchased_Item from './pages/User_Purchased_Item.jsx';
+import User_Setting_Account from './pages/User_Setting_Account.jsx';
+import User_View_Complain from './pages/User_View_Complain.jsx';
 
 const router = createBrowserRouter([
   {
@@ -54,6 +57,18 @@ const router = createBrowserRouter([
   {
       path:"/UsersDash",
       element: <User_Dashboard/>,
+  },
+  {
+    path:"/UsersDash/Items",
+    element: <User_Purchased_Item/>,
+  },
+  {
+    path:"/UsersDash/Setting",
+    element: <User_Setting_Account/>,
+  },
+  {
+    path:"/UsersDash/Complaints",
+    element: <User_View_Complain/>,
   },
 ]);
 
