@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import DashboardSidebar from '../components/dashboardSidebar'
 import './Admin_Dashboard.css'
 // import TableWarehouse from '../components/TableWarehouse'
 import TableProduct from '../components/TableProduct'
 import SortSearchGroup from '../components/SortSearchGroup';
+import ManageProductForm from '../components/forms/ManageProductForm';
 
 const Admin_Products = () => {
     const linkTitles = [
@@ -18,6 +19,9 @@ const Admin_Products = () => {
     ];
     const numOfShownLinks = 3;
 
+    const [showManageProduct, setShowManageProduct] = useState(false)
+    const handleCloseManageProduct = () => setShowManageProduct(false)
+
   return (
     <div className='dashboardContainer flex overflow-hidden'>
         <DashboardSidebar numOfLinks={numOfShownLinks} linkTitles={linkTitles} links={links}/>
@@ -25,10 +29,21 @@ const Admin_Products = () => {
             <div className='contentSide'>
             <h1 className='text-displayText mt-[10px] mb-14'>Products</h1>
             <SortSearchGroup/>
+            <button onClick={() => setShowIssueComplaint(true)} className='flex w-96 p-2 mb-4 bg-tertiary rounded-full hover:bg-primary/50'>
+                <p className='p-2'>Add New Product</p>
+                </button>
+            <button onClick={() => setShowIssueComplaint(true)} className='flex w-96 p-2 mb-[500px] bg-tertiary rounded-full hover:bg-primary/50'>
+                <p className='p-2'>Show Outgoing Product</p>
+                </button>
+            <button onClick={() => setShowManageProduct(true)} className='flex w-96 p-2 bg-primary rounded-full hover:bg-primary/50'>
+                <p className='p-2 text-black'>Issue Product Management</p>
+            </button>
             </div>
+            <div className='mt-20'>
            <TableProduct/>
-           
+           </div>
         </div>
+        <ManageProductForm onClose={handleCloseManageProduct} visible={showManageProduct}/>
     </div>
   );
 }

@@ -16,7 +16,7 @@ export const TableProduct = ({}) => {
             <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Action</th>
           </tr>
         </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
+        <tbody className="bg-white divide-y divide-gray-200 text-black">
               <tr  className="hover:bg-gray-50">
                 <td className="px-6 py-2 whitespace-nowrap">1</td>
                 <td className="px-6 py-2 whitespace-nowrap">Baby Gum</td>
@@ -29,8 +29,59 @@ export const TableProduct = ({}) => {
               <BsFillPencilFill className="text-blue-500 cursor-pointer" onClick={() => editRow()} />
               </div>
               </td>
-
-              </tr>
+            </tr>
+              <tr  className="hover:bg-gray-50">
+                <td className="px-6 py-2 whitespace-nowrap">2</td>
+                <td className="px-6 py-2 whitespace-nowrap">Baby Gum</td>
+                <td className="px-6 py-2 whitespace-nowrap">11210</td>
+                <td className="px-6 py-2 whitespace-nowrap">Toys Warehouse</td>
+                <td className="px-6 py-2 whitespace-nowrap">02.00 PM 12/12/23</td>
+                <td className="px-6 py-2 whitespace-nowrap">
+               <div className="flex items-center justify-center space-x-7">
+              <BsFillTrashFill className="text-red-500 cursor-pointer" onClick={() => deleteRow()} />
+              <BsFillPencilFill className="text-blue-500 cursor-pointer" onClick={() => editRow()} />
+              </div>
+              </td>
+            </tr>
+              <tr  className="hover:bg-gray-50">
+                <td className="px-6 py-2 whitespace-nowrap">3</td>
+                <td className="px-6 py-2 whitespace-nowrap">Baby Gum</td>
+                <td className="px-6 py-2 whitespace-nowrap">11210</td>
+                <td className="px-6 py-2 whitespace-nowrap">Toys Warehouse</td>
+                <td className="px-6 py-2 whitespace-nowrap">02.00 PM 12/12/23</td>
+                <td className="px-6 py-2 whitespace-nowrap">
+               <div className="flex items-center justify-center space-x-7">
+              <BsFillTrashFill className="text-red-500 cursor-pointer" onClick={() => deleteRow()} />
+              <BsFillPencilFill className="text-blue-500 cursor-pointer" onClick={() => editRow()} />
+              </div>
+              </td>
+            </tr>
+              <tr  className="hover:bg-gray-50">
+                <td className="px-6 py-2 whitespace-nowrap">4</td>
+                <td className="px-6 py-2 whitespace-nowrap">Baby Gum</td>
+                <td className="px-6 py-2 whitespace-nowrap">11210</td>
+                <td className="px-6 py-2 whitespace-nowrap">Toys Warehouse</td>
+                <td className="px-6 py-2 whitespace-nowrap">02.00 PM 12/12/23</td>
+                <td className="px-6 py-2 whitespace-nowrap">
+               <div className="flex items-center justify-center space-x-7">
+              <BsFillTrashFill className="text-red-500 cursor-pointer" onClick={() => deleteRow()} />
+              <BsFillPencilFill className="text-blue-500 cursor-pointer" onClick={() => editRow()} />
+              </div>
+              </td>
+            </tr>
+              <tr  className="hover:bg-gray-50">
+                <td className="px-6 py-2 whitespace-nowrap">5</td>
+                <td className="px-6 py-2 whitespace-nowrap">Baby Gum</td>
+                <td className="px-6 py-2 whitespace-nowrap">11210</td>
+                <td className="px-6 py-2 whitespace-nowrap">Toys Warehouse</td>
+                <td className="px-6 py-2 whitespace-nowrap">02.00 PM 12/12/23</td>
+                <td className="px-6 py-2 whitespace-nowrap">
+               <div className="flex items-center justify-center space-x-7">
+              <BsFillTrashFill className="text-red-500 cursor-pointer" onClick={() => deleteRow()} />
+              <BsFillPencilFill className="text-blue-500 cursor-pointer" onClick={() => editRow()} />
+              </div>
+              </td>
+            </tr>
         </tbody>
       </table>
     </div>
