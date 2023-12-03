@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import DashboardSidebar from '../components/dashboardSidebar'
 import './Admin_Dashboard.css'
-// import TableWarehouse from '../components/TableWarehouse'
-import TableProduct from '../components/TableProduct'
 import SortSearchGroup from '../components/SortSearchGroup';
 import NotifyAdminForm from '../components/forms/NotifyAdminForm';
 import IssueComplaintForm from '../components/forms/IssueComplaintForm';
+import TableComplaints from '../components/TableComplaints';
 
 const Admin_Complaints = () => {
     const linkTitles = [
@@ -41,7 +40,7 @@ const Admin_Complaints = () => {
                 </button>
             </div> 
           <div className='mt-20'>
-           <TableProduct/>
+           <TableComplaints/>
            </div>
         </div>
         <NotifyAdminForm onClose={handleCloseNotifyAdmin} visible={showNotifyadmin}/>

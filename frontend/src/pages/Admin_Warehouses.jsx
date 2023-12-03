@@ -5,6 +5,7 @@ import './Admin_Dashboard.css'
 import TableProduct from '../components/TableProduct'
 import SortSearchGroup from '../components/SortSearchGroup';
 import NotifyAdminForm from '../components/forms/NotifyAdminForm';
+import TableWarehouse from '../components/TableWarehouse';
 
 const Admin_Warehouses = () => {
     const linkTitles = [
@@ -37,7 +38,7 @@ const Admin_Warehouses = () => {
             </button>
             </div>
             <div className='mt-20'>
-           <TableProduct/>
+           <TableWarehouse/>
            </div>
         </div>
         <NotifyAdminForm onClose={handleCloseNotifyAdmin} visible={showNotifyadmin}/>
