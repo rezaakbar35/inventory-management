@@ -67,7 +67,6 @@ CREATE TABLE "Product_shipping" (
     "product_id" INTEGER NOT NULL,
     "buyer_id" INTEGER NOT NULL,
     "warehouse_id" INTEGER NOT NULL,
-    "warehouse_name" TEXT NOT NULL,
     "quantity" INTEGER NOT NULL,
     "tracking_number" TEXT NOT NULL,
     "target_address" TEXT NOT NULL,

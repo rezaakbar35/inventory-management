@@ -189,7 +189,6 @@ const seedData = async () => {
         product_id: 1,
         buyer_id: 1,
         warehouse_id: 1,
-        warehouse_name: "Gudang Garam",
         quantity: 1,
         tracking_number: "01256JK0088L88l23",
         target_address: "Jalan Cisitu Lama no 7",

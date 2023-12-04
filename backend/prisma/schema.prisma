@@ -85,7 +85,7 @@ model Product_shipping {
 
   warehouse_id            Int
   warehouse               Warehouse @relation(fields: [warehouse_id], references: [warehouse_id])
-  warehouse_name          String
+
   quantity                Int
   tracking_number         String
   target_address          String
