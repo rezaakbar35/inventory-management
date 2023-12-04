@@ -1,12 +1,22 @@
-import { instance } from '../axios/index';
+import { instance } from "../axios/index";
 
 async function getAllProductCategory() {
-    try {
-      const response = await instance.get('/product-category');
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response.data.message || 'Something went wrong');
-    }
+  try {
+    const response = await instance.get("/product-category");
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || "Something went wrong");
   }
+}
 
-  export {getAllProductCategory}
+// Function for get product category by id
+async function getProductCategoryById(id) {
+  try {
+    const response = await instance.get(`/product-category/${id}`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || "Something went wrong");
+  }
+}
+
+export { getAllProductCategory, getProductCategoryById };

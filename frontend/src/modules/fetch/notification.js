@@ -1,12 +1,22 @@
-import { instance } from '../axios/index';
+import { instance } from "../axios/index";
 
 async function getAllNotification() {
-    try {
-      const response = await instance.get('/notification');
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response.data.message || 'Something went wrong');
-    }
+  try {
+    const response = await instance.get("/notification");
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || "Something went wrong");
   }
+}
 
-  export {getAllNotification}
+// Function for get warehouse_category by id
+async function getNotificationById(id) {
+  try {
+    const response = await instance.get(`/notification/${id}`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || "Something went wrong");
+  }
+}
+
+export { getAllNotification, getNotificationById };
