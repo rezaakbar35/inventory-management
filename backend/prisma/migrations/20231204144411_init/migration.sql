@@ -77,6 +77,17 @@ CREATE TABLE "Product_shipping" (
     CONSTRAINT "Product_shipping_pkey" PRIMARY KEY ("shipping_id")
 );
 
+-- CreateTable
+CREATE TABLE "Notification" (
+    "notification_id" SERIAL NOT NULL,
+    "user_id" INTEGER NOT NULL,
+    "notification_timestamp" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "notification_title" TEXT NOT NULL,
+    "notification_description" TEXT NOT NULL,
+
+    CONSTRAINT "Notification_pkey" PRIMARY KEY ("notification_id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
 
@@ -103,3 +114,6 @@ ALTER TABLE "Product_shipping" ADD CONSTRAINT "Product_shipping_buyer_id_fkey" F
 
 -- AddForeignKey
 ALTER TABLE "Product_shipping" ADD CONSTRAINT "Product_shipping_warehouse_id_fkey" FOREIGN KEY ("warehouse_id") REFERENCES "Warehouse"("warehouse_id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Notification" ADD CONSTRAINT "Notification_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("user_id") ON DELETE RESTRICT ON UPDATE CASCADE;

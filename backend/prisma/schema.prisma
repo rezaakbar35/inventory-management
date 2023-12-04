@@ -23,6 +23,7 @@ model User {
   updated_at   DateTime @updatedAt
 
   products_shipping Product_shipping[]
+  noitification Notification[]
 }
 
 model Product {
@@ -90,4 +91,15 @@ model Product_shipping {
   target_address          String
   product_shipment_status String
   shipping_at             DateTime  @default(now())
+}
+
+model Notification {
+  notification_id           Int @id @default(autoincrement())
+  
+  user_id                   Int
+  user                      User @relation(fields: [user_id], references: [user_id])
+
+  notification_timestamp    DateTime  @default(now())
+  notification_title        String
+  notification_description  String
 }

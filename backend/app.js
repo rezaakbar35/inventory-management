@@ -16,6 +16,7 @@ const warehouseRoutes = require("./routes/warehouseRoutes")
 const warehouseCategoryRoutes = require("./routes/warehouseCategoryRoutes")
 const productCategoryRoutes = require("./routes/productCategoryRoutes")
 const productRoutes = require("./routes/productRoute")
+const notificationRoutes = require("./routes/notificationRoutes")
 const { authenticateUser, authenticateAdmin, authenticateWarehouse } = require("./middleware/authMiddleware");
 
 const swaggerJsDocs = YAML.load(path.resolve(__dirname, '../backend/documentation/openapi.yaml'))
@@ -52,6 +53,9 @@ app.use("/product-category", productCategoryRoutes);
 
 // Product
 app.use("/product", productRoutes);
+
+// Notification
+app.use("/notification", notificationRoutes)
 
 // Middleware untuk penanganan kesalahan jika rute tidak ditemukan
 app.use((req, res, next) => {

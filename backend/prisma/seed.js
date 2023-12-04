@@ -164,10 +164,10 @@ const seedData = async () => {
         user_role: "user",
       },
       {
-        first_name: "Admin",
-        last_name: "ETI",
+        first_name: "Joko",
+        last_name: "Wadidaw",
         username: "admin",
-        email: "admineti@gmail.com",
+        email: "jokowow@gmail.com",
         password: "$2a$12$PuiErMJhBJ8W8KzfdpywM.zsHcq9amzIi9xMtdcS3ol/tjIxQiXZG", //password: admin
         user_address: "jl. ditempat",
         user_role: "admin",
@@ -196,6 +196,14 @@ const seedData = async () => {
         product_shipment_status: "diterima",
       },
     });
+
+    const notification = await prisma.notification.create({
+      data: {
+        user_id: 1,
+        notification_title: "Alert",
+        notification_description: "Product X at Warehouse A has exceeded 3 months in storage ",
+      },
+    })
 
     console.log("Seeding complete.");
   } catch (error) {
