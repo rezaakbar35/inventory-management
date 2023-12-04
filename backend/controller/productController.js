@@ -29,7 +29,20 @@ createProduct: async (req, res) => {
 
 //READ ALL PRODUCT
 getAllProduct: async (req, res) =>{
-    const product = await prisma.product.findMany();
+    const product = await prisma.product.findMany({
+      include: {
+        product_category: {
+          select:{
+          category_name: true,
+          }
+        },
+        warehouse: {
+          select:{
+          warehouse_name: true
+          }
+        }
+      }
+    });
     res.status(200).json({ message: "Product successfully read", product });
     },
 
