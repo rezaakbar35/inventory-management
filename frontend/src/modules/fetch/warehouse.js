@@ -19,4 +19,14 @@ async function getWarehouseById(id) {
   }
 }
 
-export { getAllWarehouse, getWarehouseById };
+// Function for delete warehouse endpoint
+async function deleteWarehouse(id) {
+    try {
+      const response = await instance.delete(`/warehouse/${id}`);
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response.data.message || 'Something went wrong');
+    }
+  }
+
+export { getAllWarehouse, getWarehouseById, deleteWarehouse };

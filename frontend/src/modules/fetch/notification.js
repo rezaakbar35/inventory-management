@@ -19,4 +19,14 @@ async function getNotificationById(id) {
   }
 }
 
-export { getAllNotification, getNotificationById };
+  // Function for delete notification endpoint
+  async function deleteNotification(id) {
+    try {
+      const response = await instance.delete(`/notification/${id}`);
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response.data.message || 'Something went wrong');
+    }
+  }
+
+export { getAllNotification, getNotificationById, deleteNotification };

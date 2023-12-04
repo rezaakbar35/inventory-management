@@ -19,4 +19,14 @@ async function getWarehouseCategoryById(id) {
   }
 }
 
-export { getAllWarehouseCategory, getWarehouseCategoryById };
+// Function for delete warehouse-category endpoint
+async function deleteWarehouseCategory(id) {
+    try {
+      const response = await instance.delete(`/warehouse-category/${id}`);
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response.data.message || 'Something went wrong');
+    }
+  }
+
+export { getAllWarehouseCategory, getWarehouseCategoryById, deleteWarehouseCategory };

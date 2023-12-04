@@ -18,4 +18,16 @@ async function getProductShippingById(id) {
     throw new Error(error.response.data.message || "Something went wrong");
   }
 }
-export { getAllProductShipping, getProductShippingById };
+
+// Function for delete product-shipping endpoint
+async function deleteProductShipping(id) {
+    try {
+      const response = await instance.delete(`/product-shipping/${id}`);
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response.data.message || 'Something went wrong');
+    }
+  }
+
+
+export { getAllProductShipping, getProductShippingById, deleteProductShipping };

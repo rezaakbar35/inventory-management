@@ -20,4 +20,15 @@ async function getProductById(id) {
   }
 }
 
-export { getAllProduct, getProductById };
+// Function for delete product endpoint
+async function deleteProduct(id) {
+    try {
+      const response = await instance.delete(`/product/${id}`);
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response.data.message || 'Something went wrong');
+    }
+  }
+
+export {getAllProduct, getProductById, deleteProduct}
+

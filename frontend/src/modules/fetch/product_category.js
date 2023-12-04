@@ -19,4 +19,14 @@ async function getProductCategoryById(id) {
   }
 }
 
-export { getAllProductCategory, getProductCategoryById };
+// Function for delete product-category endpoint
+async function deleteProductCategory(id) {
+    try {
+      const response = await instance.delete(`/product-category/${id}`);
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response.data.message || 'Something went wrong');
+    }
+  }
+
+export { getAllProductCategory, getProductCategoryById, deleteProductCategory };
