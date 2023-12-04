@@ -33,16 +33,6 @@ async function createBook(formData) {
   }
 }
 
-// Function for get all books endpoint
-async function getAllProduct() {
-  try {
-    const response = await instance.get('/product');
-    return response.data;
-  } catch (error) {
-    throw new Error(error.response.data.message || 'Something went wrong');
-  }
-}
-
 // Function for edit book endpoint
 async function editBook(id, title, author, publisher, year, pages) {
   try {
@@ -63,13 +53,4 @@ async function deleteBook(id) {
   }
 }
 
-async function getProductById(id) {
-  try {
-    const response = await instance.get(`/product/${id}`);
-    return response.data;
-  } catch (error) {
-    throw new Error(error.response.data.message || 'Something went wrong');
-  }
-}
-
-export { registerUser, loginUser, createBook, getAllProduct, editBook, deleteBook,getProductById };
+export { registerUser, loginUser, createBook, editBook, deleteBook };
