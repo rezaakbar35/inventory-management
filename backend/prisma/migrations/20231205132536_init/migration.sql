@@ -69,7 +69,6 @@ CREATE TABLE "Product_shipping" (
     "warehouse_id" INTEGER NOT NULL,
     "quantity" INTEGER NOT NULL,
     "tracking_number" TEXT NOT NULL,
-    "target_address" TEXT NOT NULL,
     "product_shipment_status" TEXT NOT NULL,
     "shipping_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 

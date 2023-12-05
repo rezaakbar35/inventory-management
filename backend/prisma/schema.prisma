@@ -88,7 +88,6 @@ model Product_shipping {
 
   quantity                Int
   tracking_number         String
-  target_address          String
   product_shipment_status String
   shipping_at             DateTime  @default(now())
 }

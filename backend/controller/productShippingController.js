@@ -5,34 +5,48 @@ const prisma = new PrismaClient();
 async function createProductShipping(req, res) {
   try {
     const {
-      product_id,
-      buyer_id,
-      warehouse_id,
+      product_code,
+      username,
       warehouse_name,
       quantity,
       tracking_number,
-      target_address,
       product_shipment_status,
     } = req.body;
 
-    if (!product_id || !buyer_id || !warehouse_id || !quantity) {
+    const buyer = await prisma.user.findUnique({
+      where:{
+        username: username,
+      }
+    })
+
+    const product = await prisma.product.findUnique({
+      where:{
+        product_code: product_code,
+      }
+    })
+
+    const warehouse = await prisma.warehouse.findUnique({
+      where:{
+        warehouse_name: warehouse_name,
+      }
+    })
+
+    if (!product || !buyer || !warehouse || !quantity) {
       return res.status(400).json({ error: "Invalid input data" });
     }
 
     const newShipping = await prisma.product_shipping.create({
       data: {
-        product_id: parseInt(product_id),
-        buyer_id: parseInt(buyer_id),
-        warehouse_id: parseInt(warehouse_id),
-        warehouse_name,
+        product_id: product.product_id,
+        buyer_id: buyer.user_id,
+        warehouse_id: warehouse.warehouse_id,
         quantity: parseInt(quantity),
         tracking_number,
-        target_address,
         product_shipment_status,
       },
     });
     const removeStock = await prisma.product.update({
-      where: { product_id: parseInt(product_id) },
+      where: { product_id: product.product_id },
       data: {
         product_stock: {
           decrement: parseInt(quantity),
@@ -52,26 +66,41 @@ async function createProductShipping(req, res) {
 
 async function updateProductShipping(req, res) {
   const shippingId = parseInt(req.params.id);
+
   const {
-    product_id,
-    buyer_id,
-    warehouse_id,
+    product_code,
+    username,
     warehouse_name,
     tracking_number,
-    target_address,
     product_shipment_status,
   } = req.body;
+
+  const buyer = await prisma.user.findUnique({
+    where:{
+      username: username,
+    }
+  })
+
+  const product = await prisma.product.findUnique({
+    where:{
+      product_code: product_code,
+    }
+  })
+
+  const warehouse = await prisma.warehouse.findUnique({
+    where:{
+      warehouse_name: warehouse_name,
+    }
+  })
 
   try {
     const updatedShipping = await prisma.product_shipping.update({
       where: { shipping_id: shippingId },
       data: {
-        product: { connect: { product_id: product_id } },
-        buyer: { connect: { user_id: buyer_id } },
-        warehouse: { connect: { warehouse_id: warehouse_id } },
-        warehouse_name,
+        product: { connect: { product_id: product.product_id } },
+        buyer: { connect: { user_id: buyer.user_id } },
+        warehouse: { connect: { warehouse_id: warehouse.warehouse_id } },
         tracking_number,
-        target_address,
         product_shipment_status,
       },
     });
@@ -90,9 +119,24 @@ async function getAllProductShippings(req, res) {
   try {
     const allShippings = await prisma.product_shipping.findMany({
       include: {
-        product: true,
-        buyer: true,
-        warehouse: true,
+        product: {
+          select: {
+            product_name: true,
+          }
+        },
+        buyer: {
+          select: {
+            first_name: true,
+            username: true,
+            user_address: true,
+          }
+        },
+        warehouse: {
+          select: {
+            warehouse_name: true,
+            location: true,
+          }
+        },
       },
     });
 
@@ -129,9 +173,24 @@ async function getProductShippingById(req, res) {
     const shipping = await prisma.product_shipping.findUnique({
       where: { shipping_id: shippingId },
       include: {
-        product: true,
-        buyer: true,
-        warehouse: true,
+        product: {
+          select: {
+            product_name: true,
+          }
+        },
+        buyer: {
+          select: {
+            first_name: true,
+            username: true,
+            user_address: true,
+          }
+        },
+        warehouse: {
+          select: {
+            warehouse_name: true,
+            location: true,
+          }
+        },
       },
     });
 

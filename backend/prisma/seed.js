@@ -191,7 +191,6 @@ const seedData = async () => {
         warehouse_id: 1,
         quantity: 1,
         tracking_number: "01256JK0088L88l23",
-        target_address: "Jalan Cisitu Lama no 7",
         product_shipment_status: "diterima",
       },
     });
