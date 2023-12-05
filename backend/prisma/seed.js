@@ -74,23 +74,23 @@ const seedData = async () => {
           description: "Clothes for baby",
         },
         {
-          category_name: "Clothes Baby",
+          category_name: "Clothes Alva",
           description: "Clothes for baby",
         },
         {
-          category_name: "Clothes Baby",
+          category_name: "Clothes Beta",
           description: "Clothes for baby",
         },
         {
-          category_name: "Clothes Baby",
+          category_name: "Clothes Teta",
           description: "Clothes for baby",
         },
         {
-          category_name: "Clothes Baby",
+          category_name: "Clothes Tita",
           description: "Clothes for baby",
         },
         {
-          category_name: "Clothes Baby",
+          category_name: "Clothes yey",
           description: "Clothes for baby",
         },
       ],

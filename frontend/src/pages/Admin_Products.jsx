@@ -5,6 +5,7 @@ import './Admin_Dashboard.css'
 import TableProduct from '../components/TableProduct'
 import SortSearchGroup from '../components/SortSearchGroup';
 import ManageProductForm from '../components/forms/ManageProductForm';
+import AddProductForm from '../components/forms/AddProductForm';
 
 const Admin_Products = () => {
     const linkTitles = [
@@ -19,8 +20,13 @@ const Admin_Products = () => {
     ];
     const numOfShownLinks = 3;
 
-    const [showManageProduct, setShowManageProduct] = useState(false)
+    const [showManageProduct, setShowManageProduct] = useState(false);
+    const [showProductPopup, setShowProductPopup] = useState(false);
     const handleCloseManageProduct = () => setShowManageProduct(false)
+
+  const onHandleClose = () => {
+    setShowProductPopup(false);
+  }
 
   return (
     <div className='dashboardContainer flex overflow-hidden'>
@@ -29,7 +35,7 @@ const Admin_Products = () => {
             <div className='contentSide'>
             <h1 className='text-displayText mt-[10px] mb-14'>Products</h1>
             <SortSearchGroup/>
-            <button onClick={() => setShowIssueComplaint(true)} className='flex w-96 p-2 mb-4 bg-tertiary rounded-full hover:bg-primary/50'>
+            <button onClick={() => setShowProductPopup(true)} className='flex w-96 p-2 mb-4 bg-tertiary rounded-full hover:bg-primary/50'>
                 <p className='p-2'>Add New Product</p>
                 </button>
             <button onClick={() => setShowIssueComplaint(true)} className='flex w-96 p-2 mb-[500px] bg-tertiary rounded-full hover:bg-primary/50'>
@@ -44,6 +50,8 @@ const Admin_Products = () => {
            </div>
         </div>
         <ManageProductForm onClose={handleCloseManageProduct} visible={showManageProduct}/>
+
+        <AddProductForm visible={showProductPopup} onClose={() => onHandleClose()}></AddProductForm>
     </div>
   );
 }

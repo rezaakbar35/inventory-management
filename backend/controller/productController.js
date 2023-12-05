@@ -6,20 +6,41 @@ const productController = {
 //CREATE
 createProduct: async (req, res) => {
     try {
-        const { product_code, product_name, category_id,product_stock, 
-        warehouse_id, product_status } = req.body;
-        const product = await prisma.product.create({
-            data: {
-              product_code: parseInt(product_code),
-              product_name,
-              category_id: parseInt(category_id),
-              product_stock: parseInt(product_stock),
-              warehouse_id: parseInt(warehouse_id),
-              product_image: req.file.path,
-              product_status,
-              arrival_at: new Date()
-            },
-          });
+        const { product_code, product_name,product_stock, 
+        warehouse_id, product_status, category_name, warehouse_name } = req.body;
+
+        const product_category= await prisma.product_category.findUnique({
+          where :{
+            category_name: category_name,
+          }
+        })
+        if (!product_category) {
+          return res.status(404).json({message: "Category Name Undefined" })
+        }
+        const warehouse= await prisma.warehouse.findUnique({
+          where :{
+            warehouse_name: warehouse_name,
+          }
+        })
+        if (!warehouse) {
+          return res.status(404).json({message: "Warehouse Name Undefined" })
+        }
+        const product_image = req.file ? req.file.path : 'default_path_if_file_not_present';
+      const product = await prisma.product.create({
+  data: {
+    product_code: parseInt(product_code),
+    product_name,
+    product_stock: parseInt(product_stock),
+    category_id : product_category.category_id,
+    warehouse_id: warehouse.warehouse_id,
+    product_image,
+    product_status,
+    arrival_at: new Date(),
+
+  },
+});
+
+
           res.status(201).json({ message: "Succesfully Create New Product!", product })
          }catch (err) {
             console.log("Error while adding product", err);
@@ -52,6 +73,18 @@ getByIdProduct: async (req, res) => {
         const { id } = req.params;
         const product = await prisma.product.findUnique({
           where: { product_id: Number(id) },
+          include: {
+            product_category: {
+              select:{
+              category_name: true,
+              }
+            },
+            warehouse: {
+              select:{
+              warehouse_name: true
+              }
+            }
+          }
         });
         res.status(200).json({ message: "Sucessfully found the product" , product });
       }
@@ -65,41 +98,42 @@ getByIdProduct: async (req, res) => {
 updateProduct: async (req, res) => {
     try{
         const { id } = req.params;
-        const { product_code, product_name, category_id, product_stock, 
-          warehouse_id, product_status, arrival_at } = req.body;
-        if (req.file){
+        const {  product_code, product_name, product_stock, 
+           product_status, category_name, warehouse_name} = req.body;
+        const product_category = await prisma.product_category.findUnique({
+          where :{
+            category_name: category_name,
+          }
+        })
+        if (!product_category) {
+          return res.status(404).json({message: "Category Name Undefined" })
+        }
+        const warehouse= await prisma.warehouse.findUnique({
+          where :{
+            warehouse_name: warehouse_name,
+          }
+        })
+        if (!warehouse) {
+          return res.status(404).json({message: "Warehouse Name Undefined" })
+        }
+        const product_image = req.file ? req.file.path : 'default_path_if_file_not_present';
         const product = await prisma.product.update({
           where: { product_id: Number(id) },
           data: {
             product_code: parseInt(product_code),
             product_name,
-            category_id: parseInt(category_id),
             product_stock: parseInt(product_stock),
-            warehouse_id: parseInt(warehouse_id),
-            product_image: req.file.path,
+            category_id : product_category.category_id,
+            warehouse_id: warehouse.warehouse_id,
+            product_image,
             product_status,
-            arrival_at: new Date()
+            arrival_at: new Date(),
           },
         });
         res.status(200).json( { message: "Product updated successfully", product });
-      } else {
-        const product = await prisma.product.update({
-          where: { product_id: Number(id) },
-          data: {
-            product_code: parseInt(product_code),
-            product_name,
-            category_id: parseInt(category_id),
-            product_stock: parseInt(product_stock),
-            warehouse_id: parseInt(warehouse_id),
-            product_status,
-            arrival_at: new Date()
-          },
-        });
-        res.json({ message: "Product updated successfully" , product });
-      }
       }
       catch (err){
-        console.log("Error while updating product", err);
+        console.log("Error while adding product", err)
         res.status(400).json({ message: "Something went wrong" })
       }
 },

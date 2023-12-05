@@ -99,6 +99,9 @@ CREATE UNIQUE INDEX "Product_product_code_key" ON "Product"("product_code");
 CREATE UNIQUE INDEX "Warehouse_warehouse_name_key" ON "Warehouse"("warehouse_name");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Product_category_category_name_key" ON "Product_category"("category_name");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Warehouse_category_category_name_key" ON "Warehouse_category"("category_name");
 
 -- AddForeignKey
