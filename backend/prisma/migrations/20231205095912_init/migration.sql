@@ -96,6 +96,12 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 -- CreateIndex
 CREATE UNIQUE INDEX "Product_product_code_key" ON "Product"("product_code");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "Warehouse_warehouse_name_key" ON "Warehouse"("warehouse_name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Warehouse_category_category_name_key" ON "Warehouse_category"("category_name");
+
 -- AddForeignKey
 ALTER TABLE "Product" ADD CONSTRAINT "Product_category_id_fkey" FOREIGN KEY ("category_id") REFERENCES "Product_category"("category_id") ON DELETE RESTRICT ON UPDATE CASCADE;
 

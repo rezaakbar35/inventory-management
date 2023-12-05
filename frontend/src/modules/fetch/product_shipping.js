@@ -19,7 +19,55 @@ async function getProductShippingById(id) {
   }
 }
 
-// Function for delete product-shipping endpoint
+// Function for create product shipping endpoint
+async function createProductShipping( product_id,
+  buyer_id,
+  warehouse_id,
+  warehouse_name,
+  quantity,
+  tracking_number,
+  target_address,
+  product_shipment_status ) {
+  try {
+    const response = await instance.post('/product-shipping/create', { product_id,
+      buyer_id,
+      warehouse_id,
+      warehouse_name,
+      quantity,
+      tracking_number,
+      target_address,
+      product_shipment_status });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || 'Something went wrong');
+  }
+}
+
+// Function for update product shipping endpoint
+async function updateWarehouseCategory( shipping_id,  product_id,
+  buyer_id,
+  warehouse_id,
+  warehouse_name,
+  quantity,
+  tracking_number,
+  target_address,
+  product_shipment_status ) {
+  try {
+    const response = await instance.put(`/product-shipping/${shipping_id}/update`, { product_id,
+      buyer_id,
+      warehouse_id,
+      warehouse_name,
+      quantity,
+      tracking_number,
+      target_address,
+      product_shipment_status });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || 'Something went wrong');
+  }
+}
+
+// Function for delete product shipping endpoint
 async function deleteProductShipping(id) {
     try {
       const response = await instance.delete(`/product-shipping/${id}`);
@@ -30,4 +78,4 @@ async function deleteProductShipping(id) {
   }
 
 
-export { getAllProductShipping, getProductShippingById, deleteProductShipping };
+export { getAllProductShipping, getProductShippingById, createProductShipping, updateWarehouseCategory, deleteProductShipping };

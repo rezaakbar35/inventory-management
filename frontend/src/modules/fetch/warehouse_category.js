@@ -19,6 +19,26 @@ async function getWarehouseCategoryById(id) {
   }
 }
 
+// Function for create warehouse category endpoint
+async function createWarehouseCategory(category_name, description) {
+  try {
+    const response = await instance.post('/warehouse-category/create', {category_name, description});
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || 'Something went wrong');
+  }
+}
+
+// Function for update warehouse category endpoint
+async function updateWarehouseCategory(category_id, category_name, description) {
+  try {
+    const response = await instance.put(`/warehouse-category/${category_id}/update`, { category_name, description });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || 'Something went wrong');
+  }
+}
+
 // Function for delete warehouse-category endpoint
 async function deleteWarehouseCategory(id) {
     try {
@@ -29,4 +49,4 @@ async function deleteWarehouseCategory(id) {
     }
   }
 
-export { getAllWarehouseCategory, getWarehouseCategoryById, deleteWarehouseCategory };
+export { getAllWarehouseCategory, getWarehouseCategoryById, createWarehouseCategory, updateWarehouseCategory, deleteWarehouseCategory };

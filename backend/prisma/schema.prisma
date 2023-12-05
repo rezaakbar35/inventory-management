@@ -29,7 +29,7 @@ model User {
 model Product {
   product_id   Int    @id @default(autoincrement())
   product_code Int    @unique
-  product_name String
+  product_name String 
 
   category_id      Int
   product_category Product_category @relation(fields: [category_id], references: [category_id])
@@ -48,7 +48,7 @@ model Product {
 
 model Warehouse {
   warehouse_id   Int    @id @default(autoincrement())
-  warehouse_name String
+  warehouse_name String @unique
   location       String
 
   warehouse_category_id Int
@@ -62,14 +62,14 @@ model Warehouse {
 
 model Product_category {
   category_id   Int       @id @default(autoincrement())
-  category_name String
+  category_name String    
   description   String
   Product       Product[]
 }
 
 model Warehouse_category {
   category_id   Int         @id @default(autoincrement())
-  category_name String
+  category_name String      @unique
   description   String
   Warehouse     Warehouse[]
 }

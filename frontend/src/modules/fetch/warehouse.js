@@ -19,6 +19,27 @@ async function getWarehouseById(id) {
   }
 }
 
+// Function for create warehouse endpoint
+async function createWarehouse(warehouse_name, location, warehouse_category_id) {
+  try {
+    const response = await instance.post('/warehouse/create', {warehouse_name, location, warehouse_category_id});
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || 'Something went wrong');
+  }
+}
+
+// Function for update warehouse endpoint
+async function updateWarehouse(warehouse_id, warehouse_name, location, warehouse_category_id) {
+  try {
+    const response = await instance.put(`/warehouse/${warehouse_id}/update`, { warehouse_name, location, warehouse_category_id });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || 'Something went wrong');
+  }
+}
+
+
 // Function for delete warehouse endpoint
 async function deleteWarehouse(id) {
     try {
@@ -29,4 +50,4 @@ async function deleteWarehouse(id) {
     }
   }
 
-export { getAllWarehouse, getWarehouseById, deleteWarehouse };
+export { getAllWarehouse, getWarehouseById, createWarehouse, updateWarehouse, deleteWarehouse };

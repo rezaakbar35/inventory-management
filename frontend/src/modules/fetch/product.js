@@ -20,6 +20,30 @@ async function getProductById(id) {
   }
 }
 
+// Function for create product endpoint
+async function createProduct(formData) {
+  try {
+    const response = await instance.post('/product/create', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || 'Something went wrong');
+  }
+}
+
+// Function for update product endpoint
+async function updateProduct(product_id, product_code, product_name, category_id,product_stock, 
+  warehouse_id, product_status) {
+  try {
+    const response = await instance.put(`/product/${product_id}/update`, { product_code, product_name, category_id,product_stock, 
+      warehouse_id, product_status });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || 'Something went wrong');
+  }
+}
+
 // Function for delete product endpoint
 async function deleteProduct(id) {
     try {
@@ -30,5 +54,5 @@ async function deleteProduct(id) {
     }
   }
 
-export {getAllProduct, getProductById, deleteProduct}
+export {getAllProduct, getProductById, createProduct, updateProduct, deleteProduct}
 

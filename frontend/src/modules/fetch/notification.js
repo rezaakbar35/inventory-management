@@ -19,6 +19,26 @@ async function getNotificationById(id) {
   }
 }
 
+// Function for create notification endpoint
+async function createNotification(notification_title, notification_description, username) {
+  try {
+    const response = await instance.post('/notification/create', {notification_title, notification_description, username});
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || 'Something went wrong');
+  }
+}
+
+// Function for update notification endpoint
+async function updateNotification(notification_id, notification_title, notification_description, username) {
+  try {
+    const response = await instance.put(`/notification/${notification_id}/update`, { notification_title, notification_description, username });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || 'Something went wrong');
+  }
+}
+
   // Function for delete notification endpoint
   async function deleteNotification(id) {
     try {
@@ -29,4 +49,4 @@ async function getNotificationById(id) {
     }
   }
 
-export { getAllNotification, getNotificationById, deleteNotification };
+export { getAllNotification, getNotificationById, createNotification, updateNotification, deleteNotification };
