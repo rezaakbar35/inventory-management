@@ -20,9 +20,9 @@ async function getWarehouseById(id) {
 }
 
 // Function for create warehouse endpoint
-async function createWarehouse(warehouse_name, location, warehouse_category_id) {
+async function createWarehouse(warehouse_name, location, category_name) {
   try {
-    const response = await instance.post('/warehouse/create', {warehouse_name, location, warehouse_category_id});
+    const response = await instance.post('/warehouse/create', {warehouse_name, location, category_name});
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message || 'Something went wrong');
@@ -30,9 +30,9 @@ async function createWarehouse(warehouse_name, location, warehouse_category_id) 
 }
 
 // Function for update warehouse endpoint
-async function updateWarehouse(warehouse_id, warehouse_name, location, warehouse_category_id) {
+async function updateWarehouse(warehouse_id, warehouse_name, location, category_name) {
   try {
-    const response = await instance.put(`/warehouse/${warehouse_id}/update`, { warehouse_name, location, warehouse_category_id });
+    const response = await instance.put(`/warehouse/${warehouse_id}/update`, { warehouse_name, location, category_name});
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message || 'Something went wrong');
