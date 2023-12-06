@@ -5,6 +5,7 @@ import './Admin_Dashboard.css'
 import TableProduct from '../components/TableProduct'
 import SortSearchGroup from '../components/SortSearchGroup';
 import ManageProductForm from '../components/forms/ManageProductForm';
+import AddProductForm from '../components/forms/AddProductForm';
 
 const Admin_Products = () => {
     const linkTitles = [
@@ -19,8 +20,13 @@ const Admin_Products = () => {
     ];
     const numOfShownLinks = 3;
 
-    const [showManageProduct, setShowManageProduct] = useState(false)
+    const [showManageProduct, setShowManageProduct] = useState(false);
+    const [showProductPopup, setShowProductPopup] = useState(false);
     const handleCloseManageProduct = () => setShowManageProduct(false)
+
+  const onHandleClose = () => {
+    setShowProductPopup(false);
+  }
 
   return (
     <div className='dashboardContainer flex overflow-hidden'>
@@ -44,6 +50,8 @@ const Admin_Products = () => {
            </div>
         </div>
         <ManageProductForm onClose={handleCloseManageProduct} visible={showManageProduct}/>
+
+        <AddProductForm visible={showProductPopup} onClose={() => onHandleClose()}></AddProductForm>
     </div>
   );
 }

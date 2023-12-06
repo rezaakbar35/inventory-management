@@ -59,6 +59,7 @@ export const TableProduct = ({}) => {
                     <td className="px-6 py-2 whitespace-nowrap">{ item.product_code }</td>
                     <td className="px-6 py-2 whitespace-nowrap">{ item.warehouse_id }</td>
                     <td className="px-6 py-2 whitespace-nowrap">{ item.arrival_at } </td>
+                    <td className="px-6 py-2 whitespace-nowrap">{ item.arrival_at } </td>
                     <td className="px-6 py-2 whitespace-nowrap">
                   <div className="flex items-center justify-center space-x-7">
                   <BsFillTrashFill className="text-red-500 cursor-pointer" onClick={() => deleteRow(item.product_id)} />
