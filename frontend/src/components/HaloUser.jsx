@@ -1,17 +1,16 @@
 import React from 'react'
 import placeholder from '../assets/placeholder.jpg'
-import './HaloUser.css'
 
 const HaloUser = () => {
     const user = "placeholder"
   return (
-    <div className='w-80 flex haloContainer'>
-        <img className='profilePicture rounded-full'
+    <div className='p-[20px] mt-[50px] flex haloContainer'>
+        <img className='w-[50px] h-[50px] profilePicture rounded-full'
         src={placeholder}/>
         <div className='haloTexts'>
-        <h2>Halo,</h2>
-        <h1>{user}</h1>
+        <h1 className='ml-[10px] text-[2rem]'>{user}</h1>
         </div>
+        <hr/>
     </div>
   )
 }

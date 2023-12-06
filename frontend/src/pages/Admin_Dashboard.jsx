@@ -17,11 +17,11 @@ const Admin_Dashboard = () => {
     ];
     const numOfShownLinks = 3;
 
-
   return (
-    <div className='dashboardContainer flex overflow-hidden'>
+    <div
+    className='dashboardContainer flex overflow-hidden'>
         <DashboardSidebar numOfLinks={numOfShownLinks} linkTitles={linkTitles} links={links}/>
-        <div className='bg-background contentContainer'>
+        <div className='pl-[100px] bg-background contentContainer'>
            <h1 className='text-displayText'>Hello Admin! Please select an Activity.</h1>
         </div>
     </div>
