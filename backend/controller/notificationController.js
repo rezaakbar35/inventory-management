@@ -17,6 +17,30 @@ const notificationController = {
     res.status(200).json({ message: "Successfully found all notification", notification });
   },
 
+  //get notifikasi dari status
+  getNotificationByStatus: async (req, res) => {
+    try{
+    const { notification_status } = req.body
+    const notification = await prisma.notification.findMany({
+        where: {
+          notification_status: notification_status
+        },
+        include: {
+            user: {
+                select: {
+                    username: true,
+                    user_role: true,
+                }
+            }
+        }
+    });
+    res.status(200).json({ message: "Successfully found all notification", notification });
+  } catch (error) {
+    console.log(error);
+      res.status(400).json({ message: "Notification not found" });
+  }
+  },
+
   getByIdNotification: async (req, res) => {
     try {
       const { id } = req.params;
@@ -40,9 +64,10 @@ const notificationController = {
     }
   },
 
+  //create notifikasi
   createNotification: async (req, res) => {
     try {
-      const { notification_title, notification_description, username } = req.body;
+      const { notification_title, notification_description, username, notification_status, } = req.body;
   
       // Find the user based on username and user_role
       const user = await prisma.user.findUnique({
@@ -62,6 +87,7 @@ const notificationController = {
           notification_title,
           notification_description,
           user_id: user.user_id, // Assuming 'id' is the primary key of the user table
+          notification_status: notification_status,
         },
       });
   
@@ -75,7 +101,7 @@ const notificationController = {
   // Method PUT
   updateNotification: async (req, res) => {
     try {
-      const { notification_title, notification_description, username } = req.body;
+      const { notification_title, notification_description, username, notification_status } = req.body;
       const { id } = req.params;
 
       const user = await prisma.user.findUnique({
@@ -94,6 +120,7 @@ const notificationController = {
           notification_title,
           notification_description,
           user_id: user.user_id,
+          notification_status,
         },
       });
       res.status(200).json({ message: "Update notification Successfull", notification });

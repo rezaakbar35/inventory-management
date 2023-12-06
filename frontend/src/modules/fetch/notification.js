@@ -19,10 +19,19 @@ async function getNotificationById(id) {
   }
 }
 
-// Function for create notification endpoint
-async function createNotification(notification_title, notification_description, username) {
+async function getNotificationByStatus(notification_status) {
   try {
-    const response = await instance.post('/notification/create', {notification_title, notification_description, username});
+    const response = await instance.get(`/notification/status/${notification_status}`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || "Something went wrong");
+  }
+}
+
+// Function for create notification endpoint
+async function createNotification(notification_title, notification_description, username, notification_status) {
+  try {
+    const response = await instance.post('/notification/create', {notification_title, notification_description, username, notification_status});
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message || 'Something went wrong');
@@ -30,9 +39,9 @@ async function createNotification(notification_title, notification_description, 
 }
 
 // Function for update notification endpoint
-async function updateNotification(notification_id, notification_title, notification_description, username) {
+async function updateNotification(notification_id, notification_title, notification_description, username, notification_status) {
   try {
-    const response = await instance.put(`/notification/${notification_id}/update`, { notification_title, notification_description, username });
+    const response = await instance.put(`/notification/${notification_id}/update`, { notification_title, notification_description, username,notification_status });
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message || 'Something went wrong');
@@ -49,4 +58,4 @@ async function updateNotification(notification_id, notification_title, notificat
     }
   }
 
-export { getAllNotification, getNotificationById, createNotification, updateNotification, deleteNotification };
+export { getAllNotification, getNotificationById, createNotification, updateNotification, deleteNotification, getNotificationByStatus };

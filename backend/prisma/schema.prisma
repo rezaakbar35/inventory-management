@@ -101,4 +101,5 @@ model Notification {
   notification_timestamp    DateTime  @default(now())
   notification_title        String
   notification_description  String
+  notification_status       String 
 }

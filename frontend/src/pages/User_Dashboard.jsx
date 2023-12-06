@@ -13,8 +13,8 @@ const User_Dashboard = () => {
     ];
     const links = [
         '/UsersDash/Items',
-        '/UsersDash/Setting',
-        '/UsersDash/Complaints'
+        '/UsersDash/Complaints',
+        '/UsersDash/Setting'
     ];
     const numOfShownLinks = 3;
 
