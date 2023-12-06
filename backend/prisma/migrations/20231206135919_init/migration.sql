@@ -82,6 +82,7 @@ CREATE TABLE "Notification" (
     "notification_timestamp" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "notification_title" TEXT NOT NULL,
     "notification_description" TEXT NOT NULL,
+    "notification_status" TEXT NOT NULL,
 
     CONSTRAINT "Notification_pkey" PRIMARY KEY ("notification_id")
 );

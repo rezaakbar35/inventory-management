@@ -17,6 +17,11 @@ export default {
       },
       gridRow: {
         'span-8': 'span 8 / span 8',
+        'span-7': 'span 7 / span 7'
+      },
+      gridTemplateRows: {
+        '8': 'repeat(8, minmax(0, 1fr))',
+        'layout': '200px minmax(900px, 1fr) 100px',
       }
     },
   },

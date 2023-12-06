@@ -42,7 +42,7 @@ const AddWarehouseForm = ({ visible, onClose }) => {
               </div>
               <div className="flex justify-end">
                 <button type="submit" className="text-white font-bold bg-primary mt-5 mr-1 px-5 py-2 rounded-full">Send</button>
-            </div>
+              </div>
             </form>
          </div>
     </div>

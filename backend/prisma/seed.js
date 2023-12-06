@@ -198,8 +198,9 @@ const seedData = async () => {
     const notification = await prisma.notification.create({
       data: {
         user_id: 1,
-        notification_title: "Alert",
-        notification_description: "Product X at Warehouse A has exceeded 3 months in storage ",
+        notification_title: "Barang Belum Sampai",
+        notification_description: "Product saya sudah belum sampai dari 700 tahun yang lalu",
+        notification_status: "Complaint",
       },
     })
 
