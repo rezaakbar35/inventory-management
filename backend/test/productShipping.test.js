@@ -8,11 +8,14 @@ describe("Product Shipping Test", () => {
       product_id: 2,
       buyer_id: 1,
       warehouse_id: 3,
-      warehouse_name: "Gudang B",
       quantity: 1,
       tracking_number: "SAID8F7HSD7F",
       target_address: "St. Test",
       product_shipment_status: "dijalan",
+      username: "admin",
+      product_code: 1001,
+      warehouse_name: "Gudang Garam"
+
     };
 
     request(app)
@@ -49,11 +52,13 @@ describe("Product Shipping Test", () => {
       product_id: 1,
       buyer_id: 1,
       warehouse_id: 1,
-      warehouse_name: "Gudang Garam",
       quantity: 1,
       tracking_number: "Updated SAID8F7HSD7F",
       target_address: "Updated St. Test",
-      product_shipment_status: "sudah sampai",
+      product_shipment_status: "update sudah sampai",
+      username: "admin",
+      product_code: 1001,
+      warehouse_name: "Gudang Garam"
     };
 
     request(app)
@@ -81,9 +86,42 @@ describe("Product Shipping Test", () => {
       .catch(done);
   });
 
+//test get Product-shipping by username
+  test("retrieve all product shippings test by user", (done) => {
+    const username = {
+      username: "bald"
+    }
+    request(app)
+      .get("/product-shipping/users/:username")
+      .send(username)
+      .expect("Content-Type", /json/)
+      .then((response) => {
+        expect(response.status).toBe(200);
+        expect(response.body.message).toBe("Product Get By Username successfully");
+        done();
+      })
+      .catch(done);
+  });
+//Get Product-shipping By Warehouse_Name
+  test("retrieve all product shippings test by warehouse", (done) => {
+    const warehouse_name = {
+      warehouse_name: "Gudang Garam"
+    }
+    request(app)
+    .get(`/product-shipping/warehouse/${warehouse_name.warehouse_name}`)
+      .send(warehouse_name)
+      .expect("Content-Type", /json/)
+      .then((response) => {
+        expect(response.status).toBe(200);
+        expect(response.body.message).toBe("Product Get By Id successfully");
+        done();
+      })
+      .catch(done);
+  });
+
   // Test DELETE method
   test("delete product shipping test", (done) => {
-    const productShippingID = 2
+    const productShippingID = 4
 
     request(app)
       .delete(`/product-shipping/${productShippingID}`)
@@ -96,5 +134,5 @@ describe("Product Shipping Test", () => {
       .catch(done);
   });
 
-  //diatas ini
+
 });
