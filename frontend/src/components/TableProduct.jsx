@@ -15,7 +15,11 @@ export const TableProduct = ({}) => {
   const fetchData = () => {
     setLoading(true);
     getAllProduct().then((result) => {
-      setData([...result.product]);
+      const newData = result.product.map((item) => ({
+        ...item,
+        warehouse_name: item.warehouse.warehouse_name
+      }));
+      setData(newData);
       setLoading(false)
     })
   }
@@ -30,6 +34,7 @@ export const TableProduct = ({}) => {
       fetchData();
     })
   }
+
 
   return (
     (
@@ -53,12 +58,11 @@ export const TableProduct = ({}) => {
           <tbody className="bg-white divide-y divide-gray-200 text-black">
               {
                 data.map((item) => (
-                  <tr  className="hover:bg-gray-50">
-                    <td className="px-6 py-2 whitespace-nowrap">{ item.product_id}</td>
-                    <td className="px-6 py-2 whitespace-nowrap">{ item.product_name}</td>
+                  <tr  className="hover:bg-gray-50" key={item.product_id}>
+                    <td className="px-6 py-2 whitespace-nowrap">{ item.product_id }</td>
+                    <td className="px-6 py-2 whitespace-nowrap">{ item.product_name }</td>
                     <td className="px-6 py-2 whitespace-nowrap">{ item.product_code }</td>
-                    <td className="px-6 py-2 whitespace-nowrap">{ item.warehouse_id }</td>
-                    <td className="px-6 py-2 whitespace-nowrap">{ item.arrival_at } </td>
+                    <td className="px-6 py-2 whitespace-nowrap">{ item.warehouse_name }</td>
                     <td className="px-6 py-2 whitespace-nowrap">{ item.arrival_at } </td>
                     <td className="px-6 py-2 whitespace-nowrap">
                   <div className="flex items-center justify-center space-x-7">

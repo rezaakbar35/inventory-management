@@ -20,7 +20,8 @@ async function getWarehouseById(id) {
 }
 
 // Function for create warehouse endpoint
-async function createWarehouse(warehouse_name, location, category_name) {
+async function createWarehouse(formData) {
+  const { warehouse_name, location, category_name } = formData;
   try {
     const response = await instance.post('/warehouse/create', {warehouse_name, location, category_name});
     return response.data;

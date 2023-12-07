@@ -1,8 +1,48 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
+import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import './TableWarehouse.css'
+import { getAllWarehouse, updateWarehouse, deleteWarehouse } from "../modules/fetch/warehouse";
 
 export const TableWarehouse = ({}) => {
+
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  const fetchData = () => {
+    setLoading(true);
+    getAllWarehouse().then((result) => {
+      const newData = result.warehouse.map((item) => ({
+        ...item,
+        category_name: item.warehouse_category.category_name
+      }));
+    setData(newData);
+      setLoading(false)
+    })
+  }
+
+  const updateRow = (id) => {
+    console.log(id)
+  }
+
+  const deleteRow =  (id) => {
+     deleteWarehouse(id).then((response) => {
+      console.log(response)
+      fetchData();
+    })
+  }
+
+
   return (
+    (
+      loading ?
+      (
+        <div>Loading ..</div>
+      ) :
+      (
     <div className="table-wrapper overflow-x-auto">
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-gray-100">
@@ -11,20 +51,33 @@ export const TableWarehouse = ({}) => {
             <th className="px-6 py-3 text-centre text-xs font-medium text-gray-500 uppercase tracking-wider">Warehouse Name</th>
             <th className="px-6 py-3 text-centre text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
             <th className="px-6 py-3 text-centre text-xs font-medium text-gray-500 uppercase tracking-wider">Warehouse Category</th>
-            <th className="px-6 py-3 text-centre text-xs font-medium text-gray-500 uppercase tracking-wider">Product Category</th>
+            <th className="px-6 py-3 text-centre text-xs font-medium text-gray-500 uppercase tracking-wider">Created At</th>
+            <th className="px-6 py-3 text-centre text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-              <tr  className="hover:bg-gray-50">
-                <td className="px-6 py-2 whitespace-nowrap">1</td>
-                <td className="px-6 py-2 whitespace-nowrap">Toys Warehouse</td>
-                <td className="px-6 py-2 whitespace-nowrap">St Simatupang</td>
-                <td className="px-6 py-2 whitespace-nowrap">2</td>
-                <td className="px-6 py-2 whitespace-nowrap">1</td>
+        {
+                data.map((item) => (
+              <tr  className="hover:bg-gray-50" key={item.warehouse_id}>
+                <td className="px-6 py-2 whitespace-nowrap text-black">{ item.warehouse_id }</td>
+                <td className="px-6 py-2 whitespace-nowrap text-black">{ item.warehouse_name }</td>
+                <td className="px-6 py-2 whitespace-nowrap text-black">{ item.location }</td>
+                <td className="px-6 py-2 whitespace-nowrap text-black">{ item.category_name}</td>
+                <td className="px-6 py-2 whitespace-nowrap text-black">{ item.created_at }</td>
+                <td className="px-6 py-2 whitespace-nowrap">
+                  <div className="flex items-center justify-center space-x-7">
+                  <BsFillTrashFill className="text-red-500 cursor-pointer" onClick={() => deleteRow(item.warehouse_id)} />
+                  <BsFillPencilFill className="text-blue-500 cursor-pointer" onClick={() => updateRow(item.warehouse_id)} />
+                  </div>
+                  </td>
               </tr>
+              ))
+            }
         </tbody>
       </table>
     </div>
+    )
+  )
   );
 };
 

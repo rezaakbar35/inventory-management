@@ -28,7 +28,7 @@ const Admin_Complaints = () => {
   return (
     <div className='dashboardContainer flex overflow-hidden'>
         <DashboardSidebar numOfLinks={numOfShownLinks} linkTitles={linkTitles} links={links}/>
-        <div className='bg-background contentContainer flex px-20'>
+        <div className='pl-[100px] bg-background contentContainer flex px-20'>
             <div className='contentSide'>
             <h1 className='text-displayText mt-[10px] mb-14'>Complaints</h1>
             <SortSearchGroup/>
