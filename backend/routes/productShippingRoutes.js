@@ -9,6 +9,8 @@ router.post("/create", productShippingController.createProductShipping);
 
 router.put("/:id/update", productShippingController.updateProductShipping);
 
+router.get("/users/:username", productShippingController.getProductShippingByUser)
+
 router.route("/:id")
 .get(productShippingController.getProductShippingById)
 .delete(productShippingController.deleteProductShipping)

@@ -204,10 +204,53 @@ async function getProductShippingById(req, res) {
   }
 }
 
+async function getProductShippingByUser(req, res) {
+  const {username} = req.body
+
+  const user = await prisma.user.findUnique({
+    where: { username: username}
+  })
+
+  try {
+    const shipping = await prisma.product_shipping.findMany({
+      where: { buyer_id: user.user_id },
+      include: {
+        product: {
+          select: {
+            product_name: true,
+          }
+        },
+        buyer: {
+          select: {
+            first_name: true,
+            username: true,
+            user_address: true,
+          }
+        },
+        warehouse: {
+          select: {
+            warehouse_name: true,
+            location: true,
+          }
+        },
+      },
+    });
+
+    res
+      .status(200)
+      .json({ message: "Product Get By Username successfully", shipping });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Failed to fetch product shipping", details: error });
+  }
+}
+
 module.exports = {
   createProductShipping,
   getAllProductShippings,
   updateProductShipping,
   deleteProductShipping,
   getProductShippingById,
+  getProductShippingByUser,
 };
