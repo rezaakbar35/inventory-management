@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Checkbox from '@mui/material/Checkbox';
-import { getNotificationByStatus } from "../modules/fetch/notification";
+import { getNotificationByComplaint } from "../modules/fetch/notification";
 
 export const TableComplaints = ({}) => {
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
@@ -14,7 +14,7 @@ export const TableComplaints = ({}) => {
 
   const fetchData = () => {
     setLoading(true);
-    getNotificationByStatus(NotificationStatus).then((result) => {
+    getNotificationByComplaint(NotificationStatus).then((result) => {
       setData([...result.notification]);
       setLoading(false)
     })
