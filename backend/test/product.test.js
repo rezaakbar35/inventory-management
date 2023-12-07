@@ -11,9 +11,9 @@ describe('Product Test', () => {
         const newProduct = {
             product_code: 2001,
             product_name: 'Baby Doll',
-            category_id: 1,
+            category_name: 'Clothes Baby',
             product_stock: 1,
-            warehouse_id: 1,
+            warehouse_name: 'Gudang A',
             product_status: 'di gudang',
         };
 
@@ -21,9 +21,9 @@ describe('Product Test', () => {
             .post('/product/create')
             .field('product_code', String(newProduct.product_code))
             .field('product_name', newProduct.product_name)
-            .field('category_id', String(newProduct.category_id))
+            .field('category_name', newProduct.category_name)
             .field('product_stock', String(newProduct.product_stock))
-            .field('warehouse_id', String(newProduct.warehouse_id))
+            .field('warehouse_name', newProduct.warehouse_name)
             .field('product_status', newProduct.product_status)
             .attach('product_image', imagePath)
             .expect('Content-Type', /json/)
@@ -79,15 +79,44 @@ describe('Product Test', () => {
             .catch(done)
     })
 
+    // getProductByWarehouse test
+    test('find product by warehouse test', (done) => {
+        const warehouse_name = "Gudang C";
+        const product_code = 1004;
+        const product_name = 'Baby socks';
+        const category_id = 4;
+        const product_stock = 4;
+        const warehouse_id = 4;
+        const product_status = 'Sudah sampai';
+
+
+        request(app)
+            .get(`/product/warehouse/${warehouse_name}`)
+            .expect('Content-Type', /json/)
+            .then(response => {
+                expect(response.body.message).toBe('Sucessfully found the product');
+                expect(response.body.product[0].product_code).toBe(product_code);
+                expect(response.body.product[0].product_name).toBe(product_name);
+                expect(response.body.product[0].category_id).toBe(category_id);
+                expect(response.body.product[0].product_stock).toBe(product_stock);
+                expect(response.body.product[0].warehouse_id).toBe(warehouse_id);
+                expect(response.body.product[0].product_status).toBe(product_status);
+                done();
+            })
+            .catch(done)
+    })
+
     // test updateProductById method
     test('update product test', (done) => {
         const product_id = 1;
+        const updatedWarehouse_id = 2;
+        const updatedCategory_id = 1
         const updateProduct = {
             product_code: 2002,
             product_name: "Baby Doll",
-            category_id: "1",
+            category_name: "Clothes Baby",
             product_stock: "1",
-            warehouse_id: "1",
+            warehouse_name: "Gudang A",
             product_status: "di gudang",
         };
     
@@ -101,9 +130,9 @@ describe('Product Test', () => {
                 expect(response.body.product.product_id).toBe(product_id);
                 expect(response.body.product.product_code).toBe(updateProduct.product_code);
                 expect(response.body.product.product_name).toBe(updateProduct.product_name);
-                expect(response.body.product.category_id).toBe(parseInt(updateProduct.category_id));
+                expect(response.body.product.category_id).toBe(updatedCategory_id);
                 expect(response.body.product.product_stock).toBe(parseInt(updateProduct.product_stock));
-                expect(response.body.product.warehouse_id).toBe(parseInt(updateProduct.warehouse_id));
+                expect(response.body.product.warehouse_id).toBe(updatedWarehouse_id);
                 expect(response.body.product.product_status).toBe(updateProduct.product_status);
                 done();
             })
