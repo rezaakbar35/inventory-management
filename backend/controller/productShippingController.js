@@ -126,7 +126,6 @@ async function getAllProductShippings(req, res) {
         },
         buyer: {
           select: {
-            first_name: true,
             username: true,
             user_address: true,
           }

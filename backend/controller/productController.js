@@ -26,21 +26,19 @@ createProduct: async (req, res) => {
           return res.status(404).json({message: "Warehouse Name Undefined" })
         }
         const product_image = req.file ? req.file.path : 'default_path_if_file_not_present';
-      const product = await prisma.product.create({
-  data: {
-    product_code: parseInt(product_code),
-    product_name,
-    product_stock: parseInt(product_stock),
-    category_id : product_category.category_id,
-    warehouse_id: warehouse.warehouse_id,
-    product_image,
-    product_status,
-    arrival_at: new Date(),
+        const product = await prisma.product.create({
+        data: {
+            product_code: parseInt(product_code),
+            product_name,
+            product_stock: parseInt(product_stock),
+            category_id : product_category.category_id,
+            warehouse_id: warehouse.warehouse_id,
+            product_image: product_image,
+            product_status,
+            arrival_at: new Date(),
 
-  },
-});
-
-
+          },
+        });
           res.status(201).json({ message: "Succesfully Create New Product!", product })
          }catch (err) {
             console.log("Error while adding product", err);
