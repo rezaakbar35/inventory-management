@@ -103,5 +103,6 @@ export {
   getNotificationByComplaint, 
   getNotificationByWarning,
   getNotificationByTracking,
-  getNotificationByReport, 
+  getNotificationByReport,
+  getAllNotificationByUser, 
   };
