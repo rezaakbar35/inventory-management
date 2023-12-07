@@ -17,7 +17,7 @@ const Warehouse_Stocks = () => {
   return (
     <div className='dashboardContainer flex overflow-hidden'>
         <DashboardSidebar numOfLinks={numOfShownLinks} linkTitles={linkTitles} links={links}/>
-        <div className='bg-background contentContainer'>
+        <div className='pl-[100px] bg-background contentContainer'>
         <div className='contentSide'>
             <h1 className='text-displayText mt-[10px] mb-14'>Product Stock</h1>
             <SortSearchGroup/>
