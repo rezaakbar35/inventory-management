@@ -4,33 +4,9 @@ const request = require('supertest')
 describe('Warehouse Test', () => {
     
  //get methode
-    test('read warehouse test', (done) => {
-    const getAllWarehouse = {
-        warehouse_name: "Gudang AN",
-        warehouse_category_id: 2,
-        location: "Jalan jalan",
-
-        warehouse_name: "Gudang A",
-        warehouse_category_id: 2,
-        location: "Jalan Nangka",
-
-        warehouse_name: "Gudang B",
-        warehouse_category_id: 3,
-        location: "Jalan Kagoshima",
-
-        warehouse_name: "Gudang c",
-        warehouse_category_id: 4,
-        location: "Jalan in aja dl brok",
-
-        warehouse_name: "Gudang EE",
-        warehouse_category_id: 5,
-        location: "Jalan jalan jalan jalan jalan jalan",
-
-    }
-
+    test('get all warehouse test', (done) => {
     request(app)
         .get('/warehouse')
-        .send(getAllWarehouse)
         .expect('Content-Type', /json/)
         .then(response => {
             expect(response.status).toBe(200)
@@ -40,18 +16,22 @@ describe('Warehouse Test', () => {
  })
 
  //get by id methode
-    test('read by id warehouse test', (done) => {
-    const getByIdWarehouse = {
-            warehouse_name: "Gudang AN",
-            location: "Jalan jalan",
-            warehouse_category_id: 2,
-        }
+    test('get by id warehouse test', (done) => {
+        const warehouse_id = 1
+        const warehouse_name = "Gudang Garam"
+        const location = "Jalan nya sama aku jadian sama yg lain"
+        const warehouse_category_id = 1
+        const category_name = "Pakaian"
+        
         request(app)
-            .get('/warehouse/1')
-            .send(getByIdWarehouse)
+            .get(`/warehouse/${warehouse_id}`)
             .expect('Content-Type', /json/)
             .then(response => {
                 expect(response.status).toBe(200)
+                expect(response.body.warehouse.warehouse_name).toBe(warehouse_name)
+                expect(response.body.warehouse.location).toBe(location)
+                expect(response.body.warehouse.warehouse_category_id).toBe(warehouse_category_id)
+                expect(response.body.warehouse.warehouse_category.category_name).toBe(category_name)
                 done()
             })
             .catch(done)
@@ -61,8 +41,8 @@ describe('Warehouse Test', () => {
     test('create warehouse test', (done) => {
         const newWarehouse = {
             warehouse_name: "Gudang test all",
-            warehouse_category_id: 1,
             location: "Jalan Test",
+            category_name: "Pakaian" ,
         }
 
         request(app)
@@ -79,33 +59,32 @@ describe('Warehouse Test', () => {
    
     //put methode
     test('update warehouse test', (done) => {
+        const warehouse_id = 5
+        const warehouse_category_id = 5
         const updateWarehouse = {
-            warehouse_name: "Gudang EE",
-            location: "Jalan jalan",
-            warehouse_category_id: 2,
+            warehouse_name: "Gudang Coy",
+            location: "Jalan Sana Aja",
+            category_name: "Gadget",
         }
         request(app)
-            .put('/warehouse/5/update')
+            .put(`/warehouse/${warehouse_id}/update`)
             .send(updateWarehouse)
             .expect('Content-Type', /json/)
             .then(response => {
                 expect(response.body.message).toBe('Update Warehouse Successful')
                 expect(response.status).toBe(200)
+                expect(response.body.warehouse.warehouse_name).toBe(updateWarehouse.warehouse_name)
+                expect(response.body.warehouse.location).toBe(updateWarehouse.location)
+                expect(response.body.warehouse.warehouse_category_id).toBe(warehouse_category_id)
                 done()
             })
             .catch(done)
     })
     //delete methode
     test('delete warehouse test', (done) => {
-            const warehouseID = 6
-            const deleteWarehouse = {
-                warehouse_name: "Gudang test all",
-                warehouse_category_id: 1,
-                location: "Jalan Test",
-            }
+            const warehouse_id = 6
             request(app)
-                .delete(`/warehouse/${warehouseID}`)
-                .send(deleteWarehouse)
+                .delete(`/warehouse/${warehouse_id}`)
                 .expect('Content-Type', /json/)
                 .then(response => {
                     expect(response.body.message).toBe('Delete Successful')
