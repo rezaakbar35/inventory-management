@@ -8,6 +8,7 @@ const path = require('path');
 router.post('/create', uploadProductImage.single('product_image'), productController.createProduct);
 router.get('/', productController.getAllProduct);
 router.put('/:id/update', uploadProductImage.single('product_image'), productController.updateProduct);
+router.get('/warehouse/:warehouse_name', productController.getByWarehouseProduct)
 
 router.route("/:id")
 .get(productController.getByIdProduct)

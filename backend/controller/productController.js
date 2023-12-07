@@ -92,6 +92,37 @@ getByIdProduct: async (req, res) => {
       }
 },
 
+//READ PRODUCT BY WAREHOUSE NAME
+getByWarehouseProduct: async (req, res) => {
+  try{
+      const { warehouse_name } = req.params;
+      const warehouse = await prisma.warehouse.findUnique({
+        where: { warehouse_name: warehouse_name}
+      })
+
+      const product = await prisma.product.findMany({
+        where: { warehouse_id: warehouse.warehouse_id },
+        include: {
+          product_category: {
+            select:{
+            category_name: true,
+            }
+          },
+          warehouse: {
+            select:{
+            warehouse_name: true
+            }
+          }
+        }
+      });
+      res.status(200).json({ message: "Sucessfully found the product" , product });
+    }
+    catch (err) {
+      console.log("Error while reading product" , err);
+      res.status(400).json({ message: "Product not found"})
+    }
+},
+
 //UPDATE
 updateProduct: async (req, res) => {
     try{

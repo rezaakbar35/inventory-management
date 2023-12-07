@@ -203,6 +203,49 @@ async function getProductShippingById(req, res) {
   }
 }
 
+//get by product shipping
+async function getProductShippingByWarehouse(req, res) {
+  const { warehouse_name } = req.params
+
+  const warehouse = await prisma.warehouse.findUnique({
+    where: { warehouse_name : warehouse_name},
+  })
+
+  try {
+    const shipping = await prisma.product_shipping.findMany({
+      where: { warehouse_id : warehouse.warehouse_id },
+      include: {
+        product: {
+          select: {
+            product_name: true,
+          }
+        },
+        buyer: {
+          select: {
+            first_name: true,
+            username: true,
+            user_address: true,
+          }
+        },
+        warehouse: {
+          select: {
+            warehouse_name: true,
+            location: true,
+          }
+        },
+      },
+    });
+
+    res
+      .status(200)
+      .json({ message: "Product Get By Id successfully", shipping });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Failed to fetch product shipping", details: error });
+  }
+}
+
 async function getProductShippingByUser(req, res) {
   const {username} = req.body
 
@@ -252,4 +295,5 @@ module.exports = {
   deleteProductShipping,
   getProductShippingById,
   getProductShippingByUser,
+  getProductShippingByWarehouse,
 };
