@@ -26,21 +26,19 @@ createProduct: async (req, res) => {
           return res.status(404).json({message: "Warehouse Name Undefined" })
         }
         const product_image = req.file ? req.file.path : 'default_path_if_file_not_present';
-      const product = await prisma.product.create({
-  data: {
-    product_code: parseInt(product_code),
-    product_name,
-    product_stock: parseInt(product_stock),
-    category_id : product_category.category_id,
-    warehouse_id: warehouse.warehouse_id,
-    product_image,
-    product_status,
-    arrival_at: new Date(),
+        const product = await prisma.product.create({
+        data: {
+            product_code: parseInt(product_code),
+            product_name,
+            product_stock: parseInt(product_stock),
+            category_id : product_category.category_id,
+            warehouse_id: warehouse.warehouse_id,
+            product_image: product_image,
+            product_status,
+            arrival_at: new Date(),
 
-  },
-});
-
-
+          },
+        });
           res.status(201).json({ message: "Succesfully Create New Product!", product })
          }catch (err) {
             console.log("Error while adding product", err);
@@ -92,6 +90,37 @@ getByIdProduct: async (req, res) => {
         console.log("Error while reading product" , err);
         res.status(400).json({ message: "Product not found"})
       }
+},
+
+//READ PRODUCT BY WAREHOUSE NAME
+getByWarehouseProduct: async (req, res) => {
+  try{
+      const { warehouse_name } = req.params;
+      const warehouse = await prisma.warehouse.findUnique({
+        where: { warehouse_name: warehouse_name}
+      })
+
+      const product = await prisma.product.findMany({
+        where: { warehouse_id: warehouse.warehouse_id },
+        include: {
+          product_category: {
+            select:{
+            category_name: true,
+            }
+          },
+          warehouse: {
+            select:{
+            warehouse_name: true
+            }
+          }
+        }
+      });
+      res.status(200).json({ message: "Sucessfully found the product" , product });
+    }
+    catch (err) {
+      console.log("Error while reading product" , err);
+      res.status(400).json({ message: "Product not found"})
+    }
 },
 
 //UPDATE

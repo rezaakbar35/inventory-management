@@ -19,9 +19,45 @@ async function getNotificationById(id) {
   }
 }
 
-async function getNotificationByStatus(notification_status) {
+async function getAllNotificationByUser(username) {
   try {
-    const response = await instance.get(`/notification/status/${notification_status}`);
+    const response = await instance.get(`/notification/${username}`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || "Something went wrong");
+  }
+}
+
+async function getNotificationByComplaint() {
+  try {
+    const response = await instance.get(`/notification/status/Complaint`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || "Something went wrong");
+  }
+}
+
+async function getNotificationByWarning() {
+  try {
+    const response = await instance.get(`/notification/status/Warning`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || "Something went wrong");
+  }
+}
+
+async function getNotificationByTracking() {
+  try {
+    const response = await instance.get(`/notification/status/Tracking`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || "Something went wrong");
+  }
+}
+
+async function getNotificationByReport() {
+  try {
+    const response = await instance.get(`/notification/status/Report`);
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message || "Something went wrong");
@@ -58,4 +94,15 @@ async function updateNotification(notification_id, notification_title, notificat
     }
   }
 
-export { getAllNotification, getNotificationById, createNotification, updateNotification, deleteNotification, getNotificationByStatus };
+export { 
+  getAllNotification,
+  getNotificationById, 
+  createNotification, 
+  updateNotification, 
+  deleteNotification, 
+  getNotificationByComplaint, 
+  getNotificationByWarning,
+  getNotificationByTracking,
+  getNotificationByReport,
+  getAllNotificationByUser, 
+  };

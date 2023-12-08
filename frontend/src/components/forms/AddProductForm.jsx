@@ -1,187 +1,157 @@
-import React from "react";
-import { FileInput, Label } from "flowbite-react";
-import { XMarkIcon } from "@heroicons/react/24/solid";
+import React, { useState } from "react";
+import { XMarkIcon } from "@heroicons/react/24/solid"
+import { createProduct } from "../../modules/fetch/product";
+import {useDropzone} from 'react-dropzone';
 
 const AddProductForm = ({ visible, onClose }) => {
-  const handleOnClose = (e) => {
-    if (e.target.id === "container") onClose();
+
+  const {acceptedFiles, getRootProps, getInputProps} = useDropzone();
+
+  const files = acceptedFiles.map(file => (
+    <li key={file.path}>
+      {file.path} - {file.size} bytes
+    </li>
+  ));
+
+  const [formData, setFormData] = useState({
+    product_code: '',
+    product_name: '',
+    product_stock: 0,
+    product_status: '',
+    category_name: '',
+    warehouse_name: '',
+    product_image: null
+    // Add more fields as needed
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  if (!visible) {
-    return null;
+  const handleImageChange = (e) => {
+    const product_image = e.target.files[0];
+    setFormData((prevData) => ({ ...prevData, image: formData.product_image }));
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const formDataProduct = new FormData();
+
+      // Append other form fields
+      formDataProduct.append('productName', formData.product_name);
+      formDataProduct.append('productCode', formData.product_code);
+      formDataProduct.append('quantity', formData.product_stock);
+      formDataProduct.append('unit', formData.product_status);
+      formDataProduct.append('category', formData.category_name);
+      formDataProduct.append('warehouse', formData.warehouse_name);
+  
+      // Append the image file
+      formDataProduct.append('image', formData.product_image);
+  
+      // Use your createProduct function from the fetch/product module
+      await createProduct(formData);
+
+      // Handle success, e.g., close the modal
+      onClose();
+    } catch (error) {
+      // Handle error, you might want to show an error message
+      console.error('Failed to add product', error);
+    }
+  };
+  
+  const handleOnClose = (e) => {
+    if(e.target.id === 'container')
+    onClose()
+  }
+  
+  if(!visible){
+    return null
   }
 
+
   return (
-    <div
-      id="container"
-      onClick={handleOnClose}
-      className="flex justify-center w-screen h-screen bg-black/30 absolute backdrop-blur"
-    >
-      <div className="m-auto rounded-3xl w-1/3 h-[60%] bg-white p-5">
-        <div className="flex justify-end">
-          <button onClick={onClose}>
-            <XMarkIcon className="w-6 h-6 text-black" />
-          </button>
-        </div>
-        <form>
-          <div className="text-3xl font-bold text-black mb-6">
-            Add New Product
-          </div>
-          <div className="grid grid-cols-4">
-            <div className="flex justify-start col-span-3">
-              <label
-                htmlFor="Product_Name"
-                className="text-black cols-span-3 italic font-light pl-2"
-              >
-                Product Name
-              </label>
+    <div id="container" onClick={handleOnClose} className="flex justify-center w-screen h-screen bg-black/30 absolute backdrop-blur">
+        <div className="m-auto rounded-3xl w-1/3 h-[60%] bg-white p-5">
+            <div className="flex justify-end">
+              <button onClick={onClose}>
+                <XMarkIcon  className="w-6 h-6 text-black"/>
+              </button>
             </div>
-            <div className="flex justify-start ">
-              <label
-                htmlFor="Product_Code"
-                className="text-black italic font-light pl-2"
-              >
-                Product Code
-              </label>
-            </div>
-            <input
-              type="text"
-              name="Product"
-              id="Product"
-              className="rounded-xl text-black p-2 m-1 col-span-3"
-            />
-            <input
-              type="text"
-              name="Product"
-              id="Product"
-              className="rounded-xl text-black p-2 m-1"
-            />
-          </div>
-          <div className="grid grid-cols-4 mt-2">
-            <div className="flex justify-start">
-              <label
-                htmlFor="Quantity"
-                className="text-black italic font-light pl-2"
-              >
-                Quantity
-              </label>
-            </div>
-            <div className="flex justify-start">
-              <label
-                htmlFor="Unit"
-                className="text-black italic font-light pl-2"
-              >
-                Unit
-              </label>
-            </div>
-            <div className="flex justify-start col-span-2">
-              <label
-                htmlFor="Photo"
-                className="text-black italic font-light pl-2"
-              >
-                Product Photo
-              </label>
-            </div>
-            <input
-              type="number"
-              name="Quantity"
-              id="Quantity"
-              className="rounded-xl text-black p-2 m-1"
-            />
-            <select
-              name="Unit"
-              id="Unit"
-              className="rounded-xl border-none bg-gray-300 text-black p-2 m-1 placeholder:text-gray-400 placeholder:font-thin"
-            >
-              <option
-                value=""
-                disabled
-                selected
-                hidden
-                className="text-gray-400"
-              >
-                unit..
-              </option>
-              <option value="Pcs">Pcs</option>
-              <option value="Pack">Pack</option>
-              <option value="Dozen">Dozen</option>
-            </select>
-            <div className="flex justify-start col-span-2 row-span-8 m-1">
-              <Label
-                htmlFor="dropzone-file"
-                className="dark:hover:bg-bray-800 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-              >
-                <div className="flex flex-col items-center justify-center pb-6 pt-5">
-                  <svg
-                    className="my-5 h-8 w-8 text-gray-500 dark:text-gray-400"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 20 16"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLineJoin="round"
-                      strokeWidth="2"
-                      d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                    />
-                  </svg>
-                  <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                    <span className="font-semibold">Click to upload</span> or
-                    drag and drop
-                  </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
-                    SVG, PNG, JPG or GIF (MAX. 800x400px)
-                  </p>
+            <form onSubmit={handleFormSubmit}>
+            <div className="text-3xl font-bold text-black mb-6">Add New Product</div>
+              <div className="grid grid-cols-4">
+                <div className="flex justify-start col-span-3">
+                <label htmlFor="product_name" className="text-black cols-span-3 italic font-light pl-2">Product Name</label>
                 </div>
-                <FileInput id="dropzone-file" className="hidden" />
-              </Label>
+                <div className="flex justify-start ">
+                <label htmlFor="product_code" className="text-black italic font-light pl-2">Product Code</label>
+                </div>
+                <input type="text" name="product_name" id="product_name" value={formData.product_name}
+                onChange={handleInputChange} className="rounded-xl text-black p-2 m-1 col-span-3" /> 
+                <input type="text" name="product_code" id="product_code" value={formData.product_code}
+                onChange={handleInputChange} className="rounded-xl text-black p-2 m-1" />
+              </div>
+              <div className="grid grid-cols-4 mt-2">
+                <div className="flex justify-start">
+                <label htmlFor="product_status" className="text-black italic font-light pl-2" >Quantity</label>
+                </div>
+                <div className="flex justify-start">
+                <label htmlFor="product_status" className="text-black italic font-light pl-2">Product Status</label>
+                </div>
+                <div className="flex justify-start col-span-2">
+                <label htmlFor="image" className="text-black italic font-light pl-2">Product Photo</label>
+                </div>
+                <input type="number" name="product_stock" id="product_stock" value={formData.product_stock}
+                onChange={handleInputChange} className="rounded-xl text-black p-2 m-1" />
+                <select name="product_status" id="product_status" value={formData.product_status}
+                onChange={handleInputChange} className="rounded-xl border-none bg-gray-300 text-black p-2 m-1 placeholder:text-gray-400 placeholder:font-thin">
+                  <option className="text-gray-400">Product Status</option>
+                  <option>Sudah Diterima</option>
+                  <option>Dalam Perjalanan</option>
+                </select>
+                <div className="flex justify-start col-span-2 row-span-8 m-1">
+                <section className="container border-2 border-dashed rounded-xl text-gray-400">
+                  <div {...getRootProps({className: 'dropzone'})}>
+                  <input {...getInputProps()} type="file"
+                    id="product_image"
+                    accept="image/*"
+                    onChange={handleImageChange} />
+                    <div className="mt-4 mx-4 mb-12">
+                  <p>Drag 'n' drop some files here, or click to select files</p>
+                  </div>
+                </div>
+                <aside>
+                  <h4>Files</h4>
+                  <ul>{files}</ul>
+                </aside>
+                </section>
+                </div>
+                <div className="flex justify-start col-span-2">
+                <label htmlFor="category_name" className="text-black italic font-light pl-2">Category</label>
+                </div>
+                <input type="text" name="category_name" id="category_name" value={formData.category_name}
+                onChange={handleInputChange} className="rounded-xl text-black p-2 m-1 col-span-2" />
+                <div className="col-span-2"></div>
+                <div className="flex justify-start col-span-2">
+                <label htmlFor="warehouse_name" className="text-black italic font-light pl-2">Warehouse</label>
+                </div>
+                <div className="col-span-2"></div>
+                <input type="text" name="warehouse_name" id="warehouse_name" value={formData.warehouse_name}
+                onChange={handleInputChange} className="rounded-xl text-black p-2 m-1 col-span-2" />
             </div>
-            <div className="flex justify-start col-span-2">
-              <label
-                htmlFor="Category"
-                className="text-black italic font-light pl-2"
-              >
-                Category
-              </label>
+              
+              <div className="flex justify-end">
+                <button type="submit" className="text-white font-bold bg-primary mt-5 mr-1 px-5 py-2 rounded-full">Send</button>
+              </div>
+              </form>
             </div>
-            <input
-              type="text"
-              name="Category"
-              id="Category"
-              className="rounded-xl text-black p-2 m-1 col-span-2"
-            />
-            <div className="col-span-2"></div>
-            <div className="flex justify-start col-span-2">
-              <label
-                htmlFor="Warehouse"
-                className="text-black italic font-light pl-2"
-              >
-                Warehouse
-              </label>
-            </div>
-            <div className="col-span-2"></div>
-            <input
-              type="text"
-              name="Warehouse"
-              id="Warehouse"
-              className="rounded-xl text-black p-2 m-1 col-span-2"
-            />
-          </div>
-
-          <div className="flex justify-end">
-            <button
-              type="submit"
-              className="text-white font-bold bg-primary mt-5 mr-1 px-5 py-2 rounded-full"
-            >
-              Send
-            </button>
-          </div>
-        </form>
-      </div>
-
-      <div></div>
+            
+         <div>
+        </div>
+        
     </div>
   );
 };

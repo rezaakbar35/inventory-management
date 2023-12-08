@@ -26,15 +26,16 @@ const User_Purchased_Item = () => {
     <div className='dashboardContainer flex overflow-hidden'>
         <DashboardSidebarAlt  numOfLinks={numOfShownLinks} linkTitles={linkTitles} links={links}/>
         <div className='bg-background contentContainer'>
-            <div className='contentSide'>
-            <h1 className='text-displayText mt-[10px] mb-14'>Purchased Items</h1>
+        <div className="grid grid-cols-8">
+            <div className='contentSide col-span-2'>
+            <h1 className='text-black mb-14'>Purchased Items</h1>
             <SortSearchGroup />
-            <button onClick={() => setShowForm(true)} className='p-2 m-10 bg-primary rounded-lg hover:bg-primary/50'>
-                <p>Click Me!</p>
-            </button>
+            </div>
+            <div className='col-span-6'>
+                
             </div>
         </div>
-        <ManageProductForm onClose={handleOnClose} visible={showForm}/>
+        </div>
     </div>
     </div>
     </>

@@ -21,9 +21,9 @@ async function getProductById(id) {
 }
 
 // Function for create product endpoint
-async function createProduct(formData) {
+async function createProduct(formDataProduct) {
   try {
-    const response = await instance.post('/product/create', formData, {
+    const response = await instance.post('/product/create', formDataProduct, {
       headers: { 'Content-Type': 'multipart/form-data' }
     });
     return response.data;

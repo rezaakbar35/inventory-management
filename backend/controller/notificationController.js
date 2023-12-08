@@ -17,6 +17,92 @@ const notificationController = {
     res.status(200).json({ message: "Successfully found all notification", notification });
   },
 
+  getAllNotificationByComplaint: async (req, res) => {
+    const notification = await prisma.notification.findMany({
+      where: { notification_status: "Complaint"},
+        include: {
+            user: {
+                select: {
+                    username: true,
+                    user_role: true,
+                }
+            }
+        }
+    });
+    res.status(200).json({ message: "Successfully found all by complaint notification", notification });
+  },
+
+  getAllNotificationByWarning: async (req, res) => {
+    const notification = await prisma.notification.findMany({
+      where: { notification_status: "Warning"},
+        include: {
+            user: {
+                select: {
+                    username: true,
+                    user_role: true,
+                }
+            }
+        }
+    });
+    res.status(200).json({ message: "Successfully found all by warning notification", notification });
+  },
+
+  getAllNotificationByTracking: async (req, res) => {
+    const notification = await prisma.notification.findMany({
+      where: { notification_status: "Tracking"},
+        include: {
+            user: {
+                select: {
+                    username: true,
+                    user_role: true,
+                }
+            }
+        }
+    });
+    res.status(200).json({ message: "Successfully found all by tracking notification", notification });
+  },
+
+  getAllNotificationByReport: async (req, res) => {
+    const notification = await prisma.notification.findMany({
+      where: { notification_status: "Tracking"},
+        include: {
+            user: {
+                select: {
+                    username: true,
+                    user_role: true,
+                }
+            }
+        }
+    });
+    res.status(200).json({ message: "Successfully found all by tracking notification", notification });
+  },
+
+  getAllNotificationByUser: async (req, res) => {
+    try{
+      const { username } = req.params
+
+    const user = await prisma.user.findUnique({
+      where: { username: username}
+    })
+
+    const notification = await prisma.notification.findMany({
+      where: { user_id: user.user_id},
+        include: {
+            user: {
+                select: {
+                    username: true,
+                    user_role: true,
+                }
+            }
+        }
+    });
+    
+    res.status(200).json({ message: `Successfully found all notification with username = ${username}`, notification });
+    } catch (error) {
+      res.status(400).json({ message: "Notification not found" });
+    }
+  },
+
   //get notifikasi dari status
   getNotificationByStatus: async (req, res) => {
     try{
@@ -69,7 +155,7 @@ const notificationController = {
     try {
       const { notification_title, notification_description, username, notification_status, } = req.body;
   
-      // Find the user based on username and user_role
+      // Find the user based on username
       const user = await prisma.user.findUnique({
         where: {
           username: username
