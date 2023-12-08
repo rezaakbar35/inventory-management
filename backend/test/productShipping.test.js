@@ -89,7 +89,7 @@ describe("Product Shipping Test", () => {
 //test get Product-shipping by username
   test("retrieve all product shippings test by user", (done) => {
     const username = {
-      username: "bald"
+      username: "beaknih"
     }
     request(app)
       .get("/product-shipping/users/:username")
@@ -121,7 +121,7 @@ describe("Product Shipping Test", () => {
 
   // Test DELETE method
   test("delete product shipping test", (done) => {
-    const productShippingID = 4
+    const productShippingID = 2
 
     request(app)
       .delete(`/product-shipping/${productShippingID}`)
