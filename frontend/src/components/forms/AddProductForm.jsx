@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { XMarkIcon } from "@heroicons/react/24/solid"
 import { createProduct } from "../../modules/fetch/product";
+import { getAllWarehouse } from "../../modules/fetch/warehouse";
+import { getAllProductCategory } from "../../modules/fetch/product_category";
 import {useDropzone} from 'react-dropzone';
 
 const AddProductForm = ({ visible, onClose }) => {
@@ -12,6 +14,26 @@ const AddProductForm = ({ visible, onClose }) => {
       {file.path} - {file.size} bytes
     </li>
   ));
+
+  const [warehouseData, setWarehouseData] = useState([]);
+const [productCategoryData, setProductCategoryData] = useState([]);
+
+  useEffect(() => {
+    fetchDataWarehouse()
+    fetchDataProductCategory()
+  }, [])
+
+  const fetchDataWarehouse = () => {
+    getAllWarehouse().then((result) => {
+      setWarehouseData([...result.warehouse]);
+    })
+  }
+
+  const fetchDataProductCategory = () => {
+    getAllProductCategory().then((result) => {
+      setProductCategoryData([...result.productCategory]);
+    })
+  }
 
   const [formData, setFormData] = useState({
     product_code: '',
@@ -56,6 +78,8 @@ const AddProductForm = ({ visible, onClose }) => {
 
       // Handle success, e.g., close the modal
       onClose();
+
+      window.location.reload();
     } catch (error) {
       // Handle error, you might want to show an error message
       console.error('Failed to add product', error);
@@ -132,15 +156,33 @@ const AddProductForm = ({ visible, onClose }) => {
                 <div className="flex justify-start col-span-2">
                 <label htmlFor="category_name" className="text-black italic font-light pl-2">Category</label>
                 </div>
-                <input type="text" name="category_name" id="category_name" value={formData.category_name}
-                onChange={handleInputChange} className="rounded-xl text-black p-2 m-1 col-span-2" />
+                <select name="category_name" id="category_name" value={formData.category_name}
+                onChange={handleInputChange} className="rounded-xl border-none bg-gray-300 text-black p-3 m-1 col-span-2 placeholder:text-gray-400 placeholder:font-thin">
+              <option disabled value="" className="text-gray-400">Category Product</option>
+              {
+              productCategoryData.map((item) => (
+                <option key={item.category_id} value={item.category_name}>
+                  {item.category_name}
+                </option>
+                ))
+              }
+                </select>
                 <div className="col-span-2"></div>
                 <div className="flex justify-start col-span-2">
                 <label htmlFor="warehouse_name" className="text-black italic font-light pl-2">Warehouse</label>
                 </div>
                 <div className="col-span-2"></div>
-                <input type="text" name="warehouse_name" id="warehouse_name" value={formData.warehouse_name}
-                onChange={handleInputChange} className="rounded-xl text-black p-2 m-1 col-span-2" />
+                <select name="warehouse_name" id="warehouse_name" value={formData.warehouse_name}
+                onChange={handleInputChange} className="rounded-xl border-none bg-gray-300 text-black p-3 m-1 col-span-2 placeholder:text-gray-400 placeholder:font-thin">
+              <option disabled value="" className="text-gray-400">Warehouse</option>
+              {
+              warehouseData.map((item) => (
+                <option key={item.warehouse_id} value={item.warehouse_name}>
+                  {item.warehouse_name}
+                </option>
+                ))
+              }
+                </select>
             </div>
               
               <div className="flex justify-end">

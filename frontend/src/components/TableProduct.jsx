@@ -17,7 +17,8 @@ export const TableProduct = ({}) => {
     getAllProduct().then((result) => {
       const newData = result.product.map((item) => ({
         ...item,
-        warehouse_name: item.warehouse.warehouse_name
+        warehouse_name: item.warehouse.warehouse_name,
+        category_name: item.product_category.category_name
       }));
       setData(newData);
       setLoading(false)
@@ -50,6 +51,7 @@ export const TableProduct = ({}) => {
               <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">ID</th>
               <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Product Name</th>
               <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Product Code</th>
+              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Product Category</th>
               <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Warehouse</th>
               <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Arrrival Date</th>
               <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Action</th>
@@ -62,6 +64,7 @@ export const TableProduct = ({}) => {
                     <td className="px-6 py-2 whitespace-nowrap">{ item.product_id }</td>
                     <td className="px-6 py-2 whitespace-nowrap">{ item.product_name }</td>
                     <td className="px-6 py-2 whitespace-nowrap">{ item.product_code }</td>
+                    <td className="px-6 py-2 whitespace-nowrap">{ item.category_name }</td>
                     <td className="px-6 py-2 whitespace-nowrap">{ item.warehouse_name }</td>
                     <td className="px-6 py-2 whitespace-nowrap">{ item.arrival_at } </td>
                     <td className="px-6 py-2 whitespace-nowrap">
