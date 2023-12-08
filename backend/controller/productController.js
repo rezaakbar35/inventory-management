@@ -178,7 +178,7 @@ deleteProduct: async (req, res) => {
       } 
       catch (err) {
         console.log("Error while deleting product" , err);
-        res.status(400).json({ message: "Delete Successfull" })
+        res.status(400).json({ message: "Error while deleting product" })
       }
 },
 };

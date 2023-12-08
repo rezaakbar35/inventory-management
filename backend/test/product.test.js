@@ -9,11 +9,11 @@ describe('Product Test', () => {
         const imagePath = path.resolve(__dirname, 'C:/Users/LENOVO/Downloads/aaaa.jpg');
 
         const newProduct = {
-            product_code: 2001,
-            product_name: 'Baby Doll',
-            category_name: 'Clothes Baby',
+            product_code: 2001345,
+            product_name: 'Dot',
+            category_name: 'Clothes Alva',
             product_stock: 1,
-            warehouse_name: 'Gudang A',
+            warehouse_name: 'Gudang C',
             product_status: 'di gudang',
         };
 
@@ -53,12 +53,12 @@ describe('Product Test', () => {
 
     // getProductById test
     test('find product by id test', (done) => {
-        const product_id = 1;
-        const product_code = 1001;
+        const product_id = 3;
+        const product_code = 1003;
         const product_name = 'Baby socks';
-        const category_id = 1;
-        const product_stock = 1;
-        const warehouse_id = 1;
+        const category_id = 3;
+        const product_stock = 3;
+        const warehouse_id = 3;
         const product_status = 'Sudah sampai';
 
 
@@ -108,16 +108,16 @@ describe('Product Test', () => {
 
     // test updateProductById method
     test('update product test', (done) => {
-        const product_id = 1;
-        const updatedWarehouse_id = 2;
-        const updatedCategory_id = 1
+        const product_id = 3;
+        const updatedWarehouse_id = 1;
+        const updatedCategory_id = 4
         const updateProduct = {
-            product_code: 2002,
-            product_name: "Baby Doll",
-            category_name: "Clothes Baby",
+            product_code: 1003,
+            product_name: "Aswawawu",
+            category_name: "Clothes Teta",
             product_stock: "1",
-            warehouse_name: "Gudang A",
-            product_status: "di gudang",
+            warehouse_name: "Gudang Garam",
+            product_status: "di jalan",
         };
     
         request(app)
@@ -136,14 +136,15 @@ describe('Product Test', () => {
                 expect(response.body.product.product_status).toBe(updateProduct.product_status);
                 done();
             })
-            .catch(err => done(err));
+            .catch(err => {
+                done(err)});
     });
 
 
 
     //deleteProduct test
     test('delete product test', (done) => {
-        const product_id = 6;
+        const product_id = 5;
 
         request(app)
             .delete(`/product/${product_id}`)
