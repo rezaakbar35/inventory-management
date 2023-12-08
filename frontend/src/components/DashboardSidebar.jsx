@@ -50,7 +50,7 @@ const DashboardSidebar = ({ numOfLinks, linkTitles, links }) => {
           </li>
         ))}
       </ul>
-      <div className='pl-[20px] mt-[125px]'>
+      <div className='pl-[20px] mt-[200px]'>
         <NotificationBox/>
         <CiLogout className='w-[25px] h-[25px] ml-[225px] mt-[20px]' />
       </div>
