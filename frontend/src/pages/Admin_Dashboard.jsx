@@ -1,5 +1,5 @@
 import React from 'react'
-import DashboardSidebar from '../components/dashboardSidebar'
+import DashboardSidebar from '../components/DashboardSidebar.jsx'
 import './Admin_Dashboard.css'
 // import TableWarehouse from '../components/TableWarehouse'
 import TableProduct from '../components/TableProduct'

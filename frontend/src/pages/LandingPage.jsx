@@ -43,10 +43,10 @@ const LandingPage = () => {
     <div>
         <Navbar />
     </div>
-    <div>
+    <div className="bg-white flex justify-center">
     <main className="container max-w-6xl mx-40 mt-20">
         {/* Hero */}
-        <div className="grid grid-cols-2 py-20 item items-center text-left">
+        <div className="grid grid-cols-2 py-20 item items-center text-left" id="home">
             <div>
                 <h1 className="font-bold text-4xl pb-5 text-displayText">
                 Discover limitless joy for moms <br /> and kids in one destination
@@ -54,7 +54,7 @@ const LandingPage = () => {
                 <div className="font-normal pb-10 text-displayText ">
                 Explore curated treasures and moments that spark smiles all here
                 </div>
-                <button className="py-4 px-6 bg-primary rounded-md hover:bg-primary transform hover:scale-110 text-white drop-shadow-xl" >Get Started</button>
+                <button className="py-4 px-6 bg-primary rounded-full hover:bg-primary transform hover:scale-110 text-white drop-shadow-xl transition-transform" >Get Started</button>
             </div>
             <div>
                 <img src={Mom} alt="mom-images" className="xl:w-96" />
@@ -79,7 +79,7 @@ const LandingPage = () => {
                 })}
             </div>
             {/* Features */}
-            <div className="grid grid-cols-2 py-24 items-center">
+            <div className="grid grid-cols-2 py-24 items-center" id="features">
                 <img src={Shopping} alt="shopping image" className="xl:w-96" />
                 <div className="px-16 space-y-6 text-left">
                     <div className="text-3xl font-semibold text-displayText">Tons of features await!</div>
@@ -101,7 +101,7 @@ const LandingPage = () => {
                 
             </div>
             {/* Testimonials */}
-            <div>
+            <div id="testimonials">
                 <Testimonials />
             </div>
     </main>
@@ -111,14 +111,14 @@ const LandingPage = () => {
         <RegisterBar />
     </div>
     {/* Footer */}
-    <footer className="bg-background py-20">
+    <footer className="bg-background w-[99vw] py-20">
         <div className="container mx-auto max-w-5xl flex flex-row space-x-24">
           <div className="flex-1 space-y-5">
             <div className="grid grid-cols-2 px-40 justify-center">
             <img src={logo} alt="logo deliver it" className="w-12 h-12 justify-center" />
-            <dir className="font-bold ">DeliverIT</dir>
+            <dir className="font-bold text-tertiary">DeliverIT</dir>
             </div>
-            <div className="text-center">
+            <div className="text-center text-tertiary">
             Deliver It: Your go-to hub for modern moms and <br/> kids. Essentials and joy in every click!
             </div>
             <div className="flex flex-row space-x-3 justify-center">
@@ -126,10 +126,10 @@ const LandingPage = () => {
               <img src={Email} alt="mail icon" className="w-6 h-6" />
               <img src={Instagram} alt="IG icon" className="w-6 h-6" />
             </div>
-            <div className="text-center">©2020deliverIT</div>
+            <div className="text-center text-tertiary">©2020deliverIT</div>
           </div>
           <div className="">
-            <div className="text-lg font-semibold mb-6">Product</div>
+            <div className="text-lg font-semibold mb-6 text-tertiary">Product</div>
             <ul className="space-y-6 text-sm text-gray-500">
               <li>Category</li>
               <li>Locations</li>
@@ -137,7 +137,7 @@ const LandingPage = () => {
             </ul>
           </div>
           <div>
-            <div className="text-lg font-semibold mb-6">Engage</div>
+            <div className="text-lg font-semibold mb-6 text-tertiary">Engage</div>
             <ul className="space-y-6  text-sm text-gray-500">
               <li>DeliverIT? </li>
               <li>FAQ</li>
@@ -147,7 +147,7 @@ const LandingPage = () => {
             </ul>
           </div>
           <div>
-            <div className="text-lg font-semibold mb-6">Location</div>
+            <div className="text-lg font-semibold mb-6 text-tertiary">Location</div>
             <ul className="space-y-6  text-sm text-gray-500">
               <li>Warehouses</li>
               <li>Warehouse Category</li>

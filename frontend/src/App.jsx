@@ -11,7 +11,7 @@ function App() {
 
   return (
     <>
-      <div className='bg-background'>
+      <div className='bg-white'>
         <LandingPage/>
       </div>
     </>

@@ -4,7 +4,7 @@ const { PrismaClient } = require("@prisma/client");
 const cookieParser = require('cookie-parser'); // Add cookie-parser
 const prisma = new PrismaClient();
 
-function authenticateRole(role) {
+function authenticateUser() {
   return async (req, res, next) => {
     try {
       // Use req.cookies.token instead of Cookies.get('token')
@@ -22,8 +22,8 @@ function authenticateRole(role) {
         where: { user_id: req.user_id },
       });
 
-      if (user && user.user_role === role) {
-        next();
+      if (user) {
+        next(user);
       } else {
         res.sendStatus(403); // Forbidden
       }
@@ -35,8 +35,5 @@ function authenticateRole(role) {
 }
 
 // Use cookieParser middleware
-const authenticateUser = authenticateRole("user");
-const authenticateAdmin = authenticateRole("admin");
-const authenticateWarehouse = authenticateRole("warehouse");
 
-module.exports = { authenticateUser, authenticateAdmin, authenticateWarehouse };
+module.exports = { authenticateUser };

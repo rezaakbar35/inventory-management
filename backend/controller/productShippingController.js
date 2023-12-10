@@ -247,7 +247,7 @@ async function getProductShippingByWarehouse(req, res) {
 }
 
 async function getProductShippingByUser(req, res) {
-  const {username} = req.body
+  const {username} = req.params
 
   const user = await prisma.user.findUnique({
     where: { username: username}

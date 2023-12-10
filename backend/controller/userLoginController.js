@@ -21,7 +21,7 @@ async function createUserLogin(req, res) {
     }
     const token = jwt.sign({ userId: user.user_id }, process.env.JWT_SECRET);
     res.setHeader("Set-Cookie", `token=${ token }; httpOnly; path=/`);
-    res.status(200).json({ message: "Login Success", user_role: user.user_role, username: user.username });
+    res.status(200).json({ message: "Login Success", token: token });
 
   }
   catch (err) {
@@ -30,8 +30,24 @@ async function createUserLogin(req, res) {
   }
 };
 
+async function getSpecificUser(req,res) {
+  try {
+    const { id } = req.params;
+    const user = await prisma.user.findUnique({
+      where: { 
+      user_id: Number(id) ,
+      }
+    });
+    res.status(200).json({ message: "Successfully found specific user", user });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: "User not found" });
+  }
+}
+
 
 
 module.exports = {
   createUserLogin,
+  getSpecificUser,
 };

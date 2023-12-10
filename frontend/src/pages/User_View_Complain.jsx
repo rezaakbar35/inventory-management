@@ -25,12 +25,12 @@ const User_View_Complain = () => {
           linkTitles={linkTitles}
           links={links}
         />
-        <div className="bg-background contentContainer">
+        <div className="bg-background contentContainer pl-16">
           <div className="grid grid-cols-8">
             <div className="contentSide col-span-2">
-              <h1 className="text-black mb-14">Complains</h1>
+              <h1 className="text-black mb-14">Complaints</h1>
               <SortSearchGroup />
-              <button onClick={() => setShowForm(true)} className='p-2 m-10 bg-primary rounded-lg hover:bg-primary/50' >
+              <button onClick={() => setShowForm(true)} className='py-2 px-5 m-10 bg-primary rounded-full hover:bg-primary/50' >
                 New Complaint
               </button>
             </div>

@@ -21,4 +21,13 @@ async function loginUser(username, password) {
   }
 }
 
-export { registerUser, loginUser, };
+async function getUserSpecific(user_id){
+  try{
+    const response = await instance.get(`login/user/${user_id}`)
+    return response.data
+  } catch (error) {
+    throw new Error(error.response.data.message || 'Something went wrong')
+  }
+}
+
+export { registerUser, loginUser, getUserSpecific };

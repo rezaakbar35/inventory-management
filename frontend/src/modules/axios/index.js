@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Set up Axios instance
 const baseURL = 'http://localhost:8000';
-const instance = axios.create({ baseURL });
+const instance = axios.create({ baseURL, withCredentials: true });
 
 // Add interceptor to automatically add authorization header
 instance.interceptors.request.use((config) => {

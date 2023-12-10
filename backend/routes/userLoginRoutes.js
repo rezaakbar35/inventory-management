@@ -7,4 +7,6 @@ router.post(
   userLoginController.createUserLogin
 );
 
+router.get("/login/user/:id", userLoginController.getSpecificUser)
+
 module.exports = router;

@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Register from "./Register";
-import { loginUser } from "../modules/fetch";
+import { loginUser, getUserSpecific } from "../modules/fetch";
 import './Navbar.css'
+import { jwtDecode } from 'jwt-decode'
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Navbar = () => {
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
@@ -31,6 +34,85 @@ const Navbar = () => {
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
+
+  const loginSuccess = () => {
+    toast.success('Login Success!', {
+      position: "bottom-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "colored",
+      });
+  }
+
+  const logoutSuccess = () => {
+    toast.warn('Logout safely!', {
+      position: "bottom-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "colored",
+      });
+  }
+
+  const openDashboard = async (req, res) => {
+    try {
+        const userToken = window.localStorage.getItem("token");
+        if (!userToken) {
+            // Handle the case where the token is missing
+            console.error('Token is missing');
+            res.status(401).send('Unauthorized');
+            return;
+        }
+
+        let decodedToken;
+        try {
+            decodedToken = jwtDecode(userToken);
+        } catch (error) {
+            // Handle invalid or expired token
+            console.error('Invalid or expired token:', error);
+            res.status(401).send('Unauthorized');
+            return;
+        }
+        req.user_id = decodedToken.userId;
+        const user = await getUserSpecific(req.user_id);
+
+        if (user) {
+            switch (user.user.user_role) {
+                case 'user':
+                    navigate('/UsersDash');
+                    break;
+                case 'admin':
+                    navigate('/AdminDash');
+                    break;
+                case 'warehouse':
+                    navigate('/WarehouseDash');
+                    break;
+                default:
+                    // Handle other roles or scenarios
+                    console.error('Unknown user role:', user.user.user_role);
+                    res.status(403).send('Forbidden');
+            }
+        } else {
+            // Handle the case where user is not found
+            console.error('User not found');
+            res.status(404).send('User not found');
+        }
+
+    } catch (err) {
+        console.error(err);
+        // Handle other errors
+        if (res) {
+            res.status(500).send('Internal Server Error');
+        } else {
+            console.error('Response object is undefined');
+        }
+    }
+};
 
   useEffect(() => {
     const token = window.localStorage.getItem("token");
@@ -70,6 +152,7 @@ const Navbar = () => {
                 window.localStorage.removeItem("token");
                 setIsLogin(false);
                 navigate("/");
+                logoutSuccess();
               }}
               className="text-background rounded md:hover:text-white md:p-0 md:dark:hover:text-white font-medium text-xl px-4 py-2 text-center"
             >
@@ -122,7 +205,7 @@ const Navbar = () => {
           <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 text-xl ">
             <li>
               <a
-                href="#"
+                href="#home"
                 className="block py-2 px-3 text-blue-500 md:p-0"
                 aria-current="page"
               >
@@ -131,7 +214,7 @@ const Navbar = () => {
             </li>
             <li>
               <a
-                href="#"
+                href="#about"
                 className="block py-2 px-3 text-background rounded md:hover:text-white md:p-0 md:dark:hover:text-white"
               >
                 About
@@ -139,7 +222,7 @@ const Navbar = () => {
             </li>
             <li>
               <a
-                href="#"
+                href="#features"
                 className="block py-2 px-3 text-background rounded md:hover:text-white md:p-0 md:dark:hover:text-white"
               >
                 Features
@@ -147,7 +230,7 @@ const Navbar = () => {
             </li>
             <li>
               <a
-                href="#"
+                href="#testimonials"
                 className="block py-2 px-3 text-background rounded md:hover:text-white md:p-0 md:dark:hover:text-white"
               >
                 Testimonial
@@ -156,6 +239,7 @@ const Navbar = () => {
             <li>
               <a
                 href="#"
+                onClick={openDashboard}
                 className="block py-2 px-3 text-background rounded md:hover:text-white md:p-0 md:dark:hover:text-white"
               >
                 Dashboard
@@ -171,7 +255,7 @@ const Navbar = () => {
       {isLoginModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-black opacity-50"></div>
-          <div className="containerModalLogin bg-primary p-6 rounded-xl z-10">
+          <div className="containerModalLogin bg-primary p-6 rounded-3xl z-10">
             <button
               onClick={ () => {
               closeLoginModal();
@@ -197,6 +281,7 @@ const Navbar = () => {
               window.localStorage.setItem("token", token.token);
               navigate("/");
               closeLoginModal();
+              loginSuccess();
             } catch (err) {
               // Menyimpan pesan kesalahan ke state
             setError(`Error: ${err.message}`);
@@ -272,13 +357,13 @@ const Navbar = () => {
                 type="submit"
                 form="login-form"
                 onClick={() => console.log("Sign-In clicked")} // Gantilah dengan fungsi atau tindakan yang sesuai
-                className="w-full bg-tertiary text-white rounded-md py-2"
+                className="w-full bg-tertiary text-white rounded-full font-bold py-2"
                 >
                 Sign-In
               </button>
               <button
                 type="submit"
-                className="w-full bg-tertiary text-white rounded-md py-2 mt-10"
+                className="w-full bg-tertiary text-white rounded-full py-2 mt-10"
                 onClick={() => {
                   console.log("Sign-Up clicked");
                   closeLoginModal(); // Menutup modal login
@@ -308,6 +393,11 @@ const Navbar = () => {
       <Register closeSignUpModal={closeSignUpModal} openLoginModal={openLoginModal} />
         </>
         )}
+
+      {/*ini buat login success*/}
+      <>
+        <ToastContainer transition={Slide} />
+      </>
     </nav>
   );
 };

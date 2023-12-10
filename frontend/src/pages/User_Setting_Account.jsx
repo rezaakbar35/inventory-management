@@ -24,7 +24,7 @@ const User_Setting_Account = () => {
           linkTitles={linkTitles}
           links={links}
         />
-        <div className="bg-background contentContainer h-screen grid grid-rows-8 grid-cols-4 grid-flow-col">
+        <div className="bg-background contentContainer h-screen grid grid-rows-8 grid-cols-4 pl-16 grid-flow-col">
           <div className=" border-b-2 border-gray-300 flex items-center col-span-4">
             <h1 className="text-black ml-5 font-bold text-[42px]">
               User Profile

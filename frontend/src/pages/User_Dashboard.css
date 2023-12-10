@@ -1,8 +1,9 @@
 .contentContainer {
-    width:80vw;
+    width:100vw;
+    height:100vh;
 }
 
 .dashboardContainer {
-   
+    height:100vh;
     width:100vw;
 }

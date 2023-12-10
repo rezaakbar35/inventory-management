@@ -19,14 +19,14 @@ async function getProductShippingById(id) {
   }
 }
 
-// async function getProductShippingByUser(username) {
-//   try {
-//     const response = await instance.get(`/product-shipping/users/${username}`);
-//     return response.data;
-//   } catch (error) {
-//     throw new Error(error.response.data.message || "Something went wrong");
-//   }
-// }
+async function getProductShippingByUser(username) {
+  try {
+    const response = await instance.get(`/product-shipping/users/${username}`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || "Something went wrong");
+  }
+}
 
 // Function for create product shipping endpoint
 async function createProductShipping(
@@ -93,5 +93,5 @@ export {
   createProductShipping,
   updateWarehouseCategory,
   deleteProductShipping,
-  // getProductShippingByUser,
+  getProductShippingByUser,
 };

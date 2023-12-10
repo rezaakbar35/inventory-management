@@ -7,12 +7,12 @@ describe('Notification Controller Tests', () => {
     const newNotification = {
       notification_title: 'Test Title',
       notification_description: 'Test Description',
-      username: 'testUser',
+      username: 'beaknih',
       notification_status: 'Test Status',
     };
 
     request(app)
-      .post('/notifications/create')
+      .post('/notification/create')
       .send(newNotification)
       .expect('Content-Type', /json/)
       .expect(201)
@@ -26,7 +26,7 @@ describe('Notification Controller Tests', () => {
   // Test getAllNotification
   test('get all notifications', (done) => {
     request(app)
-      .get('/notifications')
+      .get('/notification')
       .expect('Content-Type', /json/)
       .expect(200)
       .then((response) => {
@@ -40,11 +40,77 @@ describe('Notification Controller Tests', () => {
   test('get a specific notification by ID', (done) => {
     const notificationId = 1;
     request(app)
-      .get(`/notifications/${notificationId}`)
+      .get(`/notification/${notificationId}`)
       .expect('Content-Type', /json/)
       .expect(200)
       .then((response) => {
         expect(response.body.message).toBe('Successfully found specific notification');
+        done();
+      })
+      .catch(done);
+  });
+
+  //test complaint
+  test('get a specific notification by complaint', (done) => {
+    request(app)
+      .get(`/notification/status/Complaint`)
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .then((response) => {
+        expect(response.body.message).toBe('Successfully found all by complaint notification');
+        done();
+      })
+      .catch(done);
+  });
+
+  //test complaint
+  test('get a specific notification by warning', (done) => {
+    request(app)
+      .get(`/notification/status/Warning`)
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .then((response) => {
+        expect(response.body.message).toBe('Successfully found all by warning notification');
+        done();
+      })
+      .catch(done);
+  });
+
+  //test complaint
+  test('get a specific notification by Tracking', (done) => {
+    request(app)
+      .get(`/notification/status/Tracking`)
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .then((response) => {
+        expect(response.body.message).toBe('Successfully found all by tracking notification');
+        done();
+      })
+      .catch(done);
+  });
+
+  //test complaint
+  test('get a specific notification by report', (done) => {
+    request(app)
+      .get(`/notification/status/Report`)
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .then((response) => {
+        expect(response.body.message).toBe('Successfully found all by report notification');
+        done();
+      })
+      .catch(done);
+  });
+
+  //test by user
+  test('get a specific notification by user', (done) => {
+    const username = "beaknih";
+    request(app)
+      .get(`/notification/user/${username}`)
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .then((response) => {
+        expect(response.body.message).toBe(`Successfully found all notification with username = ${username}`);
         done();
       })
       .catch(done);
@@ -55,17 +121,17 @@ describe('Notification Controller Tests', () => {
     const updatedNotification = {
       notification_title: 'Updated Title',
       notification_description: 'Updated Description',
-      username: 'testUser',
+      username: 'beaknih',
       notification_status: 'Updated Status',
     };
     const notificationId = 1;
     request(app)
-      .put(`/notifications/${notificationId}/update`)
+      .put(`/notification/${notificationId}/update`)
       .send(updatedNotification)
       .expect('Content-Type', /json/)
       .expect(200)
       .then((response) => {
-        expect(response.body.message).toBe('Update notification Successfully');
+        expect(response.body.message).toBe('Update notification Successfull');
         done();
       })
       .catch(done);
@@ -75,7 +141,7 @@ describe('Notification Controller Tests', () => {
   test('delete a specific notification by ID', (done) => {
     const notificationId = 1;
     request(app)
-      .delete(`/notifications/${notificationId}`)
+      .delete(`/notification/${notificationId}`)
       .expect('Content-Type', /json/)
       .expect(200)
       .then((response) => {

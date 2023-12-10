@@ -24,7 +24,7 @@ const User_Dashboard = () => {
 
   return (
     <>
-    <div className='dashboardContainer flex overflow-hidden'>
+    <div className='dashboardContainer flex overflow-hidden w-screen h-screen pl-[75]'>
         <DashboardSidebarAlt  numOfLinks={numOfShownLinks} linkTitles={linkTitles} links={links}/>
         <div className='bg-background contentContainer'>
             <div className='contentSide'>

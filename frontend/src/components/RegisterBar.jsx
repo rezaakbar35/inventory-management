@@ -13,7 +13,7 @@ const RegisterBar = () => {
             Start Your Adventure Exclusive Fun Awaits
           </div>
         </div>
-        <button className="py-4 px-6 bg-primary rounded-md text-white drop-shadow-xl hover:bg-primary transform hover:scale-110">
+        <button className="py-4 px-6 bg-primary rounded-full text-white drop-shadow-xl hover:bg-primary transform hover:scale-110 transition-transform">
           Register Now
         </button>
       </div>
