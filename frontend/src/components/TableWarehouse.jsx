@@ -59,12 +59,12 @@ export const TableWarehouse = ({}) => {
         {
                 data.map((item) => (
               <tr  className="hover:bg-gray-50" key={item.warehouse_id}>
-                <td className="px-6 py-2 whitespace-nowrap text-black">{ item.warehouse_id }</td>
-                <td className="px-6 py-2 whitespace-nowrap text-black">{ item.warehouse_name }</td>
-                <td className="px-6 py-2 whitespace-nowrap text-black">{ item.location }</td>
-                <td className="px-6 py-2 whitespace-nowrap text-black">{ item.category_name}</td>
-                <td className="px-6 py-2 whitespace-nowrap text-black">{ item.created_at }</td>
-                <td className="px-6 py-2 whitespace-nowrap">
+                <td className="px-6 py-2 text-xs whitespace-nowrap text-black">{ item.warehouse_id }</td>
+                <td className="px-6 py-2 text-xs whitespace-nowrap text-black">{ item.warehouse_name }</td>
+                <td className="px-6 py-2 text-xs whitespace-nowrap text-black">{ item.location }</td>
+                <td className="px-6 py-2 text-xs whitespace-nowrap text-black">{ item.category_name}</td>
+                <td className="px-6 py-2 text-xs whitespace-nowrap text-black">{ item.created_at }</td>
+                <td className="px-6 py-2 text-xs whitespace-nowrap">
                   <div className="flex items-center justify-center space-x-7">
                   <BsFillTrashFill className="text-red-500 cursor-pointer" onClick={() => deleteRow(item.warehouse_id)} />
                   <BsFillPencilFill className="text-blue-500 cursor-pointer" onClick={() => updateRow(item.warehouse_id)} />

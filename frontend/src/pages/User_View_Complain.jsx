@@ -4,8 +4,10 @@ import { ChevronLeftIcon } from "@heroicons/react/24/solid"
 import SortSearchGroup from "../components/SortSearchGroup";
 import TableNotification from "../components/TableUserComplain";
 import NotifyAdminForm from "../components/forms/NotifyAdminForm";
+import { useNavigate } from 'react-router-dom'
 
 const User_View_Complain = () => {
+  const navigate = useNavigate();
   const linkTitles = ["Purchased Items", "View Complaints", "Account Settings"];
   const links = [
     "/UsersDash/Items",

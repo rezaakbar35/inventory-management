@@ -31,7 +31,7 @@ export const TableProduct = ({}) => {
   const editRow = async (product_id) => {
     try {
       const product = await getProductById(product_id);
-      setEditProduct(product);
+      setEditProduct(product.product);
       setShowEditForm(true);
     } catch (error) {
       console.error('Failed to fetch product for editing', error);
@@ -71,14 +71,14 @@ export const TableProduct = ({}) => {
               {
                 data.map((item) => (
                   <tr  className="hover:bg-gray-50" key={item.product_id}>
-                    <td className="px-6 py-2 whitespace-nowrap">{ item.product_id }</td>
-                    <td className="px-6 py-2 whitespace-nowrap">{ item.product_name }</td>
-                    <td className="px-6 py-2 whitespace-nowrap">{ item.product_code }</td>
-                    <td className="px-6 py-2 whitespace-nowrap">{ item.product_stock }</td>
-                    <td className="px-6 py-2 whitespace-nowrap">{ item.category_name }</td>
-                    <td className="px-6 py-2 whitespace-nowrap">{ item.warehouse_name }</td>
-                    <td className="px-6 py-2 whitespace-nowrap">{ item.arrival_at } </td>
-                    <td className="px-6 py-2 whitespace-nowrap">
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_id }</td>
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_name }</td>
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_code }</td>
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_stock }</td>
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.category_name }</td>
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.warehouse_name }</td>
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.arrival_at } </td>
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">
                   <div className="flex items-center justify-center space-x-7">
                   <BsFillTrashFill className="text-red-500 cursor-pointer" onClick={() => deleteRow(item.product_id)} />
                   <BsFillPencilFill className="text-blue-500 cursor-pointer" onClick={() => editRow(item.product_id)} />

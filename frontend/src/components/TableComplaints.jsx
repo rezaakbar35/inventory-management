@@ -35,11 +35,11 @@ export const TableComplaints = ({}) => {
         <tbody className="bg-white divide-y divide-gray-200">
           { data.map((item) => (
           <tr className="hover:bg-gray-50">
-            <td className="px-6 py-2 whitespace-nowrap text-gray-500">{ item.notification_id }</td>
-            <td className="px-6 py-2 whitespace-nowrap text-gray-500">{ item.notification_title }</td>
-            <td className="max-w-3xl px-6 py-2 whitespace-nowrap text-gray-500 truncate">{ item.notification_description }</td>
-            <td className="px-6 py-2 whitespace-nowrap text-gray-500">{ item.notification_timestamp }</td>
-            <td className="px-6 py-2 whitespace-nowrap text-gray-500">
+            <td className="px-6 py-2 text-xs whitespace-nowrap text-gray-500">{ item.notification_id }</td>
+            <td className="px-6 py-2 text-xs whitespace-nowrap text-gray-500">{ item.notification_title }</td>
+            <td className="max-w-3xl px-6 py-2 text-xs whitespace-nowrap text-gray-500 truncate">{ item.notification_description }</td>
+            <td className="px-6 py-2 text-xs whitespace-nowrap text-gray-500">{ item.notification_timestamp }</td>
+            <td className="px-6 py-2 text-xs whitespace-nowrap text-gray-500">
               <div className="flex items-center justify-center space-x-7">
                 <Checkbox {...label} className="text-blue-500" defaultChecked />
               </div>

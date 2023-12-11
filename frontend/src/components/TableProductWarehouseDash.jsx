@@ -54,13 +54,13 @@ export const TableProductWarehouseDash = ({}) => {
               {
                 data.map((item) => (
                   <tr  className="hover:bg-gray-50" key={item.product_id}>
-                    <td className="px-6 py-2 whitespace-nowrap">{ item.product_id }</td>
-                    <td className="px-6 py-2 whitespace-nowrap">{ item.product_name }</td>
-                    <td className="px-6 py-2 whitespace-nowrap">{ item.product_code }</td>
-                    <td className="px-6 py-2 whitespace-nowrap">{ item.product_stock }</td>
-                    <td className="px-6 py-2 whitespace-nowrap">{ item.category_name }</td>
-                    <td className="px-6 py-2 whitespace-nowrap">{ item.warehouse_name }</td>
-                    <td className="px-6 py-2 whitespace-nowrap">{ item.arrival_at } </td>
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_id }</td>
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_name }</td>
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_code }</td>
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_stock }</td>
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.category_name }</td>
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.warehouse_name }</td>
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.arrival_at } </td>
                     
                 </tr>
                 ))
