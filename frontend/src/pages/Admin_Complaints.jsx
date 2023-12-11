@@ -32,7 +32,7 @@ const Admin_Complaints = () => {
             <div className='contentSide'>
             <h1 className='text-displayText mt-[10px] mb-14'>Complaints</h1>
             <SortSearchGroup/>
-             <button onClick={() => setShowIssueComplaint(true)} className='flex items-end p-2 w-72 mt-[580px] bg-primary rounded-full hover:bg-primary/50'>
+             <button onClick={() => setShowIssueComplaint(true)} className='flex items-end p-2 w-72 mt-[400px] bg-primary rounded-full hover:bg-primary/50'>
                 <p className='p-2 text-black'>Notify User on Complaint Ticket</p>
                 </button>
              <button onClick={() => setShowNotifyAdmin(true)} className='flex items-end p-2 w-72 mt-5 bg-primary rounded-full hover:bg-primary/50 '>

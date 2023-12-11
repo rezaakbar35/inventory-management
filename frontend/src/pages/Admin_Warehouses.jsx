@@ -33,7 +33,7 @@ const Admin_Warehouses = () => {
             <div className='contentSide'>
             <h1 className='text-displayText mt-[10px] mb-14'>Warehouses</h1>
             <SortSearchGroup/>
-            <button onClick={() => setShowProductPopup(true)} className='flex p-2 w-72 mb-[530px] bg-tertiary rounded-full hover:bg-primary/50'>
+            <button onClick={() => setShowProductPopup(true)} className='flex p-2 w-72 mb-[450px] bg-tertiary rounded-full hover:bg-primary/50'>
                 <p className='p-2'>Add New Warehouse</p>
                 </button>
             <button onClick={() => setShowNotifyAdmin(true)} className='flex p-2 w-72 bg-primary text-black rounded-full hover:bg-primary/50'>

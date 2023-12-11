@@ -11,9 +11,9 @@ async function getAllProduct() {
 }
 
 // Function for get by id product endpoint
-async function getProductById(id) {
+async function getProductById(product_id) {
   try {
-    const response = await instance.get(`/product/${id}`);
+    const response = await instance.get(`/product/${product_id}`);
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message || "Something went wrong");
@@ -33,11 +33,9 @@ async function createProduct(formDataProduct) {
 }
 
 // Function for update product endpoint
-async function updateProduct(product_id, product_code, product_name, category_id,product_stock, 
-  warehouse_id, product_status) {
+async function updateProduct(product_id, formData) {
   try {
-    const response = await instance.put(`/product/${product_id}/update`, { product_code, product_name, category_id,product_stock, 
-      warehouse_id, product_status });
+    const response = await instance.put(`/product/${product_id}/update`, formData);
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message || 'Something went wrong');

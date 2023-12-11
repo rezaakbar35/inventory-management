@@ -47,11 +47,11 @@ const Admin_Products = () => {
             </button>
             </div>
             <div className='mt-20 ml-28'>
-           {showProductShipping ? <TableProductShipping /> : <TableProduct/>}
+           {showProductShipping ? <TableProductShipping /> : <TableProduct />}
            </div>
         </div>
         <ManageProductForm onClose={handleCloseManageProduct} visible={showManageProduct}/>
-
+        
         <AddProductForm visible={showProductPopup} onClose={handleOnClose} />
     </div>
   );

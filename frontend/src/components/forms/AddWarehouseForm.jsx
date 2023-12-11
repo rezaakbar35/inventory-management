@@ -44,7 +44,7 @@ const AddWarehouseForm = ({ visible, onClose }) => {
       // Validasi kolom formulir
       if (!formData.warehouse_name || !formData.location || !formData.category_name) {
         // Tangani kesalahan validasi, misalnya, tampilkan pesan kepada pengguna
-        console.error('Silakan isi semua kolom yang diperlukan');
+        alert('Silakan isi semua kolom yang diperlukan');
         return;
       }
 
