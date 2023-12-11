@@ -2,6 +2,7 @@ import React from 'react'
 import DashboardSidebar from '../components/dashboardSidebar'
 import './Warehouse_Dashboard.css'
 import SortSearchGroup from '../components/SortSearchGroup'
+import TableProductWarehouseDash from '../components/TableProductWarehouseDash'
 
 const Warehouse_Stocks = () => {
     const linkTitles = [
@@ -22,6 +23,7 @@ const Warehouse_Stocks = () => {
             <h1 className='text-displayText mt-[10px] mb-14'>Product Stock</h1>
             <SortSearchGroup/>
             </div>
+            < TableProductWarehouseDash/>
         </div>
     </div>
   )
