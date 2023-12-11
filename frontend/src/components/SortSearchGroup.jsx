@@ -16,20 +16,17 @@ const SortSearchGroup = () => {
     };
   
     return (
-      <div className='flex flex-wrap items-center'>
-      <div className='searchSortContainer'>
-        <div className="text-black flex rounded-full w-72 h-[30px] border border-gray-300 overflow-hidden">
+      <div className='flex items-center'>
+      <div className='p-5'>
           <input
             type="text"
             placeholder="Search..."
-            className="px-4 py-2 w-72 mb-[10px] h-[30px] rounded-full focus:outline-none"
+            className="px-4 py-2 w-80 h-12 mr-5 rounded-full focus:outline-none"
           />
-        </div>
-        <div className="flex">
           <select
             value={sortBy}
             onChange={handleSortChange}
-            className="text-black  text-sm rounded-full w-36 px-4 py-1 my-[10px] h-[30px] border border-gray-300 focus:outline-none"
+            className="text-black  text-sm rounded-2xl w-36 px-4 py-1 h-12 mr-5 border border-gray-300 focus:outline-none"
           >
             <option value="">Sort By</option>
             {/* Add sort options here */}
@@ -40,7 +37,7 @@ const SortSearchGroup = () => {
           <select
             value={groupBy}
             onChange={handleGroupChange}
-            className="text-black text-sm rounded-full w-36 px-4 py-1 my-[10px] h-[30px] border border-gray-300 focus:outline-none"
+            className="text-black text-sm rounded-2xl w-36 px-4 py-1 h-12 border border-gray-300 focus:outline-none"
           >
             <option value="">Group By</option>
             {/* Add group options here */}
@@ -48,7 +45,6 @@ const SortSearchGroup = () => {
             <option value="type">Type</option>
             {/* Add more options as needed */}
           </select>
-        </div>
       </div>
       </div>
     );

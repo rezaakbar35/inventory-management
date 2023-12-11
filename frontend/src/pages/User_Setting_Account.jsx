@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DashboardSidebarAlt from "../components/DashboardSidebarAlt";
 import "./User_Dashboard.css";
-import ManageProductForm from "../components/forms/ManageProductForm";
-import SortSearchGroup from "../components/SortSearchGroup";
+import { jwtDecode } from "jwt-decode"
+import { getUserSpecific } from "../modules/fetch/index"
 
 const User_Setting_Account = () => {
   const linkTitles = ["Purchased Items", "View Complaints", "Account Settings"];
@@ -12,6 +12,53 @@ const User_Setting_Account = () => {
     "/UsersDash/Setting",
   ];
   const numOfShownLinks = 3;
+
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false); // Add loading state
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const user = await checkuser();
+        setData(user);
+        
+      } catch (error) {
+        console.error("Error fetching data:", error.response || error.message || error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  let specificUser;
+
+  const checkuser = async () => {
+    try {
+      const userToken = window.localStorage.getItem("token");
+      if (!userToken) {
+        console.error("Token is missing");
+        throw new Error("Unauthorized");
+      }
+
+      let decodedToken;
+      try {
+        decodedToken = jwtDecode(userToken);
+      } catch (error) {
+        console.error("Invalid or expired token:", error);
+        throw new Error("Unauthorized");
+      }
+
+      const user = await getUserSpecific(decodedToken.userId);
+      specificUser = user.user;
+      return specificUser;
+    } catch (err) {
+      console.error(err);
+      throw new Error("Internal Server Error");
+    }
+  };
 
   const [showShippingSetting, setShippingSetting] = useState(false);
   const hideShippingSetting = () => setShippingSetting(false);
@@ -68,32 +115,33 @@ const User_Setting_Account = () => {
                   <div className="grid grid-cols-2 mt-5">
                     <div className="flex justify-start col-span-2">
                       <label
-                        htmlFor="username"
+                        htmlFor="password"
                         className="text-black cols-span-2 italic font-light pl-2"
                       >
                         Password
                       </label>
                     </div>
                     <input
-                      type="text"
-                      name="username"
-                      id="username"
+                      type="password"
+                      name="password"
+                      id="password"
                       className="rounded-xl text-black p-2 m-1 col-span-2"
                     />
                   </div>
                   <div className="grid grid-cols-2 mt-5">
                     <div className="flex justify-start col-span-2">
                       <label
-                        htmlFor="user_email"
+                        htmlFor="confirm_password"
                         className="text-black cols-span-2 italic font-light pl-2"
                       >
                         Confirm Password*
                       </label>
                     </div>
                     <input
-                      type="text"
-                      name="user_email"
-                      id="user_email"
+                      type="password"
+                      name="confirm_password"
+                      id="confirm_password"
+                      defaultValue=""
                       className="rounded-xl text-black p-2 m-1 col-span-2"
                     />
                   </div>
@@ -147,12 +195,14 @@ const User_Setting_Account = () => {
                       type="text"
                       name="first_name"
                       id="first_name"
+                      defaultValue={data.first_name}
                       className="rounded-xl text-black p-2 m-1 col-span-2"
                     />
                     <input
                       type="text"
                       name="last_name"
                       id="last_name"
+                      defaultValue={data.last_name}
                       className="rounded-xl text-black p-2 m-1 col-span-2"
                     />
                   </div>
@@ -169,6 +219,7 @@ const User_Setting_Account = () => {
                       type="text"
                       name="username"
                       id="username"
+                      defaultValue={data.username}
                       className="rounded-xl text-black p-2 m-1 col-span-2"
                     />
                   </div>
@@ -185,6 +236,7 @@ const User_Setting_Account = () => {
                       type="text"
                       name="user_email"
                       id="user_email"
+                      defaultValue={data.email}
                       className="rounded-xl text-black p-2 m-1 col-span-2"
                     />
                   </div>
@@ -201,6 +253,7 @@ const User_Setting_Account = () => {
                       type="text"
                       name="user_address"
                       id="user_address"
+                      defaultValue={data.user_address}
                       className="rounded-xl text-black p-2 m-1 col-span-2"
                     />
                   </div>
