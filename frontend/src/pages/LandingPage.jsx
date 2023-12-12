@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Mom from "../assets/Mom.jpg"
 import IconLocations from "../assets/loc.png"
@@ -12,9 +12,12 @@ import logo from "../assets/deliverit.svg"
 import Facebook from "../assets/facebook.png"
 import Instagram from "../assets/instagram.png"
 import Email from "../assets/mail.png"
+import { getAllProduct } from "../modules/fetch/product"
+import { createNotification,getByTitleNotification } from "../modules/fetch/notification"
 
 
 const LandingPage = () => {
+  console.log("LandingPage component rendered")
     const section3 = [
         {
             icon: IconLocations,
@@ -32,6 +35,56 @@ const LandingPage = () => {
             total: "50+",
         },
     ];
+
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    const fetchData = async () => {
+      try {
+        // setLoading(true);
+        console.log("1")
+        const product = await getAllProduct();
+        console.log("2")
+        const d = new Date();
+        const month = d.getMonth() + 1
+        console.log("3")
+        for (let i = 0; i < product.product.length; i++) {
+          let notification_title;
+          let notification_description;
+          let notification_user;
+          let notification_status;
+          console.log("4")
+          if(parseInt(month - product.product[i].arrival_at.slice(5, 7)) >= 3) {
+              notification_title = `Barang ${product.product[i].product_code} lebih dari 3 Bulan`;
+              notification_description = `Barang ${product.product[i].product_name} dengan kode ${product.product[i].product_code} Sudah berada di gudang selama lebih dari 3 Bulan, mohon konfirmasinya segera.`;
+              notification_user = "warehouse";
+              notification_status = "Report";
+              console.log("5")
+              const uniqueNotif = await getByTitleNotification(notification_title)
+              console.log("6")
+              if(!uniqueNotif.notification.length || uniqueNotif.notification[0].notification_title !== notification_title){
+                console.log("7")
+                await createNotification(notification_title, notification_description, notification_user, notification_status);
+              } else {
+                console.log("8")
+                console.log("notif sudah ada")
+              }
+              console.log("9")
+          }
+          console.log("10")
+      }
+
+      } catch (error) {
+        console.error("Error fetching data:", error.response || error.message || error);
+      } finally {
+        // setLoading(false);
+      }
+    };
+
+    useEffect(() => {
+      fetchData();
+    }, [])
+
 
     const features = ["Customized choices for moms and kids.", 
                       "Carefully chosen items for parenting.",
@@ -111,7 +164,7 @@ const LandingPage = () => {
         <RegisterBar />
     </div>
     {/* Footer */}
-    <footer className="bg-background w-[99vw] py-20">
+    <footer className="bg-background w-[99vw] py-20" id="about">
         <div className="container mx-auto max-w-5xl flex flex-row space-x-24">
           <div className="flex-1 space-y-5">
             <div className="grid grid-cols-2 px-40 justify-center">
