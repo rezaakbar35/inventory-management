@@ -4,12 +4,10 @@ import './TableProduct.css'
 import EditProductForm from "./forms/EditProductForm";
 import { deleteProduct, getAllProduct, getProductById } from "../modules/fetch/product";
 
-export const TableProduct = ({}) => {
+const TableProduct = ({setEditProduct, setShowEditForm}) => {
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [editProduct, setEditProduct] = useState(null);
-  const [showEditForm, setShowEditForm] = useState(false);
 
   useEffect(() => {
     fetchData()
@@ -31,6 +29,7 @@ export const TableProduct = ({}) => {
   const editRow = async (product_id) => {
     try {
       const product = await getProductById(product_id);
+      console.log(product)
       setEditProduct(product.product);
       setShowEditForm(true);
     } catch (error) {
@@ -89,27 +88,9 @@ export const TableProduct = ({}) => {
               }
           </tbody>
         </table>
-
-         {/* Tambahkan logika untuk menampilkan formulir pengeditan */}
-         {showEditForm && (
-            <EditProductForm
-              visible={showEditForm}
-              product={editProduct}
-              onClose={() => {
-                setShowEditForm(false);
-                setEditProduct(null);
-              }}
-              onEditSuccess={() => {
-                setShowEditForm(false);
-                setEditProduct(null);
-                fetchData();
-              }}
-            />
-          )}
       </div>
       )
     )
-
   );
 };
 

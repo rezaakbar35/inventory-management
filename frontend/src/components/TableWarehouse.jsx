@@ -1,9 +1,9 @@
 import React,{useState, useEffect} from "react";
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import './TableWarehouse.css'
-import { getAllWarehouse, updateWarehouse, deleteWarehouse } from "../modules/fetch/warehouse";
+import { getAllWarehouse, getWarehouseById, deleteWarehouse } from "../modules/fetch/warehouse";
 
-export const TableWarehouse = ({}) => {
+export const TableWarehouse = ({setEditWarehouse, setShowEditForm}) => {
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -24,8 +24,15 @@ export const TableWarehouse = ({}) => {
     })
   }
 
-  const updateRow = (id) => {
-    console.log(id)
+  const updateRow = async (warehouse_id) => {
+    try {
+      const warehouse = await getWarehouseById(warehouse_id);
+      console.log(warehouse)
+      setEditWarehouse(warehouse.warehouse);
+      setShowEditForm(true);
+    } catch (error) {
+      console.error('Failed to fetch warehouse for editing', error);
+    }
   }
 
   const deleteRow =  (id) => {

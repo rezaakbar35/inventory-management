@@ -4,7 +4,7 @@ import { getAllWarehouse } from "../../modules/fetch/warehouse";
 import { getAllProductCategory } from "../../modules/fetch/product_category";
 import { XMarkIcon } from "@heroicons/react/24/solid"
 
-const EditProductForm = ({ visible, product, onClose, onEditSuccess }) => {
+const EditProductForm = ({ visible, product, onClose, onEditSuccess}) => {
 
   const [warehouseData, setWarehouseData] = useState([]);
   const [productCategoryData, setProductCategoryData] = useState([]);
@@ -43,12 +43,12 @@ const EditProductForm = ({ visible, product, onClose, onEditSuccess }) => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    // Lakukan pengiriman data ke endpoint updateProduct
     try {
       await updateProduct(product.product_id, formData);
       // Panggil fungsi sukses dan tutup formulir
       onEditSuccess();
       onClose();
+      window.location.reload();
     } catch (error) {
       console.error("Failed to update product", error);
     }
@@ -59,7 +59,7 @@ const EditProductForm = ({ visible, product, onClose, onEditSuccess }) => {
     <div id="container" className="flex justify-center w-screen h-screen bg-black/30 absolute backdrop-blur">
 <div className="m-auto rounded-3xl w-1/3 h-[60%] bg-white p-5">
     <div className="flex justify-end">
-      <button>
+    <button onClick={onClose}>
         <XMarkIcon className="w-6 h-6 text-black"/>
       </button>
     </div>
@@ -91,16 +91,16 @@ const EditProductForm = ({ visible, product, onClose, onEditSuccess }) => {
         onChange={handleInputChange} className="rounded-xl text-black p-2 m-1" />
         <select name="product_status" id="product_status" defaultValue={product.product_status}
         onChange={handleInputChange} className="rounded-xl border-none bg-gray-300 text-black p-2 m-1 placeholder:text-gray-400 placeholder:font-thin">
-          <option className="text-gray-400">Product Status</option>
-          <option>Sudah Diterima</option>
+          <option disabled value={product.product_status} className="text-gray-400">{product.product_status}</option>
+          <option>Sudah Sampai</option>
           <option>Dalam Perjalanan</option>
         </select>
         <div className="flex justify-start col-span-2">
         <label htmlFor="category_name" className="text-black italic font-light pl-2">Category</label>
         </div>
-        <select name="category_name" id="category_name" defaultValue={product.category_name}
+        <select name="category_name" id="category_id" defaultValue={product.product_category.category_name}
         onChange={handleInputChange} className="rounded-xl border-none bg-gray-300 text-black p-3 m-1 col-span-2 placeholder:text-gray-400 placeholder:font-thin">
-      <option disabled value="" className="text-gray-400">Category Product</option>
+      <option disabled value={product.product_category.category_name} className="text-gray-400">{product.product_category.category_name}</option>
       {
       productCategoryData.map((item) => (
         <option key={item.category_id} value={item.category_name}>
@@ -114,9 +114,9 @@ const EditProductForm = ({ visible, product, onClose, onEditSuccess }) => {
         <label htmlFor="warehouse_name" className="text-black italic font-light pl-2">Warehouse</label>
         </div>
         <div className="col-span-2"></div>
-        <select name="warehouse_name" id="warehouse_name" defaultValue={product.warehouse_name}
+        <select name="warehouse_name" id="warehouse_id" defaultValue={product.warehouse.warehouse_name}
         onChange={handleInputChange} className="rounded-xl border-none bg-gray-300 text-black p-3 m-1 col-span-2 placeholder:text-gray-400 placeholder:font-thin">
-      <option disabled value="" className="text-gray-400">Warehouse</option>
+      <option disabled value={product.warehouse.warehouse_name} className="text-gray-400">{product.warehouse.warehouse_name}</option>
       {
       warehouseData.map((item) => (
         <option key={item.warehouse_id} value={item.warehouse_name}>

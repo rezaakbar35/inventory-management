@@ -7,6 +7,7 @@ import SortSearchGroup from "../components/SortSearchGroup";
 import NotifyAdminForm from "../components/forms/NotifyAdminForm";
 import TableWarehouse from "../components/TableWarehouse";
 import AddWarehouseForm from "../components/forms/AddWarehouseForm";
+import EditWarehouseForm from "../components/forms/EditWarehouseForm";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
 
@@ -28,8 +29,15 @@ const Admin_Warehouses = () => {
 
   const [showNotifyadmin, setShowNotifyAdmin] = useState(false);
   const [showProductPopup, setShowProductPopup] = useState(false);
+  const [editWarehouse, setEditWarehouse] = useState(null);
+  const [showEditForm, setShowEditForm] = useState(false);
   const handleCloseNotifyAdmin = () => setShowNotifyAdmin(false);
   const handleCloseWarehouse = () => setShowProductPopup(false);
+
+  const handleEditWarehouse = (warehouse) => {
+    setEditWarehouse(warehouse);
+    setShowEditForm(true);
+  }
 
   return (
     <div className="dashboardContainer flex overflow-hidden">
@@ -39,6 +47,22 @@ const Admin_Warehouses = () => {
         linkTitles={linkTitles}
         links={links}
       />
+
+      {showEditForm && (
+            <EditWarehouseForm
+              visible={showEditForm}
+              warehouse={editWarehouse}
+              onClose={() => {
+                setShowEditForm(false);
+                setEditWarehouse(null);
+              }}
+              onEditSuccess={() => {
+                setShowEditForm(false);
+                setEditWarehouse(null);
+                // fetchData();
+              }}
+            />
+          )}
       </div>
       <div className="pl-24 bg-background contentContainer">
         <div className="grid grid-rows-8 h-screen">
@@ -68,7 +92,7 @@ const Admin_Warehouses = () => {
           <SortSearchGroup />
         </div>
         <div className="p-5 my-10 mr-10 bg-tertiary rounded-3xl row-span-6 drop-shadow-xl">
-          <TableWarehouse />
+          <TableWarehouse setShowEditForm={setShowEditForm} setEditWarehouse={setEditWarehouse} onEdit={handleEditWarehouse} />
         </div>
         </div>
       </div>

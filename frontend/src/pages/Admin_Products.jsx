@@ -7,8 +7,10 @@ import TableProductShipping from "../components/TableProductShipping";
 import SortSearchGroup from "../components/SortSearchGroup";
 import ManageProductForm from "../components/forms/ManageProductForm";
 import AddProductForm from "../components/forms/AddProductForm";
+import EditProductForm from "../components/forms/EditProductForm";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
+import { getAllProduct } from "../modules/fetch/product.js";
 
 const Admin_Products = () => {
   const navigate = useNavigate();
@@ -30,10 +32,18 @@ const Admin_Products = () => {
   const [showManageProduct, setShowManageProduct] = useState(false);
   const [showProductPopup, setShowProductPopup] = useState(false);
   const [showProductShipping, setShowProductShipping] = useState(false);
+  const [editProduct, setEditProduct] = useState(null);
+  const [showEditForm, setShowEditForm] = useState(false);
 
   const handleCloseManageProduct = () => setShowManageProduct(false);
   const handleOnClose = () => setShowProductPopup(false);
   const handleShowOutgoing = () => setShowProductShipping(true);
+
+
+  const handleEditProduct = (product) => {
+    setEditProduct(product);
+    setShowEditForm(true);
+  }
 
   return (
     <div className="dashboardContainer flex overflow-hidden">
@@ -43,6 +53,22 @@ const Admin_Products = () => {
           linkTitles={linkTitles}
           links={links}
         />
+
+        {showEditForm && (
+            <EditProductForm
+              visible={showEditForm}
+              product={editProduct}
+              onClose={() => {
+                setShowEditForm(false);
+                setEditProduct(null);
+              }}
+              onEditSuccess={() => {
+                setShowEditForm(false);
+                setEditProduct(null);
+                // fetchData();
+              }}
+            />
+          )}
       </div>
       <div className="pl-24 bg-background contentContainer">
         <div className="grid grid-rows-8 h-screen">
@@ -79,7 +105,7 @@ const Admin_Products = () => {
             <SortSearchGroup />
           </div>
           <div className="p-5 my-10 mr-10 bg-tertiary rounded-3xl row-span-6 drop-shadow-xl">
-            {showProductShipping ? <TableProductShipping /> : <TableProduct />}
+            {showProductShipping ? <TableProductShipping /> : <TableProduct setShowEditForm={setShowEditForm} setEditProduct={setEditProduct} onEdit={handleEditProduct} />}
           </div>
         </div>
       </div>
@@ -87,9 +113,9 @@ const Admin_Products = () => {
         onClose={handleCloseManageProduct}
         visible={showManageProduct}
       />
-
       <AddProductForm visible={showProductPopup} onClose={handleOnClose} />
     </div>
   );
 };
+
 export default Admin_Products;

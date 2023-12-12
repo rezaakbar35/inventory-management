@@ -31,9 +31,9 @@ async function createWarehouse(formData) {
 }
 
 // Function for update warehouse endpoint
-async function updateWarehouse(warehouse_id, warehouse_name, location, category_name) {
+async function updateWarehouse(warehouse_id, formData) {
   try {
-    const response = await instance.put(`/warehouse/${warehouse_id}/update`, { warehouse_name, location, category_name});
+    const response = await instance.put(`/warehouse/${warehouse_id}/update`, formData);
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message || 'Something went wrong');
