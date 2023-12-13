@@ -2,9 +2,18 @@ import React, { useState, useEffect } from "react";
 import { updateProduct } from "../../modules/fetch/product";
 import { getAllWarehouse } from "../../modules/fetch/warehouse";
 import { getAllProductCategory } from "../../modules/fetch/product_category";
+import {useDropzone} from 'react-dropzone';
 import { XMarkIcon } from "@heroicons/react/24/solid"
 
 const EditProductForm = ({ visible, product, onClose, onEditSuccess}) => {
+
+  const {acceptedFiles, getRootProps, getInputProps} = useDropzone();
+
+  const files = acceptedFiles.map(file => (
+    <li key={file.path}>
+      {file.path} - {file.size} bytes
+    </li>
+  ));
 
   const [warehouseData, setWarehouseData] = useState([]);
   const [productCategoryData, setProductCategoryData] = useState([]);
@@ -33,11 +42,17 @@ const EditProductForm = ({ visible, product, onClose, onEditSuccess}) => {
     product_status: "",
     category_name: "",
     warehouse_name: "",
+    product_image: null,
   });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleImageChange = (e) => {
+    const product_image = e.target.files[0];
+    setFormData((prevData) => ({ ...prevData, product_image: formData.product_image }));
   };
 
   const handleFormSubmit = async (e) => {
@@ -95,6 +110,24 @@ const EditProductForm = ({ visible, product, onClose, onEditSuccess}) => {
           <option>Sudah Sampai</option>
           <option>Dalam Perjalanan</option>
         </select>
+        <div className="flex justify-start col-span-2 row-span-8 m-1">
+          <section className="container border-2 border-dashed rounded-xl text-gray-400">
+            <div {...getRootProps({className: 'dropzone'})}>
+              <input {...getInputProps()} 
+                type="file"
+                id="product_image"
+                accept="image/*"
+                onChange={handleImageChange} />
+              <div className="mt-4 mx-4 mb-12">
+                <p>Drag 'n' drop some files here, or click to select files</p>
+              </div>
+              </div>
+                <aside>
+                <h4>Files</h4>
+                <ul>{files}</ul>
+              </aside>
+            </section>
+        </div>
         <div className="flex justify-start col-span-2">
         <label htmlFor="category_name" className="text-black italic font-light pl-2">Category</label>
         </div>

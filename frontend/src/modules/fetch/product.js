@@ -35,7 +35,9 @@ async function createProduct(formDataProduct) {
 // Function for update product endpoint
 async function updateProduct(product_id, formData) {
   try {
-    const response = await instance.put(`/product/${product_id}/update`, formData);
+    const response = await instance.put(`/product/${product_id}/update`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    });
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message || 'Something went wrong');
