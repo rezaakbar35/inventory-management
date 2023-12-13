@@ -12,6 +12,7 @@ import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
 
 const Admin_Warehouses = () => {
+  const navigate = useNavigate();
   const linkTitles = [
     "Manage Products",
     "Manage Warehouses",

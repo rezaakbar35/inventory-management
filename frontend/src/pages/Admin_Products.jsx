@@ -8,6 +8,7 @@ import SortSearchGroup from "../components/SortSearchGroup";
 import ManageProductForm from "../components/forms/ManageProductForm";
 import AddProductForm from "../components/forms/AddProductForm";
 import EditProductForm from "../components/forms/EditProductForm";
+import AddProductCategoryForm from "../components/forms/AddProductCategoryForm.jsx";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
 import { getAllProduct } from "../modules/fetch/product.js";
@@ -31,12 +32,15 @@ const Admin_Products = () => {
 
   const [showManageProduct, setShowManageProduct] = useState(false);
   const [showProductPopup, setShowProductPopup] = useState(false);
+  const [showProductCategory, setShowProductCategory] = useState(false);
   const [showProductShipping, setShowProductShipping] = useState(false);
   const [editProduct, setEditProduct] = useState(null);
   const [showEditForm, setShowEditForm] = useState(false);
 
+
   const handleCloseManageProduct = () => setShowManageProduct(false);
   const handleOnClose = () => setShowProductPopup(false);
+  const handleProductCategory = () => setShowProductCategory(false);
   const handleShowOutgoing = () => setShowProductShipping(true);
 
 
@@ -82,9 +86,15 @@ const Admin_Products = () => {
             <div>
               <button
                 onClick={() => setShowProductPopup(true)}
-                className="py-3 px-6 m-10 font-semibold drop-shadow-lg bg-tertiary rounded-full hover:bg-primary/50"
+                className="py-3 px-6 m-2 font-semibold drop-shadow-lg bg-tertiary rounded-full hover:bg-primary/50"
               >
                 <p className="p-2">Add New Product</p>
+              </button>
+              <button
+                onClick={() => setShowProductCategory(true)}
+                className="py-3 px-6 m-10 font-semibold drop-shadow-lg bg-tertiary rounded-full hover:bg-primary/50"
+              >
+                <p className="p-2">Add New Category Product</p>
               </button>
               <button
                 onClick={handleShowOutgoing}
@@ -114,6 +124,7 @@ const Admin_Products = () => {
         visible={showManageProduct}
       />
       <AddProductForm visible={showProductPopup} onClose={handleOnClose} />
+      <AddProductCategoryForm visible={showProductCategory} onClose={handleProductCategory} />
     </div>
   );
 };

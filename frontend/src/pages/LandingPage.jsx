@@ -42,36 +42,29 @@ const LandingPage = () => {
     const fetchData = async () => {
       try {
         // setLoading(true);
-        console.log("1")
+  
         const product = await getAllProduct();
-        console.log("2")
         const d = new Date();
         const month = d.getMonth() + 1
-        console.log("3")
         for (let i = 0; i < product.product.length; i++) {
           let notification_title;
           let notification_description;
           let notification_user;
           let notification_status;
-          console.log("4")
+
           if(parseInt(month - product.product[i].arrival_at.slice(5, 7)) >= 3) {
               notification_title = `Barang ${product.product[i].product_code} lebih dari 3 Bulan`;
               notification_description = `Barang ${product.product[i].product_name} dengan kode ${product.product[i].product_code} Sudah berada di gudang selama lebih dari 3 Bulan, mohon konfirmasinya segera.`;
               notification_user = "warehouse";
               notification_status = "Report";
-              console.log("5")
+
               const uniqueNotif = await getByTitleNotification(notification_title)
-              console.log("6")
               if(!uniqueNotif.notification.length || uniqueNotif.notification[0].notification_title !== notification_title){
-                console.log("7")
                 await createNotification(notification_title, notification_description, notification_user, notification_status);
               } else {
-                console.log("8")
                 console.log("notif sudah ada")
               }
-              console.log("9")
           }
-          console.log("10")
       }
 
       } catch (error) {
