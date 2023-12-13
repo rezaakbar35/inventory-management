@@ -10,6 +10,7 @@ router.get('/', productController.getAllProduct);
 router.put('/:id/update', uploadProductImage.single('product_image'), productController.updateProduct);
 router.get('/warehouse/:warehouse_name', productController.getByWarehouseProduct)
 
+
 router.route("/:id")
 .get(productController.getByIdProduct)
 .delete(productController.deleteProduct)

@@ -4,12 +4,10 @@ import './TableProduct.css'
 import EditProductForm from "./forms/EditProductForm";
 import { deleteProduct, getAllProduct, getProductById } from "../modules/fetch/product";
 
-export const TableProduct = ({}) => {
+const TableProduct = ({setEditProduct, setShowEditForm}) => {
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [editProduct, setEditProduct] = useState(null);
-  const [showEditForm, setShowEditForm] = useState(false);
 
   useEffect(() => {
     fetchData()
@@ -31,7 +29,8 @@ export const TableProduct = ({}) => {
   const editRow = async (product_id) => {
     try {
       const product = await getProductById(product_id);
-      setEditProduct(product);
+      console.log(product)
+      setEditProduct(product.product);
       setShowEditForm(true);
     } catch (error) {
       console.error('Failed to fetch product for editing', error);
@@ -62,7 +61,13 @@ export const TableProduct = ({}) => {
               <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Product Code</th>
               <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Product Stock</th>
               <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Product Category</th>
-              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Warehouse</th>
+              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Category ID</th>
+              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Warehouse Name</th>
+              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Warehouse ID</th>
+              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Created Date</th>
+              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Updated Date</th>
+              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Product Image</th>
+              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Product Status</th>
               <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Arrrival Date</th>
               <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Action</th>
             </tr>
@@ -71,14 +76,20 @@ export const TableProduct = ({}) => {
               {
                 data.map((item) => (
                   <tr  className="hover:bg-gray-50" key={item.product_id}>
-                    <td className="px-6 py-2 whitespace-nowrap">{ item.product_id }</td>
-                    <td className="px-6 py-2 whitespace-nowrap">{ item.product_name }</td>
-                    <td className="px-6 py-2 whitespace-nowrap">{ item.product_code }</td>
-                    <td className="px-6 py-2 whitespace-nowrap">{ item.product_stock }</td>
-                    <td className="px-6 py-2 whitespace-nowrap">{ item.category_name }</td>
-                    <td className="px-6 py-2 whitespace-nowrap">{ item.warehouse_name }</td>
-                    <td className="px-6 py-2 whitespace-nowrap">{ item.arrival_at } </td>
-                    <td className="px-6 py-2 whitespace-nowrap">
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_id }</td>
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_name }</td>
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_code }</td>
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_stock }</td>
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.category_name }</td>
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.category_id }</td>
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.warehouse_name }</td>
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.warehouse_id }</td>
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.created_at }</td>
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.updated_at }</td>
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_image }</td>
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_status }</td>
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.arrival_at } </td>
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">
                   <div className="flex items-center justify-center space-x-7">
                   <BsFillTrashFill className="text-red-500 cursor-pointer" onClick={() => deleteRow(item.product_id)} />
                   <BsFillPencilFill className="text-blue-500 cursor-pointer" onClick={() => editRow(item.product_id)} />
@@ -89,27 +100,9 @@ export const TableProduct = ({}) => {
               }
           </tbody>
         </table>
-
-         {/* Tambahkan logika untuk menampilkan formulir pengeditan */}
-         {showEditForm && (
-            <EditProductForm
-              visible={showEditForm}
-              product={editProduct}
-              onClose={() => {
-                setShowEditForm(false);
-                setEditProduct(null);
-              }}
-              onEditSuccess={() => {
-                setShowEditForm(false);
-                setEditProduct(null);
-                fetchData();
-              }}
-            />
-          )}
       </div>
       )
     )
-
   );
 };
 

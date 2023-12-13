@@ -2,9 +2,18 @@ import React, { useState, useEffect } from "react";
 import { updateProduct } from "../../modules/fetch/product";
 import { getAllWarehouse } from "../../modules/fetch/warehouse";
 import { getAllProductCategory } from "../../modules/fetch/product_category";
+import {useDropzone} from 'react-dropzone';
 import { XMarkIcon } from "@heroicons/react/24/solid"
 
-const EditProductForm = ({ visible, product, onClose, onEditSuccess }) => {
+const EditProductForm = ({ visible, product, onClose, onEditSuccess}) => {
+
+  const {acceptedFiles, getRootProps, getInputProps} = useDropzone();
+
+  const files = acceptedFiles.map(file => (
+    <li key={file.path}>
+      {file.path} - {file.size} bytes
+    </li>
+  ));
 
   const [warehouseData, setWarehouseData] = useState([]);
   const [productCategoryData, setProductCategoryData] = useState([]);
@@ -33,6 +42,7 @@ const EditProductForm = ({ visible, product, onClose, onEditSuccess }) => {
     product_status: "",
     category_name: "",
     warehouse_name: "",
+    product_image: null,
   });
 
   const handleInputChange = (e) => {
@@ -40,15 +50,20 @@ const EditProductForm = ({ visible, product, onClose, onEditSuccess }) => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  const handleImageChange = (e) => {
+    const product_image = e.target.files[0];
+    setFormData((prevData) => ({ ...prevData, product_image: formData.product_image }));
+  };
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    // Lakukan pengiriman data ke endpoint updateProduct
     try {
       await updateProduct(product.product_id, formData);
       // Panggil fungsi sukses dan tutup formulir
       onEditSuccess();
       onClose();
+      window.location.reload();
     } catch (error) {
       console.error("Failed to update product", error);
     }
@@ -59,7 +74,7 @@ const EditProductForm = ({ visible, product, onClose, onEditSuccess }) => {
     <div id="container" className="flex justify-center w-screen h-screen bg-black/30 absolute backdrop-blur">
 <div className="m-auto rounded-3xl w-1/3 h-[60%] bg-white p-5">
     <div className="flex justify-end">
-      <button>
+    <button onClick={onClose}>
         <XMarkIcon className="w-6 h-6 text-black"/>
       </button>
     </div>
@@ -91,16 +106,34 @@ const EditProductForm = ({ visible, product, onClose, onEditSuccess }) => {
         onChange={handleInputChange} className="rounded-xl text-black p-2 m-1" />
         <select name="product_status" id="product_status" defaultValue={product.product_status}
         onChange={handleInputChange} className="rounded-xl border-none bg-gray-300 text-black p-2 m-1 placeholder:text-gray-400 placeholder:font-thin">
-          <option className="text-gray-400">Product Status</option>
-          <option>Sudah Diterima</option>
+          <option disabled value={product.product_status} className="text-gray-400">{product.product_status}</option>
+          <option>Sudah Sampai</option>
           <option>Dalam Perjalanan</option>
         </select>
+        <div className="flex justify-start col-span-2 row-span-8 m-1">
+          <section className="container border-2 border-dashed rounded-xl text-gray-400">
+            <div {...getRootProps({className: 'dropzone'})}>
+              <input {...getInputProps()} 
+                type="file"
+                id="product_image"
+                accept="image/*"
+                onChange={handleImageChange} />
+              <div className="mt-4 mx-4 mb-12">
+                <p>Drag 'n' drop some files here, or click to select files</p>
+              </div>
+              </div>
+                <aside>
+                <h4>Files</h4>
+                <ul>{files}</ul>
+              </aside>
+            </section>
+        </div>
         <div className="flex justify-start col-span-2">
         <label htmlFor="category_name" className="text-black italic font-light pl-2">Category</label>
         </div>
-        <select name="category_name" id="category_name" defaultValue={product.category_name}
+        <select name="category_name" id="category_id" defaultValue={product.product_category.category_name}
         onChange={handleInputChange} className="rounded-xl border-none bg-gray-300 text-black p-3 m-1 col-span-2 placeholder:text-gray-400 placeholder:font-thin">
-      <option disabled value="" className="text-gray-400">Category Product</option>
+      <option disabled value={product.product_category.category_name} className="text-gray-400">{product.product_category.category_name}</option>
       {
       productCategoryData.map((item) => (
         <option key={item.category_id} value={item.category_name}>
@@ -114,9 +147,9 @@ const EditProductForm = ({ visible, product, onClose, onEditSuccess }) => {
         <label htmlFor="warehouse_name" className="text-black italic font-light pl-2">Warehouse</label>
         </div>
         <div className="col-span-2"></div>
-        <select name="warehouse_name" id="warehouse_name" defaultValue={product.warehouse_name}
+        <select name="warehouse_name" id="warehouse_id" defaultValue={product.warehouse.warehouse_name}
         onChange={handleInputChange} className="rounded-xl border-none bg-gray-300 text-black p-3 m-1 col-span-2 placeholder:text-gray-400 placeholder:font-thin">
-      <option disabled value="" className="text-gray-400">Warehouse</option>
+      <option disabled value={product.warehouse.warehouse_name} className="text-gray-400">{product.warehouse.warehouse_name}</option>
       {
       warehouseData.map((item) => (
         <option key={item.warehouse_id} value={item.warehouse_name}>
