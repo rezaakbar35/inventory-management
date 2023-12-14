@@ -48,7 +48,28 @@ const TableUserProduct = ({searchValue}) => {
   let specificUser
 
   const checkuser = async () => {
-    // (The rest of the checkuser function remains unchanged)
+    try {
+      const userToken = window.localStorage.getItem("token");
+      if (!userToken) {
+        console.error("Token is missing");
+        throw new Error("Unauthorized");
+      }
+
+      let decodedToken;
+      try {
+        decodedToken = jwtDecode(userToken);
+      } catch (error) {
+        console.error("Invalid or expired token:", error);
+        throw new Error("Unauthorized");
+      }
+
+      const user = await getUserSpecific(decodedToken.userId);
+      specificUser = user.user.username;
+      return specificUser;
+    } catch (err) {
+      console.error(err);
+      throw new Error("Internal Server Error");
+    }
   };
 
   const editRow = (id) => {
