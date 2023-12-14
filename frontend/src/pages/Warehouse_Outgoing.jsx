@@ -5,6 +5,8 @@ import SortSearchGroup from "../components/SortSearchGroup";
 import TableProductShippingWarehouse from "../components/TableProductShippingWarehouse";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
+import OutgoingProduct from "../assets/OutgoingProduct.png"
+import ProductStock from "../assets/ProductStock.png"
 
 const Warehouse_Outgoing = () => {
     const navigate = useNavigate()
@@ -13,6 +15,7 @@ const Warehouse_Outgoing = () => {
     "/warehouseDash/Stocks", //warehouse
     "/warehouseDash/Outgoing", //productSent
   ];
+  const image = [ProductStock, OutgoingProduct]
   const numOfShownLinks = 2;
   const handleBack = () => {
     navigate("/warehouseDash");
@@ -25,6 +28,7 @@ const Warehouse_Outgoing = () => {
           numOfLinks={numOfShownLinks}
           linkTitles={linkTitles}
           links={links}
+          image={image}
         />
       </div>
       <div className="pl-24 bg-background contentContainer">

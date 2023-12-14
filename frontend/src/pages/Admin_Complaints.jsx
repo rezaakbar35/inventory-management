@@ -7,6 +7,9 @@ import TableComplaints from "../components/TableComplaints";
 import { useNavigate } from "react-router-dom";
 import AdminToWarehouseIssueForm from "../components/forms/AdminToWarehouseIssueForm.jsx";
 import AdminToNotifyUserForm from "../components/forms/AdminToNotifyUserForm.jsx";
+import ManageWarehouse from "../assets/ManageWarehouse.png"
+import ManageProduct from "../assets/ManageProduct.png"
+import ManageComplain from "../assets/ManageComplain.png"
 
 const Admin_Complaints = () => {
   const navigate = useNavigate();
@@ -20,6 +23,7 @@ const Admin_Complaints = () => {
     "/AdminDash/Warehouses",
     "/AdminDash/Complaints",
   ];
+  const image = [ManageProduct, ManageComplain, ManageWarehouse];
   const numOfShownLinks = 3;
   const handleBack = () => {
     navigate("/AdminDash");
@@ -38,6 +42,7 @@ const Admin_Complaints = () => {
           numOfLinks={numOfShownLinks}
           linkTitles={linkTitles}
           links={links}
+          image={image}
         />
       </div>
       <div className="pl-24 bg-background contentContainer">

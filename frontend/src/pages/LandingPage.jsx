@@ -17,7 +17,6 @@ import { createNotification,getByTitleNotification } from "../modules/fetch/noti
 
 
 const LandingPage = () => {
-  console.log("LandingPage component rendered")
     const section3 = [
         {
             icon: IconLocations,

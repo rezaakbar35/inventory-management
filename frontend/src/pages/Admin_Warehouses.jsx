@@ -9,6 +9,9 @@ import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
 import AddWarehouseCategoryForm from "../components/forms/AddWarehouseCategoryForm";
 import AdminToWarehouseIssueForm from "../components/forms/AdminToWarehouseIssueForm";
+import ManageWarehouse from "../assets/ManageWarehouse.png"
+import ManageProduct from "../assets/ManageProduct.png"
+import ManageComplain from "../assets/ManageComplain.png"
 
 const Admin_Warehouses = () => {
   const navigate = useNavigate();
@@ -22,6 +25,7 @@ const Admin_Warehouses = () => {
     "/AdminDash/Warehouses",
     "/AdminDash/Complaints",
   ];
+  const image = [ManageProduct, ManageComplain, ManageWarehouse];
   const numOfShownLinks = 3;
   const handleBack = () => {
     navigate("/AdminDash");
@@ -49,6 +53,7 @@ const Admin_Warehouses = () => {
         numOfLinks={numOfShownLinks}
         linkTitles={linkTitles}
         links={links}
+        image={image}
       />
 
       {showEditForm && (

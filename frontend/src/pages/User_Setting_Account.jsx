@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from "react";
-import DashboardSidebarAlt from "../components/DashboardSidebarAlt";
+import DashboardSidebar from "../components/DashboardSidebar";
 import "./User_Dashboard.css";
-import { jwtDecode } from "jwt-decode"
-import { getUserSpecific } from "../modules/fetch/index"
+import { jwtDecode } from "jwt-decode";
+import { getUserSpecific } from "../modules/fetch/index";
+import PurchasedItem from "../assets/PurchasedItem.png";
+import ViewComplain from "../assets/ViewComplain.png";
+import UserSetting from "../assets/UserSetting.png";
+import { ChevronLeftIcon } from "@heroicons/react/24/solid";
+import { useNavigate } from "react-router-dom";
 
 const User_Setting_Account = () => {
+  const navigate = useNavigate();
   const linkTitles = ["Purchased Items", "View Complaints", "Account Settings"];
   const links = [
     "/UsersDash/Items",
@@ -12,7 +18,7 @@ const User_Setting_Account = () => {
     "/UsersDash/Setting",
   ];
   const numOfShownLinks = 3;
-
+  const image = [PurchasedItem, ViewComplain, UserSetting];
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false); // Add loading state
 
@@ -22,9 +28,11 @@ const User_Setting_Account = () => {
         setLoading(true);
         const user = await checkuser();
         setData(user);
-        
       } catch (error) {
-        console.error("Error fetching data:", error.response || error.message || error);
+        console.error(
+          "Error fetching data:",
+          error.response || error.message || error
+        );
       } finally {
         setLoading(false);
       }
@@ -60,22 +68,33 @@ const User_Setting_Account = () => {
     }
   };
 
+  const handleBack = () => {
+    navigate("/UsersDash");
+  };
   const [showShippingSetting, setShippingSetting] = useState(false);
   const hideShippingSetting = () => setShippingSetting(false);
 
   return (
     <>
       <div className="dashboardContainer flex overflow-hidden">
-        <DashboardSidebarAlt
+        <div className="z-50">
+        <DashboardSidebar
           numOfLinks={numOfShownLinks}
           linkTitles={linkTitles}
           links={links}
+          image={image}
         />
+        </div>
         <div className="bg-background contentContainer h-screen grid grid-rows-8 grid-cols-4 pl-16 grid-flow-col">
           <div className=" border-b-2 border-gray-300 flex items-center col-span-4">
-            <h1 className="text-black ml-5 font-bold text-[42px]">
-              User Profile
-            </h1>
+            <div className="bg-white py-3 pl-3 pr-10 rounded-[16px] drop-shadow-lg flex self-center">
+              <button onClick={handleBack}>
+                <ChevronLeftIcon className="w-6 h-6 mr-4 stroke-gray-400 text-gray-400 self-center" />
+              </button>
+              <h1 className="text-black font-semibold text-4xl">
+                User Setting
+              </h1>
+            </div>
           </div>
           <div className="border-gray-300 border-r-2 row-span-7 h-auto my-12">
             <div className="flex justify-end m-5">

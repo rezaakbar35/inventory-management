@@ -12,6 +12,9 @@ import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
 import { getAllProduct } from "../modules/fetch/product.js";
 import AdminManageProductForm from "../components/forms/AdminManageProductForm.jsx";
+import ManageWarehouse from "../assets/ManageWarehouse.png"
+import ManageProduct from "../assets/ManageProduct.png"
+import ManageComplain from "../assets/ManageComplain.png"
 
 const Admin_Products = () => {
   const navigate = useNavigate();
@@ -25,6 +28,7 @@ const Admin_Products = () => {
     "/AdminDash/Warehouses",
     "/AdminDash/Complaints",
   ];
+  const image = [ManageProduct, ManageComplain, ManageWarehouse];
   const numOfShownLinks = 3;
   const handleBack = () => {
     navigate("/AdminDash");
@@ -56,6 +60,7 @@ const Admin_Products = () => {
           numOfLinks={numOfShownLinks}
           linkTitles={linkTitles}
           links={links}
+          image={image}
         />
 
         {showEditForm && (
