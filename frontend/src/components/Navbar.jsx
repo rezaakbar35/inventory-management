@@ -214,14 +214,6 @@ const Navbar = () => {
             </li>
             <li>
               <a
-                href="#about"
-                className="block py-2 px-3 text-background rounded md:hover:text-white md:p-0 md:dark:hover:text-white"
-              >
-                About
-              </a>
-            </li>
-            <li>
-              <a
                 href="#features"
                 className="block py-2 px-3 text-background rounded md:hover:text-white md:p-0 md:dark:hover:text-white"
               >
@@ -234,6 +226,14 @@ const Navbar = () => {
                 className="block py-2 px-3 text-background rounded md:hover:text-white md:p-0 md:dark:hover:text-white"
               >
                 Testimonial
+              </a>
+            </li>
+            <li>
+              <a
+                href="#about"
+                className="block py-2 px-3 text-background rounded md:hover:text-white md:p-0 md:dark:hover:text-white"
+              >
+                About
               </a>
             </li>
             <li>

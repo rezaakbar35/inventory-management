@@ -150,6 +150,29 @@ const notificationController = {
     }
   },
 
+  getByTitleNotification: async (req, res) => {
+    try {
+      const { title } = req.params;
+      const notification = await prisma.notification.findMany({
+        where: { 
+        notification_title: title ,
+        },
+        include: {
+            user: {
+                select: {
+                    username: true,
+                    user_role: true,
+                }
+            }
+        }
+      });
+      res.status(200).json({ message: "Successfully found specific notification by title", notification });
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({ message: "Notification not found" });
+    }
+  },
+
   //create notifikasi
   createNotification: async (req, res) => {
     try {

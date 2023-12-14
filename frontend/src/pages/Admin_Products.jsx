@@ -7,8 +7,11 @@ import TableProductShipping from "../components/TableProductShipping";
 import SortSearchGroup from "../components/SortSearchGroup";
 import ManageProductForm from "../components/forms/ManageProductForm";
 import AddProductForm from "../components/forms/AddProductForm";
+import EditProductForm from "../components/forms/EditProductForm";
+import AddProductCategoryForm from "../components/forms/AddProductCategoryForm.jsx";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
+import { getAllProduct } from "../modules/fetch/product.js";
 
 const Admin_Products = () => {
   const navigate = useNavigate();
@@ -29,11 +32,23 @@ const Admin_Products = () => {
 
   const [showManageProduct, setShowManageProduct] = useState(false);
   const [showProductPopup, setShowProductPopup] = useState(false);
+  const [showProductCategory, setShowProductCategory] = useState(false);
   const [showProductShipping, setShowProductShipping] = useState(false);
+  const [editProduct, setEditProduct] = useState(null);
+  const [showEditForm, setShowEditForm] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+
 
   const handleCloseManageProduct = () => setShowManageProduct(false);
   const handleOnClose = () => setShowProductPopup(false);
+  const handleProductCategory = () => setShowProductCategory(false);
   const handleShowOutgoing = () => setShowProductShipping(true);
+
+
+  const handleEditProduct = (product) => {
+    setEditProduct(product);
+    setShowEditForm(true);
+  }
 
   return (
     <div className="dashboardContainer flex overflow-hidden">
@@ -43,6 +58,22 @@ const Admin_Products = () => {
           linkTitles={linkTitles}
           links={links}
         />
+
+        {showEditForm && (
+            <EditProductForm
+              visible={showEditForm}
+              product={editProduct}
+              onClose={() => {
+                setShowEditForm(false);
+                setEditProduct(null);
+              }}
+              onEditSuccess={() => {
+                setShowEditForm(false);
+                setEditProduct(null);
+                // fetchData();
+              }}
+            />
+          )}
       </div>
       <div className="pl-24 bg-background contentContainer">
         <div className="grid grid-rows-8 h-screen">
@@ -56,9 +87,15 @@ const Admin_Products = () => {
             <div>
               <button
                 onClick={() => setShowProductPopup(true)}
-                className="py-3 px-6 m-10 font-semibold drop-shadow-lg bg-tertiary rounded-full hover:bg-primary/50"
+                className="py-3 px-6 m-2 font-semibold drop-shadow-lg bg-tertiary rounded-full hover:bg-primary/50"
               >
                 <p className="p-2">Add New Product</p>
+              </button>
+              <button
+                onClick={() => setShowProductCategory(true)}
+                className="py-3 px-6 m-10 font-semibold drop-shadow-lg bg-tertiary rounded-full hover:bg-primary/50"
+              >
+                <p className="p-2">Add New Category Product</p>
               </button>
               <button
                 onClick={handleShowOutgoing}
@@ -76,10 +113,10 @@ const Admin_Products = () => {
           </div>
 
           <div className="flex bg-white mr-10 drop-shadow-xl rounded-2xl">
-            <SortSearchGroup />
+            <SortSearchGroup setSearchQuery={setSearchQuery}/>
           </div>
           <div className="p-5 my-10 mr-10 bg-tertiary rounded-3xl row-span-6 drop-shadow-xl">
-            {showProductShipping ? <TableProductShipping /> : <TableProduct />}
+            {showProductShipping ? <TableProductShipping /> : <TableProduct setShowEditForm={setShowEditForm} setEditProduct={setEditProduct} searchQuery={searchQuery} onEdit={handleEditProduct} />}
           </div>
         </div>
       </div>
@@ -87,9 +124,10 @@ const Admin_Products = () => {
         onClose={handleCloseManageProduct}
         visible={showManageProduct}
       />
-
       <AddProductForm visible={showProductPopup} onClose={handleOnClose} />
+      <AddProductCategoryForm visible={showProductCategory} onClose={handleProductCategory} />
     </div>
   );
 };
+
 export default Admin_Products;

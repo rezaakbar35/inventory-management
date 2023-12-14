@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import DashboardSidebar from "../components/DashboardSidebar";
 import "./Admin_Dashboard.css";
-// import TableWarehouse from '../components/TableWarehouse'
-import TableProduct from "../components/TableProduct";
 import SortSearchGroup from "../components/SortSearchGroup";
 import NotifyAdminForm from "../components/forms/NotifyAdminForm";
 import TableWarehouse from "../components/TableWarehouse";
 import AddWarehouseForm from "../components/forms/AddWarehouseForm";
+import EditWarehouseForm from "../components/forms/EditWarehouseForm";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
+import AddWarehouseCategoryForm from "../components/forms/AddWarehouseCategoryForm";
 
 const Admin_Warehouses = () => {
+  const navigate = useNavigate();
   const linkTitles = [
     "Manage Products",
     "Manage Warehouses",
@@ -28,8 +29,18 @@ const Admin_Warehouses = () => {
 
   const [showNotifyadmin, setShowNotifyAdmin] = useState(false);
   const [showProductPopup, setShowProductPopup] = useState(false);
+  const [editWarehouse, setEditWarehouse] = useState(null);
+  const [showEditForm, setShowEditForm] = useState(false);
+  const [showWarehouseCategory,setShowWarehouseCategory]=useState(false);
+
   const handleCloseNotifyAdmin = () => setShowNotifyAdmin(false);
   const handleCloseWarehouse = () => setShowProductPopup(false);
+  const handleCloseWarehoseCategory = () => setShowWarehouseCategory(false);
+
+  const handleEditWarehouse = (warehouse) => {
+    setEditWarehouse(warehouse);
+    setShowEditForm(true);
+  }
 
   return (
     <div className="dashboardContainer flex overflow-hidden">
@@ -39,6 +50,22 @@ const Admin_Warehouses = () => {
         linkTitles={linkTitles}
         links={links}
       />
+
+      {showEditForm && (
+            <EditWarehouseForm
+              visible={showEditForm}
+              warehouse={editWarehouse}
+              onClose={() => {
+                setShowEditForm(false);
+                setEditWarehouse(null);
+              }}
+              onEditSuccess={() => {
+                setShowEditForm(false);
+                setEditWarehouse(null);
+                // fetchData();
+              }}
+            />
+          )}
       </div>
       <div className="pl-24 bg-background contentContainer">
         <div className="grid grid-rows-8 h-screen">
@@ -57,6 +84,12 @@ const Admin_Warehouses = () => {
             <p className="p-2">Add New Warehouse</p>
           </button>
           <button
+                onClick={() => setShowWarehouseCategory(true)}
+                className="py-3 px-6 m-10 font-semibold drop-shadow-lg bg-tertiary rounded-full hover:bg-primary/50"
+              >
+                <p className="p-2">Add New Category Warehouse</p>
+              </button>
+          <button
             onClick={() => setShowNotifyAdmin(true)}
             className="py-3 px-6 m-10 font-semibold drop-shadow-lg bg-tertiary rounded-full hover:bg-primary/50"
           >
@@ -68,7 +101,7 @@ const Admin_Warehouses = () => {
           <SortSearchGroup />
         </div>
         <div className="p-5 my-10 mr-10 bg-tertiary rounded-3xl row-span-6 drop-shadow-xl">
-          <TableWarehouse />
+          <TableWarehouse setShowEditForm={setShowEditForm} setEditWarehouse={setEditWarehouse} onEdit={handleEditWarehouse} />
         </div>
         </div>
       </div>
@@ -80,6 +113,9 @@ const Admin_Warehouses = () => {
         onClose={handleCloseNotifyAdmin}
         visible={showNotifyadmin}
       />
+      <AddWarehouseCategoryForm
+      visible={showWarehouseCategory}
+      onClose={handleCloseWarehoseCategory}/>
     </div>
   );
 };

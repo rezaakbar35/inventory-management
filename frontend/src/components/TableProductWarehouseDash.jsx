@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from "react";
-import './TableProduct.css'
+import './TableProduct.css';
 import EditProductForm from "./forms/EditProductForm";
-import {  getAllProduct } from "../modules/fetch/product";
+import { getAllProduct } from "../modules/fetch/product";
 
 export const TableProductWarehouseDash = ({}) => {
-
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [editProduct, setEditProduct] = useState(null);
   const [showEditForm, setShowEditForm] = useState(false);
+  const [sortOrder, setSortOrder] = useState('asc');
+  const [sortKey, setSortKey] = useState('');
 
   useEffect(() => {
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    sortData();
+  }, [sortOrder, sortKey, data]);
 
   const fetchData = () => {
     setLoading(true);
@@ -23,72 +28,103 @@ export const TableProductWarehouseDash = ({}) => {
         category_name: item.product_category.category_name
       }));
       setData(newData);
-      setLoading(false)
-    })
-  }
+      setLoading(false);
+    });
+  };
 
- 
+  const toggleSort = (key) => {
+    if (sortKey === key) {
+      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortOrder('asc');
+      setSortKey(key);
+    }
+  };
 
+  const sortData = () => {
+    const sortedData = [...data].sort((a, b) => {
+      const valueA = sortKey ? a[sortKey] : '';
+      const valueB = sortKey ? b[sortKey] : '';
+
+      if (valueA < valueB) {
+        return sortOrder === 'asc' ? -1 : 1;
+      }
+      if (valueA > valueB) {
+        return sortOrder === 'asc' ? 1 : -1;
+      }
+      return 0;
+    });
+
+    setData(sortedData);
+  };
 
   return (
-    (
-      loading ?
-      (
-        <div>Loading ..</div>
-      ) :
-      (
-        <div className="table-wrapper overflow-x-auto">
+    loading ? (
+      <div>Loading ..</div>
+    ) : (
+      <div className="table-wrapper overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-100">
+            {/* Table header with sorting icons */}
             <tr>
-              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">ID</th>
-              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Product Name</th>
-              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Product Code</th>
-              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Product Stock</th>
-              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Product Category</th>
-              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Warehouse</th>
-              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Arrrival Date</th>
+              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">
+                ID <span onClick={() => toggleSort('product_id')} className="hover:cursor-pointer">▼</span>
+              </th>
+              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">
+                Product Name <span onClick={() => toggleSort('product_name')} className="hover:cursor-pointer">▼</span>
+              </th>
+              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">
+                Product Code <span onClick={() => toggleSort('product_code')} className="hover:cursor-pointer">▼</span>
+              </th>
+              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">
+                Product Stock <span onClick={() => toggleSort('product_stock')} className="hover:cursor-pointer">▼</span>
+              </th>
+              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">
+                Product Category <span onClick={() => toggleSort('category_name')} className="hover:cursor-pointer">▼</span>
+              </th>
+              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">
+                Warehouse <span onClick={() => toggleSort('warehouse_name')} className="hover:cursor-pointer">▼</span>
+              </th>
+              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">
+                Arrival Date <span onClick={() => toggleSort('arrival_at')} className="hover:cursor-pointer">▼</span>
+              </th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200 text-black">
-              {
-                data.map((item) => (
-                  <tr  className="hover:bg-gray-50" key={item.product_id}>
-                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_id }</td>
-                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_name }</td>
-                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_code }</td>
-                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_stock }</td>
-                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.category_name }</td>
-                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.warehouse_name }</td>
-                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.arrival_at } </td>
-                    
-                </tr>
-                ))
-              }
+            {/* Table body */}
+            {data.map((item) => (
+              <tr className="hover:bg-gray-50" key={item.product_id}>
+                <td className="px-6 py-2 text-xs whitespace-nowrap">{item.product_id}</td>
+                <td className="px-6 py-2 text-xs whitespace-nowrap">{item.product_name}</td>
+                <td className="px-6 py-2 text-xs whitespace-nowrap">{item.product_code}</td>
+                <td className="px-6 py-2 text-xs whitespace-nowrap">{item.product_stock}</td>
+                <td className="px-6 py-2 text-xs whitespace-nowrap">{item.category_name}</td>
+                <td className="px-6 py-2 text-xs whitespace-nowrap">{item.warehouse_name}</td>
+                <td className="px-6 py-2 text-xs whitespace-nowrap">{item.arrival_at}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
 
-         {/* Tambahkan logika untuk menampilkan formulir pengeditan */}
-         {showEditForm && (
-            <EditProductForm
-              visible={showEditForm}
-              product={editProduct}
-              onClose={() => {
-                setShowEditForm(false);
-                setEditProduct(null);
-              }}
-              onEditSuccess={() => {
-                setShowEditForm(false);
-                setEditProduct(null);
-                fetchData();
-              }}
-            />
-          )}
+        {/* Logic to display the edit form */}
+        {showEditForm && (
+          <EditProductForm
+            visible={showEditForm}
+            product={editProduct}
+            onClose={() => {
+              setShowEditForm(false);
+              setEditProduct(null);
+            }}
+            onEditSuccess={() => {
+              setShowEditForm(false);
+              setEditProduct(null);
+              fetchData();
+            }}
+          />
+        )}
       </div>
-      )
     )
-
   );
 };
 
-export default TableProductWarehouseDash
+export default TableProductWarehouseDash;

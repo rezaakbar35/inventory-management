@@ -14,6 +14,7 @@ router.get("/status/Tracking", notificationController.getAllNotificationByTracki
 router.get("/status/Report", notificationController.getAllNotificationByReport)
 
 router.get("/user/:username", notificationController.getAllNotificationByUser)
+router.get("/title/:title", notificationController.getByTitleNotification)
 
 router.route("/:id")
   .get(notificationController.getByIdNotification)

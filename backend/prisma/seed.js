@@ -127,7 +127,7 @@ const seedData = async () => {
           warehouse_id: 3,
           product_image: "/uploads/img2.jpg",
           product_status: "Sudah sampai",
-          arrival_at: new Date(),
+          arrival_at: "2023-05-10T08:55:52.622Z",
         },
         {
           product_code: 1004,

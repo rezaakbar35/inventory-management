@@ -19,6 +19,15 @@ async function getNotificationById(id) {
   }
 }
 
+async function getByTitleNotification(title) {
+  try {
+    const response = await instance.get(`/notification/title/${title}`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || "Something went wrong");
+  }
+}
+
 async function getAllNotificationByUser(username) {
   try {
     const response = await instance.get(`/notification/${username}`);
@@ -104,5 +113,6 @@ export {
   getNotificationByWarning,
   getNotificationByTracking,
   getNotificationByReport,
-  getAllNotificationByUser, 
+  getAllNotificationByUser,
+  getByTitleNotification, 
   };
