@@ -79,7 +79,7 @@ const EditProductForm = ({ visible, product, onClose, onEditSuccess}) => {
       </button>
     </div>
     <form onSubmit={handleFormSubmit}>
-    <div className="text-3xl font-bold text-black mb-6">Edit New Product</div>
+    <div className="text-3xl font-bold text-black mb-6">Edit Product</div>
       <div className="grid grid-cols-4">
         <div className="flex justify-start col-span-3">
         <label htmlFor="product_name" className="text-black cols-span-3 italic font-light pl-2">Product Name</label>

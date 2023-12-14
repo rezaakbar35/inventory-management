@@ -5,7 +5,6 @@ import "./Admin_Dashboard.css";
 import TableProduct from "../components/TableProduct";
 import TableProductShipping from "../components/TableProductShipping";
 import SortSearchGroup from "../components/SortSearchGroup";
-import ManageProductForm from "../components/forms/ManageProductForm";
 import AddProductForm from "../components/forms/AddProductForm";
 import EditProductForm from "../components/forms/EditProductForm";
 import AddProductCategoryForm from "../components/forms/AddProductCategoryForm.jsx";
@@ -120,7 +119,7 @@ const Admin_Products = () => {
           </div>
         </div>
       </div>
-      <ManageProductForm
+      <AdminManageProductForm
         onClose={handleCloseManageProduct}
         visible={showManageProduct}
       />

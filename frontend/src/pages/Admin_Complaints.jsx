@@ -3,10 +3,10 @@ import DashboardSidebar from "../components/DashboardSidebar.jsx";
 import "./Admin_Dashboard.css";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import SortSearchGroup from "../components/SortSearchGroup";
-import NotifyAdminForm from "../components/forms/NotifyAdminForm";
-import IssueComplaintForm from "../components/forms/IssueComplaintForm";
 import TableComplaints from "../components/TableComplaints";
 import { useNavigate } from "react-router-dom";
+import AdminToWarehouseIssueForm from "../components/forms/AdminToWarehouseIssueForm.jsx";
+import AdminToNotifyUserForm from "../components/forms/AdminToNotifyUserForm.jsx";
 
 const Admin_Complaints = () => {
   const navigate = useNavigate();
@@ -76,11 +76,11 @@ const Admin_Complaints = () => {
           </div>
         </div>
       </div>
-      <NotifyAdminForm
+      <AdminToWarehouseIssueForm
         onClose={handleCloseNotifyAdmin}
         visible={showNotifyadmin}
       />
-      <IssueComplaintForm
+      <AdminToNotifyUserForm
         onClose={handleCloseIssueComplaint}
         visible={showIssueComplaint}
       />

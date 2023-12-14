@@ -40,6 +40,7 @@ const TableProduct = ({ setEditProduct, setShowEditForm }) => {
   const editRow = async (product_id) => {
     try {
       const product = await getProductById(product_id);
+      console.log(product)
       setEditProduct(product.product);
       setShowEditForm(true);
     } catch (error) {
@@ -91,7 +92,7 @@ const TableProduct = ({ setEditProduct, setShowEditForm }) => {
         <div>Loading ..</div>
       ) :
       (
-        <div className="table-wrapper overflow-x-auto">
+        <div className="table-wrapper overflow-x-auto rounded-lg">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-100">
             <tr>
@@ -114,7 +115,6 @@ const TableProduct = ({ setEditProduct, setShowEditForm }) => {
                     <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_id }</td>
                     <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_name }</td>
                     <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_code }</td>
-                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_stock }</td>
                     <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.category_name }</td>
                     <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.warehouse_name }</td>
                     <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.created_at }</td>
