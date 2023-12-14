@@ -23,7 +23,12 @@ const User_View_Complain = () => {
     navigate("/UsersDash");
   };
   const [showForm, setShowForm] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
+
   const handleOnClose = () => setShowForm(false);
+  const handleSearchChange = (value) => {
+    setSearchValue(value);
+  };
 
   return (
     <>
@@ -55,10 +60,10 @@ const User_View_Complain = () => {
               </button>
             </div>
             <div className="flex bg-white mr-10 drop-shadow-xl rounded-2xl">
-              <SortSearchGroup />
+                <SortSearchGroup onSearchChange={handleSearchChange} />
             </div>
             <div className="p-5 my-10 mr-10 bg-primary rounded-3xl row-span-6 drop-shadow-xl">
-              <TableNotification />
+                <TableNotification searchValue={searchValue} />
             </div>
           </div>
         </div>

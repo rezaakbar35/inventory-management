@@ -46,6 +46,11 @@ const Admin_Warehouses = () => {
     setShowEditForm(true);
   }
 
+  const [searchValue, setSearchValue] = useState('');
+  const handleSearchChange = (value) => {
+    setSearchValue(value);
+  }
+
   return (
     <div className="dashboardContainer flex overflow-hidden">
       <div className="z-40">
@@ -103,10 +108,10 @@ const Admin_Warehouses = () => {
           </div>
           </div>
         <div className="flex bg-white mr-10 drop-shadow-xl rounded-2xl">
-          <SortSearchGroup />
+          <SortSearchGroup onSearchChange={handleSearchChange} />
         </div>
         <div className="p-5 my-10 mr-10 bg-tertiary rounded-3xl row-span-6 drop-shadow-xl">
-          <TableWarehouse setShowEditForm={setShowEditForm} setEditWarehouse={setEditWarehouse} onEdit={handleEditWarehouse} />
+          <TableWarehouse setShowEditForm={setShowEditForm}  setEditWarehouse={setEditWarehouse} onEdit={handleEditWarehouse} searchValue={searchValue} />
         </div>
         </div>
       </div>

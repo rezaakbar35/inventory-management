@@ -10,21 +10,30 @@ import ViewComplain from "../assets/ViewComplain.png";
 import UserSetting from "../assets/UserSetting.png";
 
 const User_Purchased_Item = () => {
-  const navigate = useNavigate();
-  const linkTitles = ["Purchased Items", "View Complaints", "Account Settings"];
-  const links = [
-    "/UsersDash/Items",
-    "/UsersDash/Complaints",
-    "/UsersDash/Setting",
-  ];
-  const numOfShownLinks = 3;
-  const image = [PurchasedItem, ViewComplain, UserSetting];
-  const handleBack = () => {
-    navigate("/UsersDash");
-  };
+    const navigate = useNavigate();
+    const linkTitles = [
+        "Purchased Items",
+        "View Complaints",
+        "Account Settings"
+    ];
+    const links = [
+        '/UsersDash/Items',
+        '/UsersDash/Complaints',
+        '/UsersDash/Setting'
+    ];
+    const numOfShownLinks = 3;
+    const image = [PurchasedItem, ViewComplain, UserSetting];
+    const handleBack = () => {
+        navigate("/UsersDash")
+    }
 
   const [showForm, setShowForm] = useState(false);
   const handleOnClose = () => setShowForm(false);
+
+    const [searchValue, setSearchValue] = useState('');
+    const handleSearchChange = (value) => {
+      setSearchValue(value);
+    }
 
   return (
     <>
@@ -49,17 +58,17 @@ const User_Purchased_Item = () => {
                     Purchased Items
                   </h1>
                 </div>
-              </div>
-              <div className="flex bg-white mr-10 drop-shadow-xl rounded-2xl">
-                <SortSearchGroup />
-              </div>
-              <div className="p-5 my-10 mr-10 bg-primary rounded-3xl row-span-6 drop-shadow-xl">
-                <TableUserProduct />
-              </div>
             </div>
-          </div>
+            <div className='flex bg-white mr-10 drop-shadow-xl rounded-2xl'>
+            <SortSearchGroup onSearchChange={handleSearchChange} />
+            </div>
+            <div className='p-5 my-10 mr-10 bg-primary rounded-3xl row-span-6 drop-shadow-xl'>
+            <TableUserProduct searchValue={searchValue} />
+            </div>
         </div>
-      </div>
+        </div>
+    </div>
+    </div>
     </>
   );
 };
