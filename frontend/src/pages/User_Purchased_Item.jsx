@@ -27,6 +27,11 @@ const User_Purchased_Item = () => {
     const [showForm, setShowForm] = useState(false)
     const handleOnClose = () => setShowForm(false)
 
+    const [searchValue, setSearchValue] = useState('');
+    const handleSearchChange = (value) => {
+      setSearchValue(value);
+    }
+
   return (
     <>
     <div className='grid grid-col-12'>
@@ -45,10 +50,10 @@ const User_Purchased_Item = () => {
                 </div>
             </div>
             <div className='flex bg-white mr-10 drop-shadow-xl rounded-2xl'>
-            <SortSearchGroup />
+            <SortSearchGroup onSearchChange={handleSearchChange} />
             </div>
             <div className='p-5 my-10 mr-10 bg-primary rounded-3xl row-span-6 drop-shadow-xl'>
-            <TableUserProduct/>
+            <TableUserProduct searchValue={searchValue} />
             </div>
         </div>
         </div>

@@ -1,12 +1,11 @@
 import React, {useState} from "react";
 import DatePicker from 'react-datepicker'
 import { XMarkIcon } from "@heroicons/react/24/solid"
+import { createNotification } from "../../modules/fetch/notification";
 import "react-datepicker/dist/react-datepicker.css";
 
 const NotifyWarehouseForm = ({ visible, onClose }) => {
- 
-  const [startDate, setStartDate] = useState(new Date())
-  const handleOnClose = (e) => {
+   const handleOnClose = (e) => {
     if(e.target.id === 'container')
     onClose()
   }
@@ -14,6 +13,39 @@ const NotifyWarehouseForm = ({ visible, onClose }) => {
   if(!visible){
     return null
   }
+
+  const [data, setData] = useState({
+    username: "",
+    notification_title: "",
+    notification_description: "",
+    notification_status: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  console.log(data)
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      await createNotification(data.notification_title, data.notification_description, data.username, data.notification_status);
+      // Panggil fungsi sukses dan tutup formulir
+      setData({
+        username:"",
+        notification_title: "",
+        notification_description: "",
+        notification_status: "",
+      });
+      onClose();
+      window.location.reload();
+    } catch (error) {
+      console.error("Failed to create notification", error);
+    }
+  };
 
   return (
     <div id="container" onClick={handleOnClose} className="flex justify-center w-screen h-screen bg-black/30 absolute backdrop-blur">
@@ -23,61 +55,42 @@ const NotifyWarehouseForm = ({ visible, onClose }) => {
                 <XMarkIcon  className="w-6 h-6 text-black"/>
               </button>
             </div>
-            <div className="text-3xl font-bold text-black mb-6">Notify Warehouse</div>
+            <form onSubmit={handleFormSubmit}>
+            <div className="text-3xl font-bold text-black mb-6">Notify Administrator</div>
               <div className="grid">
                 <div className="flex justify-start">
-                <label htmlFor="UserComplaint" className="text-black italic font-light pl-2">User Complaint</label>
+                <label htmlFor="username" className="text-black italic font-light pl-2">User</label>
                 </div>
-                <select name="UserComplaint" id="UserComplaint" className="rounded-xl border-none bg-gray-300 text-black p-2 m-1 placeholder:text-gray-400 placeholder:font-thin">
-                  <option value="" disabled selected hidden className="text-gray-400">select user complaint..</option>
-                  <option value="">Barang Tidak Sampai</option>
-                  <option value="">Barang Rusak</option>
-                </select> 
+                <input type="text" name="username" id="username" value={data.username} onChange={handleInputChange} className="rounded-xl text-black p-2 m-1" /> 
               </div>
-              <div className="grid grid-cols-2 mt-2">
+              <div className="grid">
                 <div className="flex justify-start">
-                <label htmlFor="SelectWarehouse" className="text-black italic font-light pl-2" >Warehouse</label>
+                <label htmlFor="notification_title" className="text-black italic font-light pl-2">Title</label>
                 </div>
-                <div className="flex justify-start">
-                <label htmlFor="InputDeadline" className="text-black italic font-light pl-2">Input a deadline</label>
-                </div>
-                <select name="SelectWarehouse" id="SelectWarehouse" className="rounded-xl bg-gray-300 border-none text-black p-2 m-1 placeholder:text-gray-400 placeholder:font-thin">
-                  <option value="" disabled selected hidden className="text-gray-400">select a warehouse..</option>
-                  <option value="">Warehouse B</option>
-                  <option value="">Warehouse C</option>
-                </select>
-                <div className="flex justify-start">
-                <DatePicker
-                  selected={startDate}
-                  onChange={(date) => setStartDate(date)}
-                  className="rounded-xl pr-16 m-1  text-black"
-                  showTimeSelect
-                  timeFormat="p"
-                  timeIntervals={30}
-                  dateFormat="Pp"
-                /> 
-                </div> 
+                <input type="text" name="notification_title" id="notification_title" value={data.notification_title} onChange={handleInputChange} className="rounded-xl text-black p-2 m-1" /> 
+              </div>
+              <div className="grid">
+              <div className="flex justify-start">
+              <label htmlFor="notification_status" className="text-black italic font-light pl-2">Status</label>
+              </div>
+              <select name="notification_status" id="notification_status" value={data.notification_status}
+                onChange={handleInputChange} className="rounded-xl border-none bg-gray-300 text-black p-3 m-1 placeholder:text-gray-400 placeholder:font-thin">
+              <option disabled value="" className="text-gray-400">Notification Status</option>
+              <option>Report</option>
+              </select>
               </div>
               <div className="grid mt-2">
                 <div className="flex justify-start">
-                <label htmlFor="NotificationTitle" className="text-black italic font-light pl-2">Notification Title</label>
+                <label htmlFor="notification_" className="text-black italic font-light pl-2">Description</label>
                 </div>
-                <input type="text" name="NotificationTitle" id="NotificationTitle" className="rounded-xl text-black p-2 m-1" /> 
-              </div>
-              <div className="grid mt-2">
-                <div className="flex justify-start">
-                <label htmlFor="Product" className="text-black italic font-light pl-2">Notification Description</label>
-                </div>
-                <textarea name="Product" id="Product" className="rounded-xl text-black p-2 pb-24 m-1" /> 
+                <textarea name="notification_description" id="notification_description" value={data.notification_description} onChange={handleInputChange} className="rounded-xl text-black p-2 pb-24 m-1" /> 
               </div>
               <div className="flex justify-end">
                 <button type="submit" className="text-white font-bold bg-primary mt-5 mr-1 px-5 py-2 rounded-full">Send</button>
               </div>
+            </form>
             </div>
-         <div>
-
         </div>
-    </div>
   );
 };
 

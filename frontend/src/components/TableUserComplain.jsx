@@ -3,7 +3,7 @@ import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import './TableProduct.css'
 import { getAllNotification, getNotificationById, deleteNotification } from "../modules/fetch/notification";
 
-export const TableNotification = ({}) => {
+export const TableNotification = ({searchValue}) => {
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -12,11 +12,11 @@ export const TableNotification = ({}) => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [searchValue]);
 
   useEffect(() => {
     sortData();
-  }, [sortOrder, sortKey, data]);
+  }, [sortOrder, sortKey]);
 
   const fetchData = () => {
     setLoading(true);
@@ -36,6 +36,13 @@ export const TableNotification = ({}) => {
       fetchData();
     });
   };
+
+  const filteredData = data.filter((item) =>
+  String(item.notification_status).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.notification_title).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.notification_description).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.notification_timestamp).toLowerCase().includes(searchValue.toLowerCase())
+  );
 
   const toggleSort = (key) => {
     if (sortKey === key) {
@@ -88,7 +95,7 @@ export const TableNotification = ({}) => {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200 text-black">
               {
-                data.map((item) => (
+                filteredData.map((item) => (
                   <tr  className="hover:bg-gray-50" key={item.notification_id}>
                     <td className="px-6 py-2 text-xs whitespace-nowrap">{item.notification_id}</td>
                     <td className="px-6 py-2 text-xs whitespace-nowrap">{item.notification_status}</td>

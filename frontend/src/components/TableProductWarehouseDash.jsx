@@ -3,7 +3,7 @@ import './TableProduct.css';
 import EditProductForm from "./forms/EditProductForm";
 import { getAllProduct } from "../modules/fetch/product";
 
-export const TableProductWarehouseDash = ({}) => {
+export const TableProductWarehouseDash = ({searchValue}) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [editProduct, setEditProduct] = useState(null);
@@ -13,11 +13,11 @@ export const TableProductWarehouseDash = ({}) => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [searchValue]);
 
   useEffect(() => {
     sortData();
-  }, [sortOrder, sortKey, data]);
+  }, [sortOrder, sortKey]);
 
   const fetchData = () => {
     setLoading(true);
@@ -31,6 +31,14 @@ export const TableProductWarehouseDash = ({}) => {
       setLoading(false);
     });
   };
+
+  const filteredData = data.filter((item) =>
+  String(item.product_name).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.product_code).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.category_name).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.warehouse_name).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.arrival_at).toLowerCase().includes(searchValue.toLowerCase())
+  );
 
   const toggleSort = (key) => {
     if (sortKey === key) {
@@ -92,7 +100,7 @@ export const TableProductWarehouseDash = ({}) => {
           </thead>
           <tbody className="bg-white divide-y divide-gray-200 text-black">
             {/* Table body */}
-            {data.map((item) => (
+            {filteredData.map((item) => (
               <tr className="hover:bg-gray-50" key={item.product_id}>
                 <td className="px-6 py-2 text-xs whitespace-nowrap">{item.product_id}</td>
                 <td className="px-6 py-2 text-xs whitespace-nowrap">{item.product_name}</td>

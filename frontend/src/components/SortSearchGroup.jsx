@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './SortSearchGroup.css';
 
-const SortSearchGroup = ({ setSearchQuery }) => {
-  const [searchText, setSearchText] = useState('');
+const SortSearchGroup = ({ onSearchChange }) => {
 
-  const handleSearch = () => {
-    setSearchQuery(searchText);
+  const handleSearchChange = (event) => {
+    onSearchChange(event.target.value);
   };
 
   return (
@@ -15,10 +14,9 @@ const SortSearchGroup = ({ setSearchQuery }) => {
           type="text"
           placeholder="Search..."
           className="px-4 py-2 w-80 h-12 mr-5 rounded-full focus:outline-none text-black"
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
+          onChange={handleSearchChange}
         />
-        <button className="bg-tertiary px-2 py-2 w-40 h-12 rounded-full" onClick={handleSearch}>Search</button>
+        <button className="bg-tertiary px-2 py-2 w-40 h-12 rounded-full">Search</button>
       </div>
     </div>
   );

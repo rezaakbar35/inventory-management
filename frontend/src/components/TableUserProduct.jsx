@@ -8,7 +8,7 @@ import {
 } from "../modules/fetch/product_shipping";
 import { getUserSpecific } from "../modules/fetch/index";
 
-const TableUserProduct = ({}) => {
+const TableUserProduct = ({searchValue}) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [sortOrder, setSortOrder] = useState('asc');
@@ -43,7 +43,7 @@ const TableUserProduct = ({}) => {
     };
 
     fetchData();
-  }, []);
+  }, [searchValue]);
 
   let specificUser
 
@@ -61,6 +61,17 @@ const TableUserProduct = ({}) => {
       fetchData();
     });
   };
+
+  const filteredData = data.filter((item) =>
+  String(item.product_name).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.username).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.user_address ).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.warehouse_name ).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.quantity ).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.tracking_number ).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.product_shipment_status ).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.shipping_at ).toLowerCase().includes(searchValue.toLowerCase()) 
+  ); 
 
   const toggleSort = (key) => {
     if (sortKey === key) {
@@ -171,7 +182,7 @@ const TableUserProduct = ({}) => {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200 text-black">
-          {data.map((item) => (
+          {filteredData.map((item) => (
             <tr className="hover:bg-gray-50" key={item.shipping_id}>
               <td className="px-6 py-2 whitespace-nowrap text-xs">
                 {item.shipping_id}

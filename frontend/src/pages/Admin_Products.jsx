@@ -7,6 +7,7 @@ import TableProductShipping from "../components/TableProductShipping";
 import SortSearchGroup from "../components/SortSearchGroup";
 import AddProductForm from "../components/forms/AddProductForm";
 import EditProductForm from "../components/forms/EditProductForm";
+import AdminManageProductForm from "../components/forms/AdminManageProductForm.jsx";
 import AddProductCategoryForm from "../components/forms/AddProductCategoryForm.jsx";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
@@ -35,18 +36,20 @@ const Admin_Products = () => {
   const [showProductShipping, setShowProductShipping] = useState(false);
   const [editProduct, setEditProduct] = useState(null);
   const [showEditForm, setShowEditForm] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-
 
   const handleCloseManageProduct = () => setShowManageProduct(false);
   const handleOnClose = () => setShowProductPopup(false);
   const handleProductCategory = () => setShowProductCategory(false);
   const handleShowOutgoing = () => setShowProductShipping(true);
 
-
   const handleEditProduct = (product) => {
     setEditProduct(product);
     setShowEditForm(true);
+  }
+
+  const [searchValue, setSearchValue] = useState('');
+  const handleSearchChange = (value) => {
+    setSearchValue(value);
   }
 
   return (
@@ -112,10 +115,10 @@ const Admin_Products = () => {
           </div>
 
           <div className="flex bg-white mr-10 drop-shadow-xl rounded-2xl">
-            <SortSearchGroup setSearchQuery={setSearchQuery}/>
+            <SortSearchGroup onSearchChange={handleSearchChange}/>
           </div>
           <div className="p-5 my-10 mr-10 bg-tertiary rounded-3xl row-span-6 drop-shadow-xl">
-            {showProductShipping ? <TableProductShipping /> : <TableProduct setShowEditForm={setShowEditForm} setEditProduct={setEditProduct} searchQuery={searchQuery} onEdit={handleEditProduct} />}
+            {showProductShipping ? <TableProductShipping /> : <TableProduct setShowEditForm={setShowEditForm} setEditProduct={setEditProduct} onEdit={handleEditProduct} searchValue={searchValue} />}
           </div>
         </div>
       </div>

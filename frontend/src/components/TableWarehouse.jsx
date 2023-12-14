@@ -3,7 +3,7 @@ import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import './TableWarehouse.css';
 import { getAllWarehouse, getWarehouseById, deleteWarehouse } from "../modules/fetch/warehouse";
 
-const TableWarehouse = ({ setEditWarehouse, setShowEditForm }) => {
+const TableWarehouse = ({ setEditWarehouse, setShowEditForm, searchValue }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [sortOrder, setSortOrder] = useState('asc');
@@ -11,11 +11,11 @@ const TableWarehouse = ({ setEditWarehouse, setShowEditForm }) => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [searchValue]);
 
   useEffect(() => {
     sortData();
-  }, [sortOrder, sortKey, data]);
+  }, [sortOrder, sortKey]);
 
   const fetchData = () => {
     setLoading(true);
@@ -49,6 +49,14 @@ const TableWarehouse = ({ setEditWarehouse, setShowEditForm }) => {
         console.error('Failed to delete warehouse', error);
       });
   };
+
+  const filteredData = data.filter((item) =>
+  String(item.warehouse_name).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.category_name).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.location).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.updated_at).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.created_at).toLowerCase().includes(searchValue.toLowerCase()) 
+  );
 
   const toggleSort = (key) => {
     if (sortKey === key) {
@@ -109,7 +117,7 @@ const TableWarehouse = ({ setEditWarehouse, setShowEditForm }) => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {data.map((item) => (
+            {filteredData.map((item) => (
               <tr className="hover:bg-gray-50" key={item.warehouse_id}>
                 <td className="px-6 py-2 whitespace-nowrap text-black">{item.warehouse_id}</td>
                 <td className="px-6 py-2 whitespace-nowrap text-black">{item.warehouse_name}</td>

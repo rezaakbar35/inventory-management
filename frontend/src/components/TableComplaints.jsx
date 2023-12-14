@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Checkbox from '@mui/material/Checkbox';
 import { getNotificationByComplaint } from "../modules/fetch/notification";
 
-export const TableComplaints = ({}) => {
+export const TableComplaints = ({searchValue}) => {
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -13,11 +13,11 @@ export const TableComplaints = ({}) => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [searchValue]);
 
   useEffect(() => {
     sortData();
-  }, [sortOrder, sortKey, data]);
+  }, [sortOrder, sortKey]);
 
   const fetchData = () => {
     setLoading(true);
@@ -26,6 +26,12 @@ export const TableComplaints = ({}) => {
       setLoading(false);
     });
   };
+
+  const filteredData = data.filter((item) =>
+  String(item.notification_title).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.notification_description).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.notification_timestamp ).toLowerCase().includes(searchValue.toLowerCase())
+  ); 
 
   const toggleSort = (key) => {
     if (sortKey === key) {
@@ -72,7 +78,7 @@ export const TableComplaints = ({}) => {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {data.map((item) => (
+          {filteredData.map((item) => (
             <tr className="hover:bg-gray-50" key={item.notification_id}>
               <td className="px-6 py-2 text-xs whitespace-nowrap text-gray-500">{item.notification_id}</td>
               <td className="px-6 py-2 text-xs whitespace-nowrap text-gray-500">{item.notification_title}</td>

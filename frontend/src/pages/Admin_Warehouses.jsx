@@ -8,6 +8,7 @@ import EditWarehouseForm from "../components/forms/EditWarehouseForm";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
 import AddWarehouseCategoryForm from "../components/forms/AddWarehouseCategoryForm";
+import AdminToWarehouseIssueForm from "../components/forms/AdminToWarehouseIssueForm";
 
 const Admin_Warehouses = () => {
   const navigate = useNavigate();
@@ -39,6 +40,11 @@ const Admin_Warehouses = () => {
   const handleEditWarehouse = (warehouse) => {
     setEditWarehouse(warehouse);
     setShowEditForm(true);
+  }
+
+  const [searchValue, setSearchValue] = useState('');
+  const handleSearchChange = (value) => {
+    setSearchValue(value);
   }
 
   return (
@@ -97,10 +103,10 @@ const Admin_Warehouses = () => {
           </div>
           </div>
         <div className="flex bg-white mr-10 drop-shadow-xl rounded-2xl">
-          <SortSearchGroup />
+          <SortSearchGroup onSearchChange={handleSearchChange} />
         </div>
         <div className="p-5 my-10 mr-10 bg-tertiary rounded-3xl row-span-6 drop-shadow-xl">
-          <TableWarehouse setShowEditForm={setShowEditForm} setEditWarehouse={setEditWarehouse} onEdit={handleEditWarehouse} />
+          <TableWarehouse setShowEditForm={setShowEditForm}  setEditWarehouse={setEditWarehouse} onEdit={handleEditWarehouse} searchValue={searchValue} />
         </div>
         </div>
       </div>

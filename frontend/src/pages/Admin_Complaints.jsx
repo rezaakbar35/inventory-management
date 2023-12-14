@@ -31,6 +31,11 @@ const Admin_Complaints = () => {
   const [showIssueComplaint, setShowIssueComplaint] = useState(false);
   const handleCloseIssueComplaint = () => setShowIssueComplaint(false);
 
+  const [searchValue, setSearchValue] = useState('');
+  const handleSearchChange = (value) => {
+    setSearchValue(value);
+  }
+
   return (
     <div className="dashboardContainer bg-background flex overflow-hidden">
       <div className="z-40">
@@ -69,10 +74,10 @@ const Admin_Complaints = () => {
             </div>
           </div>
           <div className="flex bg-white mr-10 drop-shadow-xl rounded-2xl">
-            <SortSearchGroup />
+            <SortSearchGroup onSearchChange={handleSearchChange} />
           </div>
           <div className="p-5 my-10 mr-10 bg-tertiary rounded-3xl row-span-6 drop-shadow-xl">
-            <TableComplaints />
+            <TableComplaints searchValue={searchValue} />
           </div>
         </div>
       </div>

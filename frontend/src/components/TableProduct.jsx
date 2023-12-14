@@ -5,7 +5,7 @@ import EditProductForm from "./forms/EditProductForm";
 import { deleteProduct, getAllProduct, getProductById } from "../modules/fetch/product";
 
 
-const TableProduct = ({ setEditProduct, setShowEditForm }) => {
+const TableProduct = ({ setEditProduct, setShowEditForm, searchValue }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [sortOrder, setSortOrder] = useState('asc');
@@ -13,11 +13,12 @@ const TableProduct = ({ setEditProduct, setShowEditForm }) => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [searchValue]);
 
   useEffect(() => {
     sortData();
-  }, [sortOrder, sortKey, data]);
+  }, [sortOrder, sortKey]);
+
 
   const fetchData = () => {
     setLoading(true);
@@ -59,11 +60,21 @@ const TableProduct = ({ setEditProduct, setShowEditForm }) => {
       });
   };
 
+  const filteredData = data.filter((item) =>
+  String(item.product_name).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.product_code).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.category_name).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.warehouse_name).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.product_status).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.updated_at).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.arrival_at).toLowerCase().includes(searchValue.toLowerCase()) 
+  );
+
   const toggleSort = (key) => {
     if (sortKey === key) {
-      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+      setSortOrder(sortOrder === "asc" ? "dsc" : "asc");
     } else {
-      setSortOrder('asc');
+      setSortOrder("asc");
       setSortKey(key);
     }
   };
@@ -74,10 +85,10 @@ const TableProduct = ({ setEditProduct, setShowEditForm }) => {
       const valueB = sortKey ? b[sortKey] : '';
 
       if (valueA < valueB) {
-        return sortOrder === 'asc' ? -1 : 1;
+        return sortOrder === "asc" ? -1 : 1;
       }
       if (valueA > valueB) {
-        return sortOrder === 'asc' ? 1 : -1;
+        return sortOrder === "asc" ? 1 : -1;
       }
       return 0;
     });
@@ -102,7 +113,6 @@ const TableProduct = ({ setEditProduct, setShowEditForm }) => {
               <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Product Stock <span onClick={() => toggleSort('product_stock')} className="hover:cursor-pointer">▼</span></th>
               <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Product Category <span onClick={() => toggleSort('category_name')} className="hover:cursor-pointer">▼</span></th>
               <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Warehouse Name <span onClick={() => toggleSort('warehouse_name')} className="hover:cursor-pointer">▼</span></th>
-              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Created Date <span onClick={() => toggleSort('created_at')} className="hover:cursor-pointer">▼</span></th>
               <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Product Status <span onClick={() => toggleSort('product_status')} className="hover:cursor-pointer">▼</span></th>
               <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Arrrival Date <span onClick={() => toggleSort('arrival_at')} className="hover:cursor-pointer">▼</span></th>
               <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Action</th>
@@ -110,7 +120,7 @@ const TableProduct = ({ setEditProduct, setShowEditForm }) => {
           </thead>
           <tbody className="bg-white divide-y divide-gray-200 text-black">
               {
-                data.map((item) => (
+                filteredData.map((item) => (
                   <tr  className="hover:bg-gray-50" key={item.product_id}>
                     <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_id }</td>
                     <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_name }</td>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import { getAllProductShipping, deleteProductShipping } from "../modules/fetch/product_shipping";
 
-export const TableProductShipping = ({}) => {
+export const TableProductShipping = ({searchValue}) => {
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -11,11 +11,11 @@ export const TableProductShipping = ({}) => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [searchValue]);
 
   useEffect(() => {
     sortData();
-  }, [sortOrder, sortKey, data]);
+  }, [sortOrder, sortKey]);
 
   const fetchData = () => {
     setLoading(true);
@@ -46,6 +46,17 @@ export const TableProductShipping = ({}) => {
       fetchData();
     });
   };
+
+  const filteredData = data.filter((item) =>
+  String(item.product_name).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.username).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.user_address).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.warehouse_name).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.quantity).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.tracking_number).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.product_shipment_status).toLowerCase().includes(searchValue.toLowerCase()) ||
+  String(item.shipping_at).toLowerCase().includes(searchValue.toLowerCase()) 
+  );
 
   const toggleSort = (key) => {
     if (sortKey === key) {
@@ -116,7 +127,7 @@ export const TableProductShipping = ({}) => {
           </thead>
           <tbody className="bg-white divide-y divide-gray-200 text-black">
             {/* Table body */}
-            {data.map((item) => (
+            {filteredData.map((item) => (
               <tr className="hover:bg-gray-50" key={item.shipping_id}>
                 <td className="px-6 py-2 text-xs whitespace-nowrap">{item.shipping_id}</td>
                 <td className="px-6 py-2 text-xs whitespace-nowrap">{item.product_name}</td>
