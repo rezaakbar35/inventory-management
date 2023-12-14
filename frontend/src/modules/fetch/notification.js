@@ -30,7 +30,7 @@ async function getByTitleNotification(title) {
 
 async function getAllNotificationByUser(username) {
   try {
-    const response = await instance.get(`/notification/${username}`);
+    const response = await instance.get(`/notification/user/${username}`);
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message || "Something went wrong");

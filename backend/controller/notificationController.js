@@ -64,7 +64,7 @@ const notificationController = {
 
   getAllNotificationByReport: async (req, res) => {
     const notification = await prisma.notification.findMany({
-      where: { notification_status: "Tracking"},
+      where: { notification_status: "Report"},
         include: {
             user: {
                 select: {
