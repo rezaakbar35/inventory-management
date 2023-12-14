@@ -61,7 +61,7 @@ const EditWarehouseForm = ({ visible, onClose, warehouse, onEditSuccess }) => {
               </button>
             </div>
             <form onSubmit={handleFormSubmit}>
-            <div className="text-3xl font-bold text-black mb-6">Add New Warehouse</div>
+            <div className="text-3xl font-bold text-black mb-6">Edit Warehouse</div>
             <div className="grid mt-2">
                 <div className="flex justify-start">
                 <label htmlFor="Warehouse_Name" className="text-black italic font-light pl-2">Warehouse Name</label>

@@ -52,22 +52,18 @@ const TableProduct = ({setEditProduct, setShowEditForm}) => {
         <div>Loading ..</div>
       ) :
       (
-        <div className="table-wrapper overflow-x-auto">
+        <div className="table-wrapper overflow-x-auto rounded-lg">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-100">
             <tr>
               <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">ID</th>
               <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Product Name</th>
               <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Product Code</th>
-              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Product Stock</th>
               <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Product Category</th>
-              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Category ID</th>
               <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Warehouse Name</th>
-              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Warehouse ID</th>
-              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Created Date</th>
-              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Updated Date</th>
-              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Product Image</th>
+              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Product Stock</th>
               <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Product Status</th>
+              <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Updated Date</th>
               <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Arrrival Date</th>
               <th className="px-6 py-3 text-centre text-xs font-Large text-gray-500 uppercase tracking-wider">Action</th>
             </tr>
@@ -79,15 +75,11 @@ const TableProduct = ({setEditProduct, setShowEditForm}) => {
                     <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_id }</td>
                     <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_name }</td>
                     <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_code }</td>
-                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_stock }</td>
                     <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.category_name }</td>
-                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.category_id }</td>
                     <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.warehouse_name }</td>
-                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.warehouse_id }</td>
-                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.created_at }</td>
-                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.updated_at }</td>
-                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_image }</td>
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_stock }</td>
                     <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.product_status }</td>
+                    <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.updated_at }</td>
                     <td className="px-6 py-2 text-xs whitespace-nowrap">{ item.arrival_at } </td>
                     <td className="px-6 py-2 text-xs whitespace-nowrap">
                   <div className="flex items-center justify-center space-x-7">

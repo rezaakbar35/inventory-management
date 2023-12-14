@@ -5,13 +5,13 @@ import "./Admin_Dashboard.css";
 import TableProduct from "../components/TableProduct";
 import TableProductShipping from "../components/TableProductShipping";
 import SortSearchGroup from "../components/SortSearchGroup";
-import ManageProductForm from "../components/forms/ManageProductForm";
 import AddProductForm from "../components/forms/AddProductForm";
 import EditProductForm from "../components/forms/EditProductForm";
 import AddProductCategoryForm from "../components/forms/AddProductCategoryForm.jsx";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
 import { getAllProduct } from "../modules/fetch/product.js";
+import AdminManageProductForm from "../components/forms/AdminManageProductForm.jsx";
 
 const Admin_Products = () => {
   const navigate = useNavigate();
@@ -119,7 +119,7 @@ const Admin_Products = () => {
           </div>
         </div>
       </div>
-      <ManageProductForm
+      <AdminManageProductForm
         onClose={handleCloseManageProduct}
         visible={showManageProduct}
       />

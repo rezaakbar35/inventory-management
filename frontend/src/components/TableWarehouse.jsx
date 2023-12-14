@@ -50,15 +50,14 @@ export const TableWarehouse = ({setEditWarehouse, setShowEditForm}) => {
         <div>Loading ..</div>
       ) :
       (
-    <div className="table-wrapper overflow-x-auto">
+    <div className="table-wrapper overflow-x-auto rounded-lg">
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-gray-100">
         <tr>
             <th className="px-6 py-3 text-centre text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
             <th className="px-6 py-3 text-centre text-xs font-medium text-gray-500 uppercase tracking-wider">Warehouse Name</th>
-            <th className="px-6 py-3 text-centre text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
             <th className="px-6 py-3 text-centre text-xs font-medium text-gray-500 uppercase tracking-wider">Warehouse Category</th>
-            <th className="px-6 py-3 text-centre text-xs font-medium text-gray-500 uppercase tracking-wider">Warehouse Category ID</th>
+            <th className="px-6 py-3 text-centre text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
             <th className="px-6 py-3 text-centre text-xs font-medium text-gray-500 uppercase tracking-wider">Updated AT</th>
             <th className="px-6 py-3 text-centre text-xs font-medium text-gray-500 uppercase tracking-wider">Created AT</th>
             <th className="px-6 py-3 text-centre text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
@@ -70,9 +69,8 @@ export const TableWarehouse = ({setEditWarehouse, setShowEditForm}) => {
               <tr  className="hover:bg-gray-50" key={item.warehouse_id}>
                  <td className="px-6 py-2 whitespace-nowrap text-black">{ item.warehouse_id }</td>
                 <td className="px-6 py-2 whitespace-nowrap text-black">{ item.warehouse_name }</td>
-                <td className="px-6 py-2 whitespace-nowrap text-black">{ item.location }</td>
                 <td className="px-6 py-2 whitespace-nowrap text-black">{ item.category_name}</td>
-                <td className="px-6 py-2 whitespace-nowrap text-black">{ item.warehouse_category_id}</td>
+                <td className="px-6 py-2 whitespace-nowrap text-black">{ item.location }</td>
                 <td className="px-6 py-2 whitespace-nowrap text-black">{ item.updated_at}</td>
                 <td className="px-6 py-2 whitespace-nowrap text-black">{ item.created_at }</td>
                 <td className="px-6 py-2 text-xs whitespace-nowrap">

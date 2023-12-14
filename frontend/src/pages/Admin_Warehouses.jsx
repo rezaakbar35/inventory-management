@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import DashboardSidebar from "../components/DashboardSidebar";
 import "./Admin_Dashboard.css";
 import SortSearchGroup from "../components/SortSearchGroup";
-import NotifyAdminForm from "../components/forms/NotifyAdminForm";
 import TableWarehouse from "../components/TableWarehouse";
 import AddWarehouseForm from "../components/forms/AddWarehouseForm";
 import EditWarehouseForm from "../components/forms/EditWarehouseForm";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
 import AddWarehouseCategoryForm from "../components/forms/AddWarehouseCategoryForm";
+import AdminToWarehouseIssueForm from "../components/forms/AdminToWarehouseIssueForm";
 
 const Admin_Warehouses = () => {
   const navigate = useNavigate();
@@ -109,7 +109,7 @@ const Admin_Warehouses = () => {
         visible={showProductPopup}
         onClose={handleCloseWarehouse}
       />
-      <NotifyAdminForm
+      <AdminToWarehouseIssueForm
         onClose={handleCloseNotifyAdmin}
         visible={showNotifyadmin}
       />
